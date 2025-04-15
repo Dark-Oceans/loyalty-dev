@@ -1,94 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-$1
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js">function loadMap() {
-  const mapDiv = document.getElementById("map-container");
-  mapDiv.innerHTML = "";
-  const map = L.map(mapDiv).setView([20, 0], 2);
-  getTileLayer(mapTheme).addTo(map);
-
-  // Add user location
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      const userMarker = L.circleMarker([position.coords.latitude, position.coords.longitude], {
-        radius: 8,
-        color: '#3388ff',
-        fillColor: '#3388ff',
-        fillOpacity: 0.6
-      }).addTo(map);
-      userMarker.bindPopup("You are here").openPopup();
-      map.setView([position.coords.latitude, position.coords.longitude], 12);
-    });
-  }
-
-  // Use Leaflet.markercluster for grouping markers
-  const markerGroup = L.markerClusterGroup();
-  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
-  Object.entries(listings).forEach(([name, info]) => {
-    if (info.lat && info.lng) {
-      const customIcon = L.icon({
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/484/484167.png",
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
-      });
-      const marker = L.marker([info.lat, info.lng], { icon: customIcon });
-      marker.bindPopup(`<strong>${name}</strong><br>${info.address || ''}`);
-      markerGroup.addLayer(marker);
-    }
-  });
-  map.addLayer(markerGroup);
-}
-}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-
-  // Add current location marker if possible
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      const userMarker = L.circleMarker([position.coords.latitude, position.coords.longitude], {
-        radius: 8,
-        color: '#3388ff',
-        fillColor: '#3388ff',
-        fillOpacity: 0.6
-      }).addTo(map);
-      userMarker.bindPopup("You are here").openPopup();
-      map.setView([position.coords.latitude, position.coords.longitude], 12);
-    });
-  }
-
-  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
-  Object.entries(listings).forEach(([name, info]) => {
-    if (info.lat && info.lng) {
-      const customIcon = L.icon({
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/484/484167.png",
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
-      });
-      const marker = L.marker([info.lat, info.lng], { icon: customIcon }).addTo(map);
-      marker.bindPopup(`<strong>${name}</strong><br>${info.address || ''}`);
-    }
-  });
-}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-
-  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
-  Object.entries(listings).forEach(([name, info]) => {
-    if (info.lat && info.lng) {
-      const marker = L.marker([info.lat, info.lng]).addTo(map);
-      marker.bindPopup(`<strong>${name}</strong><br>${info.address || ''}`);
-    }
-  });
-}
-</script>
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
 <style>
   body {
@@ -323,7 +242,7 @@ window.onload = function() {
   if (!localStorage.getItem("bizListings")) {
     localStorage.setItem("bizListings", JSON.stringify(sampleData));
   }
-  if (testMode) {$1
+  if (testMode) {
     showBrowse(); else if (isInPiBrowser()) {
     document.getElementById('login-section').style.display = 'block';
   } else {
