@@ -6,14 +6,19 @@
   <title>Coinnect Dev</title>
   <script src="https://sdk.minepi.com/pi-sdk.js">function loadMap() {
   const mapDiv = document.getElementById("map-container");
-  mapDiv.innerHTML = '';
-  const iframe = document.createElement("iframe");
-  iframe.width = "100%";
-  iframe.height = "300";
-  iframe.style.border = "0";
-  iframe.src = "https://www.openstreetmap.org/export/embed.html?bbox=0.0%2C0.0%2C0.0%2C0.0&layer=mapnik";
-  iframe.loading = "lazy";
-  mapDiv.appendChild(iframe);
+  mapDiv.innerHTML = "";
+  const map = L.map(mapDiv).setView([20, 0], 2);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
+  Object.entries(listings).forEach(([name, info]) => {
+    if (info.lat && info.lng) {
+      const marker = L.marker([info.lat, info.lng]).addTo(map);
+      marker.bindPopup(`<strong>${name}</strong><br>${info.address || ''}`);
+    }
+  });
 }
 </script>
 
@@ -176,14 +181,13 @@
   <label>Rating:<br><input type="number" id="biz-rating" max="5" min="1" step="0.1"></label><br><br>
   <label>Description:<br><textarea id="biz-description" rows="3"></textarea></label><br><br>
   <label>Image URL:<br><input type="url" id="biz-image"></label><br><br>
-  <label>Latitude:<br><input type="number" id="biz-lat" step="any"></label><br><br>
-  <label>Longitude:<br><input type="number" id="biz-lng" step="any"></label><br><br>
+  <label>Address:<br><input type="text" id="biz-address" placeholder="123 Main St, City, Country"></label><br><br>
   <button onclick="saveListing()">Save Listing</button>
   <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
 </div>
 
-<div id="browse-section" class="card" style="display:none;">
-  <h2>Browse Listings</h2>
+$1
+  <button onclick="resetListings()" style="background:#cc4444; color:#fff; margin-bottom: 1rem;">Reset Sample Listings</button>
   <div id="biz-listings"></div>
   <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
 </div>
@@ -315,14 +319,31 @@ function saveListing() {
   const rating = document.getElementById("biz-rating").value.trim();
   const description = document.getElementById("biz-description").value.trim();
   const image = document.getElementById("biz-image").value.trim();
-  const lat = document.getElementById("biz-lat").value.trim();
-  const lng = document.getElementById("biz-lng").value.trim();
-  if (!name || !rating || !description) {
+  const address = document.getElementById("biz-address").value.trim();
+  if (!name || !rating || !description || !address) {
     alert("Please complete all fields.");
     return;
   }
+  let lat = "";
+  let lng = "";
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.length > 0) {
+        lat = data[0].lat;
+        lng = data[0].lon;
+      }
+      saveBusinessEntry(name, rating, description, image, address, lat, lng);
+    })
+    .catch(() => {
+      alert("Unable to geocode the address. Saving without coordinates.");
+      saveBusinessEntry(name, rating, description, image, address, lat, lng);
+    });
+}
+
+function saveBusinessEntry(name, rating, description, image, address, lat, lng) {
   const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
-  listings[name] = { rating, description, image, lat, lng };
+  listings[name] = { rating, description, image, address, lat, lng };
   localStorage.setItem("bizListings", JSON.stringify(listings));
   alert("Listing saved.");
   showProfile(name);
@@ -331,14 +352,14 @@ function saveListing() {
 function showProfile(name) {
   hideAllSections();
   const data = JSON.parse(localStorage.getItem("bizListings")) || {};
-  const biz = data[name] || { rating: "N/A", description: "No description available." };
+  const biz = data[name] || { rating: "N/A", description: "No description available.", address: "" };
   document.getElementById("profile-title").innerText = name;
   document.getElementById("profile-rating").innerText = `⭐ ${biz.rating}`;
   document.getElementById("profile-content").innerHTML = `
     <h3>Description</h3>
     <p>${biz.description}</p>
     ${biz.image ? `<img src="${biz.image}" alt="${name}" style="width:100%; border-radius:12px; margin-top:1rem;">` : ''}
-  `;
+    ${biz.address ? `<p style='margin-top:1rem; color:#aaa;'>📍 ${biz.address}</p>` : ''}`;
   document.getElementById("profile-section").style.display = 'block';
 }
 
@@ -362,6 +383,13 @@ function populateMapCarousel() {
         <button onclick='showProfile("${name}")' style='margin-top:0.5rem; background:#ffb84d; border:none; padding:0.5rem 1rem; border-radius:8px; font-weight:bold; cursor:pointer; color:#000;'>View</button>
       </div>
     `;
+  }
+}
+
+function resetListings() {
+  if (confirm("Are you sure you want to reset the sample data?")) {
+    localStorage.removeItem("bizListings");
+    window.location.reload();
   }
 }
 </script>
