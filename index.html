@@ -4,7 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <script src="https://sdk.minepi.com/pi-sdk.js">function loadMap() {
+  const mapDiv = document.getElementById("map-container");
+  mapDiv.innerHTML = '';
+  const iframe = document.createElement("iframe");
+  iframe.width = "100%";
+  iframe.height = "300";
+  iframe.style.border = "0";
+  iframe.src = "https://www.openstreetmap.org/export/embed.html?bbox=0.0%2C0.0%2C0.0%2C0.0&layer=mapnik";
+  iframe.loading = "lazy";
+  mapDiv.appendChild(iframe);
+}
+</script>
 
 <style>
   body {
@@ -154,7 +165,8 @@
 
 <div id="map-section" class="card" style="display:none;">
   <h2>Nearby Map</h2>
-  <div id="map-carousel" style="display: flex; gap: 1rem; overflow-x: auto;"></div>
+  <div id="map-container" style="width: 100%; height: 300px; margin-bottom: 1rem;"></div>
+  <div id="map-carousel" style="display: flex; gap: 1rem; overflow-x: auto;">
   <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
 </div>
 
@@ -175,9 +187,7 @@
   <div id="biz-listings"></div>
   <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
 </div>
-  <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
-</div>
-
+  </div>
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 <script>
 const scopes = ['username', 'payments'];
@@ -245,6 +255,7 @@ function showRewards() {
 }
 
 function showMap() {
+  loadMap();
   hideAllSections();
   document.getElementById('map-section').style.display = 'block';
   populateMapCarousel();
