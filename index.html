@@ -219,6 +219,32 @@ function loginWithPi() {
 }
 
 window.onload = function() {
+  const sampleData = {
+    "Moon Brew Café": {
+      rating: "4.8",
+      description: "Crypto-friendly café with Pi payment support.",
+      image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80",
+      lat: "51.5074",
+      lng: "-0.1278"
+    },
+    "Stellar Styles Salon": {
+      rating: "4.6",
+      description: "Trendy salon offering loyalty rewards via Coinnect.",
+      image: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=800&q=80",
+      lat: "34.0522",
+      lng: "-118.2437"
+    },
+    "Gravity Gym": {
+      rating: "4.9",
+      description: "Modern fitness center accepting Pi.",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?fit=crop&w=800&q=80",
+      lat: "40.7128",
+      lng: "-74.0060"
+    }
+  };
+  if (!localStorage.getItem("bizListings")) {
+    localStorage.setItem("bizListings", JSON.stringify(sampleData));
+  }
   if (testMode) {
     document.getElementById('login-section').style.display = 'none';
     document.getElementById('app-content').style.display = 'block';
