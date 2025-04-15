@@ -439,6 +439,43 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('mapTheme') || 'light';
   document.getElementById('theme-toggle').value = savedTheme;
 });
+
+function loadMap() {
+  const mapDiv = document.getElementById("map-container");
+  mapDiv.innerHTML = "";
+  const map = L.map(mapDiv).setView([20, 0], 2);
+  getTileLayer(mapTheme).addTo(map);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const userMarker = L.circleMarker([position.coords.latitude, position.coords.longitude], {
+        radius: 8,
+        color: '#3388ff',
+        fillColor: '#3388ff',
+        fillOpacity: 0.6
+      }).addTo(map);
+      userMarker.bindPopup("You are here").openPopup();
+      map.setView([position.coords.latitude, position.coords.longitude], 12);
+    });
+  }
+
+  const markerGroup = L.markerClusterGroup();
+  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
+  Object.entries(listings).forEach(([name, info]) => {
+    if (info.lat && info.lng) {
+      const customIcon = L.icon({
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/484/484167.png",
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
+      });
+      const marker = L.marker([info.lat, info.lng], { icon: customIcon });
+      marker.bindPopup(`<strong>${name}</strong><br>${info.address || ''}`);
+      markerGroup.addLayer(marker);
+    }
+  });
+  map.addLayer(markerGroup);
+}
 </script>
 </body>
 </html>
