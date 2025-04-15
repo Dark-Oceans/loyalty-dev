@@ -232,6 +232,7 @@ $1
   <p>This section will soon list available businesses.</p>
   <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
 </div>
+</div>
 
 <div id="rewards-section" class="card" style="display:none;">
   <h2>Your Rewards</h2>
@@ -240,17 +241,8 @@ $1
 </div>
 
 $1
-  <div style="text-align:right; margin-bottom: 1rem;">
-    <label style="font-size: 0.9rem; color: #ccc;">
-      🌓 Map Theme:
-      <select id="theme-toggle" onchange="changeMapTheme(this.value)" style="margin-left: 0.5rem; padding: 0.3rem 0.5rem; border-radius: 6px;">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
-    </label>
-  </div>
-  <h2>Nearby Map</h2>
-  <div id="map-container" style="width: 100%; height: 300px; margin-bottom: 1rem;"></div>
+  <div id="map-section" class="card" style="display:none;">
+  <div style="text-align:right; margin-bottom: 1rem;">$1<div id="map-container" style="width: 100%; height: 300px; margin-bottom: 1rem;"></div>
   <div id="map-carousel" style="display: flex; gap: 1rem; overflow-x: auto;">
   <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
 </div>
@@ -331,12 +323,8 @@ window.onload = function() {
   if (!localStorage.getItem("bizListings")) {
     localStorage.setItem("bizListings", JSON.stringify(sampleData));
   }
-  if (testMode) {
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('app-content').style.display = 'block';
-    document.getElementById('username').innerText = 'TestUser';
-    document.getElementById('uid').innerText = '123456789';
-  } else if (isInPiBrowser()) {
+  if (testMode) {$1
+    showBrowse(); else if (isInPiBrowser()) {
     document.getElementById('login-section').style.display = 'block';
   } else {
     document.getElementById('not-in-pi-browser').style.display = 'block';
