@@ -4,7 +4,107 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <script src="https://sdk.minepi.com/pi-sdk.js">function hideAllSections() {
+  ['app-content','directory-section','rewards-section','map-section','editor-section','browse-section','profile-section'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+}
+
+function showDirectory() {
+  hideAllSections();
+  document.getElementById('directory-section').style.display = 'block';
+}
+
+function showRewards() {
+  hideAllSections();
+  document.getElementById('rewards-section').style.display = 'block';
+}
+
+function showMap() {
+  hideAllSections();
+  document.getElementById('map-section').style.display = 'block';
+  populateMapCarousel();
+}
+
+function showEditor() {
+  hideAllSections();
+  document.getElementById('editor-section').style.display = 'block';
+}
+
+function showBrowse() {
+  hideAllSections();
+  const container = document.getElementById("biz-listings");
+  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
+  container.innerHTML = Object.keys(listings).length === 0 ? '<p>No listings found.</p>' : '';
+  for (const [name, info] of Object.entries(listings)) {
+    container.innerHTML += `
+      <div class='business-card clickable' onclick='showProfile("${name}")'>
+        <strong>${name}</strong><br>
+        ⭐ ${info.rating}<br>
+        ${info.image ? `<img src='${info.image}' style='width:100%; margin-top:0.5rem; border-radius:8px;'>` : ''}
+        <p style='margin-top:0.5rem;'>${info.description}</p>
+      </div>
+    `;
+  }
+  document.getElementById('browse-section').style.display = 'block';
+}
+
+function saveListing() {
+  const name = document.getElementById("biz-name").value.trim();
+  const rating = document.getElementById("biz-rating").value.trim();
+  const description = document.getElementById("biz-description").value.trim();
+  const image = document.getElementById("biz-image").value.trim();
+  const lat = document.getElementById("biz-lat").value.trim();
+  const lng = document.getElementById("biz-lng").value.trim();
+  if (!name || !rating || !description) {
+    alert("Please complete all fields.");
+    return;
+  }
+  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
+  listings[name] = { rating, description, image, lat, lng };
+  localStorage.setItem("bizListings", JSON.stringify(listings));
+  alert("Listing saved.");
+  showProfile(name);
+}
+
+function showProfile(name) {
+  hideAllSections();
+  const data = JSON.parse(localStorage.getItem("bizListings")) || {};
+  const biz = data[name] || { rating: "N/A", description: "No description available." };
+  document.getElementById("profile-title").innerText = name;
+  document.getElementById("profile-rating").innerText = `⭐ ${biz.rating}`;
+  document.getElementById("profile-content").innerHTML = `
+    <h3>Description</h3>
+    <p>${biz.description}</p>
+    ${biz.image ? `<img src="${biz.image}" alt="${name}" style="width:100%; border-radius:12px; margin-top:1rem;">` : ''}
+  `;
+  document.getElementById("profile-section").style.display = 'block';
+}
+
+function goBack() {
+  hideAllSections();
+  document.getElementById("app-content").style.display = 'block';
+}
+
+function populateMapCarousel() {
+  const container = document.getElementById("map-carousel");
+  container.innerHTML = "";
+  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
+  for (const [name, info] of Object.entries(listings)) {
+    const loc = info.lat && info.lng ? `<p style='color:#aaa; font-size:0.8rem;'>📍 ${info.lat}, ${info.lng}</p>` : '';
+    container.innerHTML += `
+      <div style="min-width:280px; background:#112021; border-radius:16px; padding:1rem; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+        <p style='margin:0; color:#ffb84d; font-weight:bold;'>${name}</p>
+        <p style='margin:0.25rem 0; color:#ccc; font-size:0.9rem;'>⭐ ${info.rating}</p>
+        ${info.image ? `<img src='${info.image}' alt='${name}' style='width:100%; border-radius:8px; margin-top:0.5rem;'>` : ''}
+        ${loc}
+        <button onclick='showProfile("${name}")' style='margin-top:0.5rem; background:#ffb84d; border:none; padding:0.5rem 1rem; border-radius:8px; font-weight:bold; cursor:pointer; color:#000;'>View</button>
+      </div>
+    `;
+  }
+}
+</script>
 
 <style>
     body {
