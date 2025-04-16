@@ -17,7 +17,7 @@
     color: #f0f0f0;
   }
   .card {
-    background: #112021;
+    background: #182c2d;
     padding: 2rem;
     border-radius: 16px;
     max-width: 500px;
@@ -25,7 +25,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
   button {
-    background: #ffb84d;
+    background: #e6a845;
     border: none;
     padding: 1rem 2rem;
     font-size: 1rem;
@@ -91,6 +91,26 @@
     font-size: 1rem;
     color: #ccc;
   }
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(17, 32, 33, 0.95);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: space-around;
+    padding: 0.75rem 0;
+    border-top: 1px solid #334b4e;
+    z-index: 9999;
+  }
+  .bottom-nav button {
+    background: none;
+    border: none;
+    color: #ffb84d;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
 </style>
 </head>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
@@ -105,18 +125,17 @@
   </div>
 
   <div id="login-section" style="overflow-y: auto; height: 100vh; display: flex; flex-direction: column; justify-content: flex-start;">
-  <div class="hero-image">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
+  <div class="hero-image" style="height: 80vh; display: flex; align-items: flex-end; padding: 2rem; background-position: center; background-size: cover;">
+  <div class="hero-overlay"></div>
+  <div class="hero-content" style="position: relative; z-index: 2; text-align: left;">
       <h2>Welcome to Coinnect (Dev)</h2>
       <p>Rewards powered by crypto, starting with Pi</p>
     </div>
-  </div>
-  
-  <div class="card">
-    <p>Login with your Pi Network account to continue.</p>
-    <button onclick="simulateLogin()">Continue (Test Mode)</button>
-  </div>
+</div>
+<div class="card" style="margin-top: -4rem; background: rgba(24, 44, 45, 0.9); box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+  <p style="margin-bottom: 0.5rem;">Login with your Pi Network account to continue.</p>
+  <button onclick="simulateLogin()">Continue (Test Mode)</button>
+</div>
 </div>
 
   <div id="app-content" class="card" style="display:none;">
@@ -272,6 +291,11 @@ window.onload = function() {
 <footer style="text-align:center; color:#888; font-size:0.8rem; padding:2rem 1rem 1rem;">
   Build v0.1 Dev – Coinnect (Test Mode)
 </footer>
+<div class="bottom-nav">
+  <button onclick="showDirectory()">🏪</button>
+  <button onclick="showMap()">🗺</button>
+  <button onclick="showEditor()">➕</button>
+</div>
 <script>
 function hideAllSections() {
   const sections = ['app-content','directory-section','rewards-section','map-section','editor-section','browse-section','profile-section'];
