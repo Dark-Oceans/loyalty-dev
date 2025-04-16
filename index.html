@@ -119,7 +119,7 @@
   </div>
 </div>
 
-  <div id="app-content" class="card">
+  <div id="app-content" class="card" style="display:none;">
     <p style="font-size: 0.8rem; color: orange;">🚧 Dev Mode Enabled – Pi login is bypassed.</p>
     <h2>Hello, <span id="username"></span>!</h2>
     <p>You are now logged in via Pi Network.</p>
@@ -273,11 +273,8 @@ window.onload = function() {
     localStorage.setItem("bizListings", JSON.stringify(sampleData));
   }
   if (testMode) {
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('app-content').style.display = 'block';
-    document.getElementById('username').innerText = 'TestUser';
-    document.getElementById('uid').innerText = '123456789';
-    showBrowse();
+    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('app-content').style.display = 'none';
   } else if (isInPiBrowser()) {
     document.getElementById('login-section').style.display = 'block';
   } else {
