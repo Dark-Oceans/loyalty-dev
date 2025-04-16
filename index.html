@@ -62,10 +62,11 @@ function showEditor() {
   </style>
   <script>
     function goToLoginPage() {
-      document.getElementById('login-section').style.display = 'none';
-      document.getElementById('app-content').style.display = 'block';
-      document.getElementById('bottom-navigation').style.display = 'none';
-    }
+  document.getElementById('login-section').style.display = 'none';
+  document.getElementById('app-content').style.display = 'block';
+  document.getElementById('bottom-navigation').style.display = 'none';
+  showRewards();
+}
     function showRewards() {
       document.getElementById('app-content').innerHTML = `
         <div style='text-align: center; padding: 2rem;'>
