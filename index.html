@@ -31,9 +31,12 @@
     .nav-bar button {
       background: none;
       border: none;
-      color: #ffb84d;
-      font-size: 1.2rem;
+      fill: #ffb84d;
       cursor: pointer;
+    }
+    .nav-bar svg {
+      width: 24px;
+      height: 24px;
     }
     .screen {
       padding: 1rem;
@@ -76,6 +79,28 @@
       cursor: pointer;
       font-weight: 600;
     }
+    .input-field {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .input-field input {
+      width: 100%;
+      padding: 0.75rem 0.75rem 0.5rem 2.5rem;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #ffb84d;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .input-field svg {
+      position: absolute;
+      top: 50%;
+      left: 0.5rem;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      fill: #ffb84d;
+    }
   </style>
 </head>
 <body>
@@ -90,18 +115,35 @@
 
   <div id="login-screen" class="screen" style="display:none;">
     <h2>Login</h2>
-    <input type="text" placeholder="Username" style="width:100%; padding:0.5rem; margin-bottom:1rem;">
-    <input type="password" placeholder="Password" style="width:100%; padding:0.5rem; margin-bottom:1rem;">
-    <button style="width:100%; padding:0.75rem; background:#ffb84d; color:#000; font-weight:bold; border:none; border-radius:8px;" onclick="simulateLogin()">Login</button>
+    <div class="input-field">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <input type="text" id="username" placeholder="Username">
+    </div>
+    <div class="input-field">
+      <svg viewBox="0 0 24 24"><path d="M12 17a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3a2 2 0 0 0 2 2zm6-9h-1V6a5 5 0 0 0-10 0v2H6c-1.1 0-2 .9-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10c0-1.1-.9-2-2-2zM8 6a4 4 0 0 1 8 0v2H8V6z"/></svg>
+      <input type="password" id="password" placeholder="Password">
+    </div>
+    <button style="width: fit-content; background:#ffb84d; color:#000; padding:0.5rem 1.25rem; border:none; border-radius:8px; cursor:pointer; font-weight:bold;" onclick="simulateLogin()">Login</button>
   </div>
 
   <div id="app-content" class="screen" style="display:none;"></div>
 
   <div id="bottom-navigation" class="nav-bar" style="display:none;">
-    <button onclick="showRewards()">✅</button>
-    <button onclick="showDirectory()">🏠</button>
-    <button onclick="alert('Map coming soon')">📍</button>
-    <button onclick="alert('Favorites coming soon')">🔖</button>
+    <button onclick="showRewards()">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+    </button>
+    <button onclick="showDirectory()">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    </button>
+    <button onclick="alert('Map coming soon')">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.73-2.67 6.67-5 9.88C9.67 15.67 7 11.73 7 9z"/></svg>
+    </button>
+    <button onclick="alert('Favorites coming soon')">
+      <svg viewBox="0 0 24 24"><path d="M19 21l-7-5.3L5 21V5c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2v16z"/></svg>
+    </button>
+    <button onclick="logout()">
+      <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59z"/></svg>
+    </button>
   </div>
 
   <script>
@@ -117,38 +159,35 @@
       showRewards();
     }
 
-    function showRewards() {
-      document.getElementById('app-content').innerHTML = `
-        <div style='padding: 2rem; color: #fff;'>
-          <h2>Welcome, Test User 👋</h2>
-          <p>This is your dashboard. From here you can browse businesses, view the map, or redeem rewards.</p>
-          <h2>Your Rewards</h2>
-          <div style='margin-top: 1rem;'>
-            <div style='background: #1a2d2f; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;'>
-              <h3 style='color: #e6a845; margin: 0 0 0.5rem;'>Moon Brew Café</h3>
-              <p style='margin: 0;'>3 visits • Last visit: Apr 10</p>
-              <div style='margin-top: 0.5rem; background: #334b4e; border-radius: 8px; overflow: hidden; height: 10px;'>
-                <div style='width: 60%; background: #e6a845; height: 100%; transition: width 1s ease;'></div>
-              </div>
-              <p style='margin: 0.25rem 0; font-size: 0.8rem; color: #aaa;'>3 / 5 visits</p>
-            </div>
-            <div style='background: #1a2d2f; padding: 1rem; border-radius: 12px;'>
-              <h3 style='color: #e6a845; margin: 0 0 0.5rem;'>Gravity Gym</h3>
-              <p style='margin: 0;'>5 visits • Last visit: Apr 14</p>
-              <div style='margin-top: 0.5rem; background: #334b4e; border-radius: 8px; overflow: hidden; height: 10px;'>
-                <div style='width: 100%; background: #e6a845; height: 100%; transition: width 1s ease;'></div>
-              </div>
-              <p style='margin: 0.25rem 0; font-size: 0.8rem; color: #aaa;'>5 / 5 visits</p>
-            </div>
-          </div>
-          <button onclick='logout()' style='margin-top: 2rem; background:#e6a845; color:#000; padding:0.5rem 1rem; border:none; border-radius:8px; cursor:pointer;'>Log out</button>
-        </div>`;
-    }
-
     function logout() {
       document.getElementById('app-content').style.display = 'none';
       document.getElementById('bottom-navigation').style.display = 'none';
       document.getElementById('welcome-screen').style.display = 'block';
+    }
+
+    function showRewards() {
+      document.getElementById('app-content').innerHTML = `
+        <h2>Welcome, Test User 👋</h2>
+        <p>This is your dashboard. From here you can browse businesses, view the map, or redeem rewards.</p>
+        <h3>Your Rewards</h3>
+        <div style='margin-top: 1rem;'>
+          <div style='background: #1a2d2f; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;'>
+            <h3 style='color: #e6a845; margin: 0 0 0.5rem;'>Moon Brew Café</h3>
+            <p style='margin: 0;'>3 visits • Last visit: Apr 10</p>
+            <div style='margin-top: 0.5rem; background: #334b4e; border-radius: 8px; overflow: hidden; height: 10px;'>
+              <div style='width: 60%; background: #e6a845; height: 100%; transition: width 1s ease;'></div>
+            </div>
+            <p style='margin: 0.25rem 0; font-size: 0.8rem; color: #aaa;'>3 / 5 visits</p>
+          </div>
+          <div style='background: #1a2d2f; padding: 1rem; border-radius: 12px;'>
+            <h3 style='color: #e6a845; margin: 0 0 0.5rem;'>Gravity Gym</h3>
+            <p style='margin: 0;'>5 visits • Last visit: Apr 14</p>
+            <div style='margin-top: 0.5rem; background: #334b4e; border-radius: 8px; overflow: hidden; height: 10px;'>
+              <div style='width: 100%; background: #e6a845; height: 100%; transition: width 1s ease;'></div>
+            </div>
+            <p style='margin: 0.25rem 0; font-size: 0.8rem; color: #aaa;'>5 / 5 visits</p>
+          </div>
+        </div>`;
     }
 
     function showDirectory() {
