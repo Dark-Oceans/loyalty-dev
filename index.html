@@ -1,540 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
-  
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #0e1a1c;
-    color: #f0f0f0;
-  }
-  .card {
-    background: #182c2d;
-    padding: 2rem;
-    border-radius: 16px;
-    max-width: 500px;
-    margin: 2rem auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  button {
-    background: #e6a845;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    border-radius: 10px;
-    cursor: pointer;
-    color: #000;
-    margin-top: 1rem;
-    transition: background 0.3s;
-  }
-  button:hover {
-    background: #ffc96b;
-  }
-  input, textarea {
-    background: #1a2d2f;
-    color: #fff;
-    border: 1px solid #334b4e;
-    padding: 0.5rem;
-    border-radius: 8px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  #login-section, #app-content, #directory-section, #rewards-section, #profile-section, #not-in-pi-browser {
-    display: none;
-  }
-  .business-card, .reward-card, .profile-card {
-    border: 1px solid #2c3e3e;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 10px;
-    text-align: left;
-    background: #1a2d2f;
-  }
-  .clickable {
-    cursor: pointer;
-    color: #ffb84d;
-    text-decoration: none;
-  }
-  .hero-image {
-    width: 100%;
-    height: 250px;
-    background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center/cover no-repeat;
-    position: relative;
-    border-bottom: 4px solid #ffb84d;
-  }
-  .hero-overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(to bottom, rgba(14,26,28,0.1), #0e1a1c);
-  }
-  .hero-content {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    z-index: 2;
-  }
-  .hero-content h2 {
-    margin: 0;
-    font-size: 2rem;
-    color: #fff;
-  }
-  .hero-content p {
-    margin: 0.5rem 0 0;
-    font-size: 1rem;
-    color: #ccc;
-  }
-  .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(17, 32, 33, 0.95);
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: space-around;
-  padding: 0.5rem 0;
-  border-top: 1px solid #334b4e;
-  z-index: 9999;
-  height: 60px;
-}
-  .bottom-nav button {
-  background: none;
-  border: none;
-  color: #e6a845;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  height: 100%;
-  transition: transform 0.2s ease;
-}
-.bottom-nav button:active {
-  transform: scale(0.95);
-}
-</style>
-</head>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0e1a1c;
+      color: #f0f0f0;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(17, 32, 33, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.5rem 0;
+      border-top: 1px solid #334b4e;
+      z-index: 9999;
+      height: 60px;
+    }
+    .bottom-nav button {
+      background: none;
+      border: none;
+      color: #e6a845;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      height: 100%;
+      transition: transform 0.2s ease;
+    }
+    .bottom-nav button:active {
+      transform: scale(0.95);
+    }
+    .bottom-nav svg {
+      stroke: #e6a845;
+    }
+  </style>
+</head>
 <body>
-  <p id="ua-debug" style="font-size: 0.7rem; color: gray; padding: 1rem;"></p>
-
-  <div id="not-in-pi-browser" class="card">
-    <h2>Open in Pi Browser</h2>
-    <p>This app must be opened inside the Pi Browser to log in and use Pi features.</p>
+  <!-- App content above -->
+  <div class="bottom-nav">
+    <button onclick="showDirectory()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z" />
+      </svg>
+    </button>
+    <button onclick="showMap()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.25 6.75l7.5 2.25v12.75l-7.5-2.25V6.75z" />
+      </svg>
+    </button>
+    <button onclick="showBrowse()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.75 5.75h12.5v12.5H5.75z" />
+      </svg>
+    </button>
+    <button onclick="showEditor()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+    </button>
   </div>
-
-  <div id="login-section" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 0; margin: 0; overflow: hidden;">
-  <div class="hero-image" style="height: 70vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem 1.5rem; background-position: center; background-size: cover;">
-  <div class="hero-overlay"></div>
-  <div class="hero-content" style="position: relative; z-index: 2; text-align: left;">
-      <h2>Welcome to Coinnect (Dev)</h2>
-      <p>Rewards powered by crypto, starting with Pi</p>
-    </div>
-</div>
-<div class="card" style="margin: 0 1.5rem 2rem; background: rgba(24, 44, 45, 0.95); box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
-  <p style="margin-bottom: 0.5rem;">Login with your Pi Network account to continue.</p>
-  <button onclick="simulateLogin()">Continue (Test Mode)</button>
-</div>
-</div>
-
-  <div id="app-content" class="card" style="display:none;">
-    <p style="font-size: 0.8rem; color: orange;">🚧 Dev Mode Enabled – Pi login is bypassed.</p>
-    <h2>Hello, <span id="username"></span>!</h2>
-    <p>You are now logged in via Pi Network.</p>
-    <p><strong>UID:</strong> <span id="uid"></span></p>
-    <button onclick="showDirectory()">Go to Business Directory</button>
-    <button onclick="showRewards()">View My Rewards</button>
-    <button onclick="showMap()">Find Nearby on Map</button>
-    <button onclick="showEditor()">Add a Business</button>
-    <button onclick="showBrowse()">Browse Listings</button>
-  </div>
-
-  <div id="profile-section">
-    <div class="hero-image">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h2 id="profile-title">Business Name</h2>
-        <p id="profile-rating">⭐ 4.5</p>
-      </div>
-    </div>
-    <div class="card">
-      <div id="profile-content"></div>
-      <button>Redeem</button>
-      <button onclick="showDirectory()" style="background: none; color: #ffb84d; margin-top: 1rem;">Back to Directory</button>
-    </div>
-  </div>
-
-  <div id="directory-section" class="card" style="display:none;">
-  <h2>Business Directory</h2>
-  <p>This section will soon list available businesses.</p>
-  <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
-</div>
-<div id="rewards-section" class="card" style="display:none;">
-  <h2>Your Rewards</h2>
-  <p>Track your visits and available redemptions here.</p>
-  <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
-</div>
-
-
-  
-</div>
-</div>
-</div>
-<div id="map-section" style="display:none; width: 100vw; height: 100vh; overflow: hidden; position: relative; background: #0e1a1c;">
-  <div id="map-container" style="width: 100%; height: 100%; border-radius: 0; position: absolute; top: 0; left: 0; z-index: 1;"></div>
-  <div id="map-carousel" style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 1rem; display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; background: rgba(14,26,28,0.95); backdrop-filter: blur(6px);">
-    <!-- Carousel items will populate here -->
-  </div>
-  <button onclick="goBack()" style="position: absolute; top: 1rem; left: 1rem; z-index: 3; background: #ffb84d; color: #000; padding: 0.5rem 1rem; border-radius: 8px; border: none;">Back</button>
-</div>
-</div>
-<div id="editor-section" class="card" style="display:none;">
-  <h2>Add a Business</h2>
-  <label>Name:<br><input type="text" id="biz-name"></label><br><br>
-  <label>Rating:<br><input type="number" id="biz-rating" max="5" min="1" step="0.1"></label><br><br>
-  <label>Description:<br><textarea id="biz-description" rows="3"></textarea></label><br><br>
-  <label>Image URL:<br><input type="url" id="biz-image"></label><br><br>
-  <label>Address:<br><input type="text" id="biz-address" placeholder="123 Main St, City, Country"></label><br><br>
-  <button onclick="saveListing()">Save Listing</button>
-  <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
-</div>
-
-
-  
-</div>
-<div id="browse-section" class="card" style="display:none;">
-  <h2>Browse Listings</h2>
-  <button onclick="resetListings()" style="background:#cc4444; color:#fff; margin-bottom: 1rem;">Reset Sample Listings</button>
-  <div id="biz-listings"></div>
-  <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
-</div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-<script src="https://sdk.minepi.com/pi-sdk.js"></script>
-<script>
-function simulateLogin() {
-  document.getElementById('login-section').style.display = 'none';
-  document.getElementById('app-content').style.display = 'block';
-  document.getElementById('username').innerText = 'TestUser';
-  document.getElementById('uid').innerText = '123456789';
-}
-
-const scopes = ['username', 'payments'];
-const testMode = true;
-
-function isInPiBrowser() {
-  const isAvailable = typeof window.Pi !== 'undefined';
-  document.getElementById("ua-debug").innerText = isAvailable ? "Pi SDK found" : "Pi SDK not found";
-  return isAvailable;
-}
-
-function loginWithPi() {
-  document.getElementById("ua-debug").innerText = "Login button clicked.";
-  if (!window.Pi) {
-    alert("Pi SDK not found. Please open in Pi Browser.");
-    return;
-  }
-  document.getElementById("ua-debug").innerText = "Initializing Pi SDK...";
-  Pi.init({ version: "2.0" });
-  document.getElementById("ua-debug").innerText = "Calling Pi.authenticate...";
-  Pi.authenticate(scopes, function(auth) {
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('app-content').style.display = 'block';
-    document.getElementById('username').innerText = testMode ? 'TestUser' : auth.user.username;
-    document.getElementById('uid').innerText = testMode ? '123456789' : auth.user.uid;
-  }, function(error) {
-    alert("Authentication failed: " + error);
-  });
-}
-
-window.onload = function() {
-  const sampleData = {
-    "Moon Brew Café": {
-      rating: "4.8",
-      description: "Crypto-friendly café with Pi payment support.",
-      image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80",
-      lat: "51.5074",
-      lng: "-0.1278"
-    },
-    "Stellar Styles Salon": {
-      rating: "4.6",
-      description: "Trendy salon offering loyalty rewards via Coinnect.",
-      image: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=800&q=80",
-      lat: "34.0522",
-      lng: "-118.2437"
-    },
-    "Gravity Gym": {
-      rating: "4.9",
-      description: "Modern fitness center accepting Pi.",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?fit=crop&w=800&q=80",
-      lat: "40.7128",
-      lng: "-74.0060"
-    }
-  };
-  if (!localStorage.getItem("bizListings")) {
-    localStorage.setItem("bizListings", JSON.stringify(sampleData));
-  }
-  if (testMode) {
-    document.getElementById('login-section').style.display = 'block';
-    document.getElementById('app-content').style.display = 'none';
-  } else if (isInPiBrowser()) {
-    document.getElementById('login-section').style.display = 'block';
-  } else {
-    document.getElementById('not-in-pi-browser').style.display = 'block';
-  }
-};
-</script>
-
-<footer style="text-align:center; color:#888; font-size:0.8rem; padding:2rem 1rem 1rem;">
-  Build v0.1 Dev – Coinnect (Test Mode)
-</footer>
-<script>
-  if (document.getElementById('login-section').style.display === 'block') {
-    document.querySelector('.bottom-nav').style.display = 'none';
-  }
-</script>
-<script>
-function hideAllSections() {
-  const sections = ['app-content','directory-section','rewards-section','map-section','editor-section','browse-section','profile-section'];
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = 'none';
-  });
-}
-
-function showDirectory() {
-  hideAllSections();
-  document.getElementById('directory-section').style.display = 'block';
-}
-
-function showRewards() {
-  hideAllSections();
-  document.getElementById('rewards-section').style.display = 'block';
-}
-
-function showMap() {
-  hideAllSections();
-  document.getElementById('map-section').style.display = 'block';
-  setTimeout(() => { if (window._leafletMap) window._leafletMap.invalidateSize(); }, 200);
-  hideAllSections();
-  loadMap();
-  document.getElementById('map-section').style.display = 'block';
-  populateMapCarousel();
-}
-
-function showEditor() {
-  hideAllSections();
-  document.getElementById('editor-section').style.display = 'block';
-}
-
-function showBrowse() {
-  hideAllSections();
-  const container = document.getElementById("biz-listings");
-  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
-  container.innerHTML = Object.keys(listings).length === 0 ? '<p>No listings found.</p>' : '';
-  for (const [name, info] of Object.entries(listings)) {
-    container.innerHTML += `
-      <div class='business-card clickable' onclick='showProfile("${name}")' style='padding:0; overflow:hidden; position:relative;'>
-  ${info.image ? `<div style='position:relative; height:200px; background-image:url(${info.image}); background-size:cover; background-position:center;'>
-    <div style='position:absolute; top:0; left:0; right:0; bottom:0; background: linear-gradient(to top, rgba(14,26,28,0.9), rgba(14,26,28,0.1));'></div>
-    <div style='position:absolute; top:0.5rem; right:0.5rem; z-index:3;'>
-      <span onclick='toggleFavorite(event, "${name}")' style='font-size: 1.5rem; cursor: pointer;'>
-        <span id="fav-${name}">🔖</span>
-      </span>
-    </div>
-    <div style='position:absolute; bottom:1rem; left:1rem; right:1rem; color:#fff;'>
-      <h3 style='margin:0 0 0.25rem;'>${name}</h3>
-      <p style='margin:0; font-size:0.9rem;'>⭐ ${info.rating}</p>
-      <p style='margin:0.25rem 0 0; font-size:0.8rem; color:#ccc;'>${info.description}</p>
-    </div>
-  </div>` : ''}
-</div>
-    `;
-  }
-  document.getElementById('browse-section').style.display = 'block';
-}
-
-function saveListing() {
-  const name = document.getElementById("biz-name").value.trim();
-  const rating = document.getElementById("biz-rating").value.trim();
-  const description = document.getElementById("biz-description").value.trim();
-  const image = document.getElementById("biz-image").value.trim();
-  const address = document.getElementById("biz-address").value.trim();
-  if (!name || !rating || !description || !address) {
-    alert("Please complete all fields.");
-    return;
-  }
-  let lat = "";
-  let lng = "";
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data && data.length > 0) {
-        lat = data[0].lat;
-        lng = data[0].lon;
-      }
-      saveBusinessEntry(name, rating, description, image, address, lat, lng);
-    })
-    .catch(() => {
-      alert("Unable to geocode the address. Saving without coordinates.");
-      saveBusinessEntry(name, rating, description, image, address, lat, lng);
-    });
-}
-
-function saveBusinessEntry(name, rating, description, image, address, lat, lng) {
-  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
-  listings[name] = { rating, description, image, address, lat, lng };
-  localStorage.setItem("bizListings", JSON.stringify(listings));
-  alert("Listing saved.");
-  showProfile(name);
-}
-
-function showProfile(name) {
-  hideAllSections();
-  const data = JSON.parse(localStorage.getItem("bizListings")) || {};
-  const biz = data[name] || { rating: "N/A", description: "No description available.", address: "" };
-  document.getElementById("profile-title").innerText = name;
-  document.getElementById("profile-rating").innerText = `⭐ ${biz.rating}`;
-  document.getElementById("profile-content").innerHTML = `
-    <h3>Description</h3>
-    <p>${biz.description}</p>
-    ${biz.image ? `<img src="${biz.image}" alt="${name}" style="width:100%; border-radius:12px; margin-top:1rem;">` : ''}
-    ${biz.address ? `<p style='margin-top:1rem; color:#aaa;'>📍 ${biz.address}</p>` : ''}`;
-  document.getElementById("profile-section").style.display = 'block';
-}
-
-function goBack() {
-  hideAllSections();
-  document.getElementById("app-content").style.display = 'block';
-}
-
-function populateMapCarousel() {
-  const container = document.getElementById("map-carousel");
-  container.innerHTML = "";
-  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
-  for (const [name, info] of Object.entries(listings)) {
-    const loc = info.lat && info.lng ? `<p style='color:#aaa; font-size:0.8rem;'>📍 ${info.lat}, ${info.lng}</p>` : '';
-    container.innerHTML += `
-      <div style="min-width:280px; background:#112021; border-radius:16px; padding:1rem; box-shadow:0 4px 12px rgba(0,0,0,0.3); scroll-snap-align: start;">
-        <p style='margin:0; color:#ffb84d; font-weight:bold;'>${name}</p>
-        <p style='margin:0.25rem 0; color:#ccc; font-size:0.9rem;'>⭐ ${info.rating}</p>
-        ${info.image ? `<img src='${info.image}' alt='${name}' style='width:100%; border-radius:8px; margin-top:0.5rem;'>` : ''}
-        ${loc}
-        <button onclick='showProfile("${name}")' style='margin-top:0.5rem; background:#ffb84d; border:none; padding:0.5rem 1rem; border-radius:8px; font-weight:bold; cursor:pointer; color:#000;'>View</button>
-      </div>
-    `;
-  }
-}
-
-function resetListings() {
-  if (confirm("Are you sure you want to reset the sample data?")) {
-    localStorage.removeItem("bizListings");
-    window.location.reload();
-  }
-}
-
-const mapTheme = localStorage.getItem('mapTheme') || 'light'; // options: light, dark
-
-function getTileLayer(theme = 'light') {
-  if (theme === 'dark') {
-    return L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a>'
-    });
-  } else {
-    return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    });
-  }
-}
-function changeMapTheme(theme) {
-  localStorage.setItem('mapTheme', theme);
-  loadMap();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('mapTheme') || 'light';
-  document.getElementById('theme-toggle').value = savedTheme;
-});
-
-function loadMap() {
-  console.log("📍 loadMap() called");
-  const mapDiv = document.getElementById("map-container");
-  console.log("🗺️ mapDiv:", mapDiv);
-  mapDiv.innerHTML = "";
-
-  if (window._leafletMap) {
-    window._leafletMap.remove();
-    window._leafletMap = null;
-  }
-
-  const map = window._leafletMap = L.map(mapDiv).setView([20, 0], 2);
-  getTileLayer(mapTheme).addTo(map);
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      const userMarker = L.circleMarker([position.coords.latitude, position.coords.longitude], {
-        radius: 8,
-        color: '#3388ff',
-        fillColor: '#3388ff',
-        fillOpacity: 0.6
-      }).addTo(map);
-      userMarker.bindPopup("You are here").openPopup();
-      map.setView([position.coords.latitude, position.coords.longitude], 12);
-    });
-  }
-
-  const markerGroup = L.markerClusterGroup();
-  const listings = JSON.parse(localStorage.getItem("bizListings")) || {};
-  Object.entries(listings).forEach(([name, info]) => {
-    if (info.lat && info.lng) {
-      const customIcon = L.icon({
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/484/484167.png",
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
-      });
-      const marker = L.marker([info.lat, info.lng], { icon: customIcon });
-      marker.bindPopup(`<strong>${name}</strong><br>${info.address || ''}`);
-      markerGroup.addLayer(marker);
-    }
-  });
-  map.addLayer(markerGroup);
-}
-
-function toggleFavorite(event, name) {
-  event.stopPropagation();
-  const favs = JSON.parse(localStorage.getItem('favoriteListings') || '{}');
-  const el = document.getElementById(`fav-${name}`);
-  if (favs[name]) {
-    delete favs[name];
-    el.textContent = '🔖';
-  } else {
-    favs[name] = true;
-    el.textContent = '📌';
-  }
-  localStorage.setItem('favoriteListings', JSON.stringify(favs));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const favs = JSON.parse(localStorage.getItem('favoriteListings') || '{}');
-  Object.keys(favs).forEach(name => {
-    const el = document.getElementById(`fav-${name}`);
-    if (el) el.textContent = '📌';
-  });
-});
-</script>
 </body>
 </html>
