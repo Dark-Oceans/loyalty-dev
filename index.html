@@ -4,128 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js">function showBusinessProfile(name, desc, location, image, category, rating, reviews) {
-  if (!reviews || !Array.isArray(reviews)) {
-    reviews = JSON.parse(localStorage.getItem(name + '-reviews') || '[]');
-  }
-  const reviewHtml = reviews.map(r => `<li style='margin-bottom: 0.5rem;'>"${r}"</li>`).join('');
-  const isFav = localStorage.getItem(name + '-fav') === 'true';
-  const favIcon = isFav ? '❤️' : '🤍';
-  const favToggle = `onclick="toggleFavorite('${name}')"`;
-  const ratingInput = `<input type='number' id='user-rating' min='1' max='5' step='0.1' placeholder='Rate 1-5' style='width: 80px; margin-top: 0.5rem;'> <button onclick='submitRating("${name}")' style='margin-left: 0.5rem;'>Submit</button>`; margin-top: 0.5rem;'> <button onclick='submitRating("${name}")' style='margin-left: 0.5rem;'>Submit</button>`;
-  const mapFrame = `<iframe width='100%' height='200' frameborder='0' style='border:0; border-radius:12px; margin-top:1rem;' src='https://www.google.com/maps?q=${encodeURIComponent(location)}&output=embed' allowfullscreen></iframe>`;
-
-  document.getElementById('app-content').innerHTML = `
-    <div style='padding: 2rem;'>
-      <img src='${image}' alt='${name}' style='width: 100%; border-radius: 12px; margin-bottom: 1rem;'>
-      <h2 style='color: #e6a845;'>${name}</h2>
-      <p style='color: #ccc;'>${desc}</p>
-      <p style='color: #aaa;'>📍 ${location}</p>
-      <p style='color: #888;'>⭐ ${rating} — ${category}</p>
-      <div>${mapFrame}</div>
-      <button ${favToggle} style='margin-top: 1rem; background: none; color: #e6a845; border: none; font-size: 1.5rem;'>${favIcon} Favorite</button>
-      <h3 style='margin-top: 2rem; color: #fff;'>User Reviews</h3>
-      <ul style='color: #ccc; padding-left: 1.5rem;'>${reviewHtml}</ul>
-      <textarea id='user-review' rows='2' placeholder='Write a review...' style='width: 100%; margin-top: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid #334b4e; background: #1a2d2f; color: #fff;'></textarea>
-      <button onclick='submitReview("${name}")' style='margin-top: 0.5rem; background: #e6a845; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: bold; cursor: pointer;'>Submit Review</button>
-      <div style='margin-top:1rem;'>${ratingInput}</div>
-      <button onclick='showDirectory()' style='margin-top: 2rem; background: none; color: #e6a845; border: none; cursor: pointer;'>← Back to Directory</button>
-    </div>
-  `;
-}"</li>`).join('');
-  const isFav = localStorage.getItem(name + '-fav') === 'true';
-  const favIcon = isFav ? '❤️' : '🤍';
-  const favToggle = `onclick="toggleFavorite('${name}')"`;
-
-  document.getElementById('app-content').innerHTML = `
-    <div style='padding: 2rem;'>
-      <img src='${image}' alt='${name}' style='width: 100%; border-radius: 12px; margin-bottom: 1rem;'>
-      <h2 style='color: #e6a845;'>${name}</h2>
-      <p style='color: #ccc;'>${desc}</p>
-      <p style='color: #aaa;'>📍 ${location}</p>
-      <p style='color: #888;'>⭐ ${rating} — ${category}</p>
-      <h3 style='margin-top: 2rem; color: #fff;'>User Reviews</h3>
-      <ul style='color: #ccc; padding-left: 1.5rem;'>${reviewHtml}</ul>
-      <button ${favToggle} style='margin-top: 1rem; background: none; color: #e6a845; border: none; font-size: 1.5rem;'>${favIcon} Favorite</button>
-      <h3 style='margin-top: 2rem; color: #fff;'>User Reviews</h3>
-      <ul style='color: #ccc; padding-left: 1.5rem;'>${reviewHtml}</ul>
-      <button onclick='showDirectory()' style='margin-top: 1rem; background: none; color: #e6a845; border: none; cursor: pointer;'>← Back to Directory</button>
-    </div>
-  `;
-}</h2>
-      <p style='color: #ccc;'>${desc}</p>
-      <p style='color: #aaa;'>📍 ${location}</p>
-      <button onclick='showDirectory()' style='margin-top: 1rem; background: none; color: #e6a845; border: none; cursor: pointer;'>← Back to Directory</button>
-    </div>
-  `;
-}
-
-function filterDirectory(query) {
-  const category = document.getElementById('directory-category')?.value || '';
-  const listings = document.querySelectorAll('#directory-list div');
-  listings.forEach(el => {
-    const name = el.querySelector('h3').textContent.toLowerCase();
-    const cat = el.innerHTML.toLowerCase();
-    const matchName = name.includes(query.toLowerCase());
-    const matchCat = !category || cat.includes(category.toLowerCase());
-    el.style.display = (matchName && matchCat) ? 'block' : 'none';
-  });
-});
-}
-function toggleFavorite(name) {
-  const current = localStorage.getItem(name + '-fav') === 'true';
-  localStorage.setItem(name + '-fav', !current);
-  showDirectory();
-}
-function submitRating(name) {
-  const input = document.getElementById('user-rating');
-  const rating = parseFloat(input.value);
-  if (rating >= 1 && rating <= 5) {
-    alert(`Thanks for rating ${name} ${rating}⭐!`);
-    input.value = '';
-  } else {
-    alert('Please enter a rating between 1 and 5.');
-  }
-}
-
-function submitReview(name) {
-  const textarea = document.getElementById('user-review');
-  const review = textarea.value.trim();
-  if (review) {
-    const storedReviews = JSON.parse(localStorage.getItem(name + '-reviews') || '[]');
-    storedReviews.push(review);
-    localStorage.setItem(name + '-reviews', JSON.stringify(storedReviews));
-    textarea.value = '';
-    showBusinessProfile(name, '', '', '', '', '', storedReviews);
-  } else {
-    alert('Please enter a review before submitting.');
-  }
-}!`);
-    textarea.value = '';
-  } else {
-    alert('Please enter a review before submitting.');
-  }
-} ${rating}⭐!`);
-    input.value = '';
-  } else {
-    alert('Please enter a rating between 1 and 5.');
-  }
-}
-function logout() {
-  document.getElementById('login-section').style.display = 'block';
-  document.getElementById('login-page').style.display = 'none';
-  document.getElementById('app-content').style.display = 'none';
-  document.getElementById('app-content').innerHTML = '';
-  document.getElementById('bottom-navigation').style.display = 'none';
-  localStorage.clear();
-}
-</script>
-<script>function showDirectory() {
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+<script>
+function showDirectory() {
   const listings = [
     { name: 'Moon Brew Café', desc: 'Crypto-friendly café with Pi payments', location: 'London, UK', image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=600&q=80', category: 'Cafe', rating: 4.8, reviews: ['Best coffee and accepts Pi!', 'Great atmosphere.'] },
     { name: 'Gravity Gym', desc: 'Fitness center accepting Pi rewards', location: 'New York, USA', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?fit=crop&w=600&q=80', category: 'Fitness', rating: 4.6, reviews: ['Very clean and professional.', 'Love redeeming Pi rewards here.'] },
     { name: 'Stellar Styles Salon', desc: 'Loyalty-based rewards via Coinnect', location: 'Los Angeles, USA', image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=600&q=80', category: 'Salon', rating: 4.7, reviews: ['Excellent service and value.', 'Stylists are Pi-friendly!'] }
-];
+  ];
   const cards = listings.map(biz => `
     <div onclick='showBusinessProfile("${biz.name}", "${biz.desc}", "${biz.location}", "${biz.image}", "${biz.category}", "${biz.rating}", ${JSON.stringify(biz.reviews)})' style='background: #112021; border-radius: 12px; padding: 0; margin-bottom: 1rem; text-align: left; cursor: pointer; overflow: hidden;'>
       <img src='${biz.image}' alt='${biz.name}' style='width: 100%; height: 150px; object-fit: cover;'>
@@ -153,100 +39,101 @@ function logout() {
   `;
   document.getElementById('bottom-navigation').style.display = 'flex';
 }
-function showMap() {
-  document.getElementById('app-content').innerHTML = `
-    <div style='text-align: center; padding: 1rem;'>
-      <h2 style='color: #fff;'>Business Map</h2>
-      <p style='color: #ccc;'>Explore businesses near you and see where Pi is accepted.</p>
-      <div id='map' style='height: 60vh; width: 100%; border-radius: 12px; margin-top: 1rem;'></div>
-    </div>
-  `;
-  document.getElementById('bottom-navigation').style.display = 'flex';
-  setTimeout(() => {
-    if (typeof initMap === 'function') initMap();
-  }, 300);
-}
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0e1a1c;
-      color: #f0f0f0;
-    }
-    .hero-image {
-      position: relative;
-      height: 100vh;
-      background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 2rem 1.5rem;
-    }
-    .hero-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 50%;
-      background: linear-gradient(to top, rgba(14,26,28,0.85), rgba(14,26,28,0));
-      z-index: 1;
-    }
-    m%
-      left: 1rem;
-      right: 1rem;
-      z-index: 2;
-      text-align: left;
-      max-width: 66%;
-    }
-    .hero-button {
-      position: absolute;
-      bottom: 2rem;
-      right: 1.5rem;
-      z-index: 3;
-    }
-  </style>
-  <script>
-function showWelcome() {
-  document.getElementById('login-page').style.display = 'none';
-  document.getElementById('login-section').style.display = 'block';
-  document.getElementById('bottom-navigation').style.display = 'none';
-}
-function simulateLogin() {
-  document.getElementById('login-page').style.display = 'none';
-  document.getElementById('app-content').style.display = 'block';
-  showRewards();
-}
-    function goToLoginPage() {
-  console.log("➡️ goToLoginPage triggered");
-  document.getElementById('login-section').style.display = 'none';
-  document.getElementById('login-page').style.display = 'block';
-}
-    function showRewards() {
-  document.getElementById('app-content').innerHTML = `
-    <div style='text-align: center; padding: 2rem;'>
-      <h2 style='color: #fff; font-size: 2rem; margin-bottom: 0.5rem;'>Welcome back to <span style='color: #e6a845;'>Coinnect</span></h2>
-      <p style='color: #ccc; font-size: 1rem; margin-bottom: 2rem;'>Explore rewards, discover new businesses, and track your loyalty with Pi.</p>
-      <div style='display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;'>
-        <div style='background: #112021; border-radius: 16px; padding: 1rem 2rem; min-width: 140px;'>
-          <p style='color: #ccc; margin: 0;'>Visited</p>
-          <h3 style='color: #e6a845; margin: 0;'>6</h3>
-        </div>
-        <div style='background: #112021; border-radius: 16px; padding: 1rem 2rem; min-width: 140px;'>
-          <p style='color: #ccc; margin: 0;'>Rewards</p>
-          <h3 style='color: #e6a845; margin: 0;'>3</h3>
-        </div>
+
+  function goToLoginPage() {
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('login-page').style.display = 'block';
+  }
+
+  function showWelcome() {
+    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('app-content').style.display = 'none';
+    document.getElementById('bottom-navigation').style.display = 'none';
+  }
+
+  function simulateLogin() {
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('app-content').style.display = 'block';
+    document.getElementById('bottom-navigation').style.display = 'flex';
+    document.getElementById('app-content').innerHTML = `
+      <div style='padding: 2rem; color: #fff;'>
+        <h2>Welcome, Test User 👋</h2>
+        <p>This is your dashboard. From here you can browse businesses, view the map, or redeem rewards.</p>
       </div>
-      <div style='margin-top: 2rem;'>
-        <button onclick='logout()' style='background: none; color: #e6a845; border: 1px solid #e6a845; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;'>Log out</button>
-      </div>
-    </div>
     `;
-  document.getElementById('app-content').style.display = 'block';
-  document.getElementById('bottom-navigation').style.display = 'flex';
-    }
-  </script>
+  }
+
+  function showRewards() {
+    document.getElementById('app-content').innerHTML = `
+      <div style='padding: 2rem; color: #fff;'>
+        <h2>Your Rewards</h2>
+        <p>You haven't redeemed any rewards yet. Start visiting businesses and earning now!</p>
+        <button onclick='logout()' style='margin-top: 1rem; background:#e6a845; color:#000; padding:0.5rem 1rem; border:none; border-radius:8px; cursor:pointer;'>Log out</button>
+      </div>
+    `;
+    document.getElementById('bottom-navigation').style.display = 'flex';
+  }
+
+  function showMap() {
+    document.getElementById('app-content').innerHTML = `
+      <div style='text-align: center; padding: 1rem;'>
+        <h2 style='color: #fff;'>Business Map</h2>
+        <p style='color: #ccc;'>Explore businesses near you and see where Pi is accepted.</p>
+        <div id='map' style='height: 60vh; width: 100%; border-radius: 12px; margin-top: 1rem;'></div>
+      </div>
+    `;
+    document.getElementById('bottom-navigation').style.display = 'flex';
+    setTimeout(() => {
+      if (typeof initMap === 'function') initMap();
+    }, 300);
+  }
+
+  function showEditor() {
+    document.getElementById('app-content').innerHTML = `
+      <div style='padding: 2rem; color: #fff;'>
+        <h2>Add a Business</h2>
+        <p>This is where users can submit new business listings in the future.</p>
+      </div>
+    `;
+    document.getElementById('bottom-navigation').style.display = 'flex';
+  }
+
+  function showFavorites() {
+    document.getElementById('app-content').innerHTML = `
+      <div style='padding: 2rem; color: #fff;'>
+        <h2>Favorites</h2>
+        <p>Your saved businesses will appear here.</p>
+      </div>
+    `;
+    document.getElementById('bottom-navigation').style.display = 'flex';
+  }
+
+  function showBusinessProfile(name, desc, location, image, category, rating, reviews) {
+    document.getElementById('app-content').innerHTML = `
+      <div style='color: #fff;'>
+        <img src='${image}' alt='${name}' style='width: 100%; height: 200px; object-fit: cover;'>
+        <div style='padding: 1rem;'>
+          <h2>${name}</h2>
+          <p>${desc}</p>
+          <p><strong>📍 ${location}</strong></p>
+          <p>⭐ ${rating} — ${category}</p>
+          <h4 style='margin-top: 1rem;'>User Reviews</h4>
+          <ul style='padding-left: 1rem;'>${reviews.map(r => `<li>${r}</li>`).join('')}</ul>
+        </div>
+      </div>
+    `;
+    document.getElementById('bottom-navigation').style.display = 'flex';
+  }
+
+  function logout() {
+    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('app-content').style.display = 'none';
+    document.getElementById('app-content').innerHTML = '';
+    document.getElementById('bottom-navigation').style.display = 'none';
+  }
+</script>
 </head>
 <body>
   <div id="login-section">
