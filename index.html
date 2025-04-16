@@ -431,7 +431,6 @@ function loadMap() {
   console.log("📍 loadMap() called");
   const mapDiv = document.getElementById("map-container");
   console.log("🗺️ mapDiv:", mapDiv);
-  const mapDiv = document.getElementById("map-container");
   mapDiv.innerHTML = "";
   const map = L.map(mapDiv).setView([20, 0], 2);
   getTileLayer(mapTheme).addTo(map);
