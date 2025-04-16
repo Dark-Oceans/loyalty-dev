@@ -4,8 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js">function showBusinessProfile(name, desc, location, image, category, rating, reviews = []) {
+  <script src="https://sdk.minepi.com/pi-sdk.js">function showBusinessProfile(name, desc, location, image, category, rating, reviews) {
+  if (!reviews || !Array.isArray(reviews)) {
+    reviews = JSON.parse(localStorage.getItem(name + '-reviews') || '[]');
+  }
   const reviewHtml = reviews.map(r => `<li style='margin-bottom: 0.5rem;'>"${r}"</li>`).join('');
+  const isFav = localStorage.getItem(name + '-fav') === 'true';
+  const favIcon = isFav ? '❤️' : '🤍';
+  const favToggle = `onclick="toggleFavorite('${name}')"`;
+  const ratingInput = `<input type='number' id='user-rating' min='1' max='5' step='0.1' placeholder='Rate 1-5' style='width: 80px; margin-top: 0.5rem;'> <button onclick='submitRating("${name}")' style='margin-left: 0.5rem;'>Submit</button>`; margin-top: 0.5rem;'> <button onclick='submitRating("${name}")' style='margin-left: 0.5rem;'>Submit</button>`;
+  const mapFrame = `<iframe width='100%' height='200' frameborder='0' style='border:0; border-radius:12px; margin-top:1rem;' src='https://www.google.com/maps?q=${encodeURIComponent(location)}&output=embed' allowfullscreen></iframe>`;
+
+  document.getElementById('app-content').innerHTML = `
+    <div style='padding: 2rem;'>
+      <img src='${image}' alt='${name}' style='width: 100%; border-radius: 12px; margin-bottom: 1rem;'>
+      <h2 style='color: #e6a845;'>${name}</h2>
+      <p style='color: #ccc;'>${desc}</p>
+      <p style='color: #aaa;'>📍 ${location}</p>
+      <p style='color: #888;'>⭐ ${rating} — ${category}</p>
+      <div>${mapFrame}</div>
+      <button ${favToggle} style='margin-top: 1rem; background: none; color: #e6a845; border: none; font-size: 1.5rem;'>${favIcon} Favorite</button>
+      <h3 style='margin-top: 2rem; color: #fff;'>User Reviews</h3>
+      <ul style='color: #ccc; padding-left: 1.5rem;'>${reviewHtml}</ul>
+      <textarea id='user-review' rows='2' placeholder='Write a review...' style='width: 100%; margin-top: 1rem; padding: 0.5rem; border-radius: 8px; border: 1px solid #334b4e; background: #1a2d2f; color: #fff;'></textarea>
+      <button onclick='submitReview("${name}")' style='margin-top: 0.5rem; background: #e6a845; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: bold; cursor: pointer;'>Submit Review</button>
+      <div style='margin-top:1rem;'>${ratingInput}</div>
+      <button onclick='showDirectory()' style='margin-top: 2rem; background: none; color: #e6a845; border: none; cursor: pointer;'>← Back to Directory</button>
+    </div>
+  `;
+}"</li>`).join('');
   const isFav = localStorage.getItem(name + '-fav') === 'true';
   const favIcon = isFav ? '❤️' : '🤍';
   const favToggle = `onclick="toggleFavorite('${name}')"`;
@@ -49,6 +76,45 @@ function toggleFavorite(name) {
   const current = localStorage.getItem(name + '-fav') === 'true';
   localStorage.setItem(name + '-fav', !current);
   showDirectory();
+}
+function submitRating(name) {
+  const input = document.getElementById('user-rating');
+  const rating = parseFloat(input.value);
+  if (rating >= 1 && rating <= 5) {
+    alert(`Thanks for rating ${name} ${rating}⭐!`);
+    input.value = '';
+  } else {
+    alert('Please enter a rating between 1 and 5.');
+  }
+}
+
+function submitReview(name) {
+  const textarea = document.getElementById('user-review');
+  const review = textarea.value.trim();
+  if (review) {
+    const storedReviews = JSON.parse(localStorage.getItem(name + '-reviews') || '[]');
+    storedReviews.push(review);
+    localStorage.setItem(name + '-reviews', JSON.stringify(storedReviews));
+    textarea.value = '';
+    showBusinessProfile(name, '', '', '', '', '', storedReviews);
+  } else {
+    alert('Please enter a review before submitting.');
+  }
+}!`);
+    textarea.value = '';
+  } else {
+    alert('Please enter a review before submitting.');
+  }
+} ${rating}⭐!`);
+    input.value = '';
+  } else {
+    alert('Please enter a rating between 1 and 5.');
+  }
+}
+function logout() {
+  document.getElementById('app-content').style.display = 'none';
+  document.getElementById('login-section').style.display = 'block';
+  document.getElementById('bottom-navigation').style.display = 'none';
 }
 </script>
 <script>function showDirectory() {
@@ -169,30 +235,32 @@ function simulateLogin() {
   document.getElementById('login-page').style.display = 'block';
 }
     function showRewards() {
-      document.getElementById('app-content').innerHTML = `
-        <div style='text-align: center; padding: 2rem;'>
-          <h2 style='color: #fff; font-size: 2rem; margin-bottom: 0.5rem;'>Welcome back to <span style='color: #e6a845;'>Coinnect</span></h2>
-          <p style='color: #ccc; font-size: 1rem; margin-bottom: 2rem;'>Explore rewards, discover new businesses, and track your loyalty with Pi.</p>
-          <div style='display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;'>
-            <div style='background: #112021; border-radius: 16px; padding: 1rem 2rem; min-width: 140px;'>
-              <p style='color: #ccc; margin: 0;'>Visited</p>
-              <h3 style='color: #e6a845; margin: 0;'>6</h3>
-            </div>
-            <div style='background: #112021; border-radius: 16px; padding: 1rem 2rem; min-width: 140px;'>
-              <p style='color: #ccc; margin: 0;'>Rewards</p>
-              <h3 style='color: #e6a845; margin: 0;'>3</h3>
-            </div>
-          </div>
+  document.getElementById('app-content').innerHTML = `
+    <div style='text-align: center; padding: 2rem;'>
+      <h2 style='color: #fff; font-size: 2rem; margin-bottom: 0.5rem;'>Welcome back to <span style='color: #e6a845;'>Coinnect</span></h2>
+      <p style='color: #ccc; font-size: 1rem; margin-bottom: 2rem;'>Explore rewards, discover new businesses, and track your loyalty with Pi.</p>
+      <div style='display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;'>
+        <div style='background: #112021; border-radius: 16px; padding: 1rem 2rem; min-width: 140px;'>
+          <p style='color: #ccc; margin: 0;'>Visited</p>
+          <h3 style='color: #e6a845; margin: 0;'>6</h3>
         </div>
-        <div style='display: flex; flex-wrap: wrap; justify-content: space-around; padding: 1rem;'>
-          <button onclick='showDirectory()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Directory</button>
-          <button onclick='showMap()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Map</button>
-          <button onclick='showBrowse()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Browse</button>
-          <button onclick='showEditor()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Add Business</button>
+        <div style='background: #112021; border-radius: 16px; padding: 1rem 2rem; min-width: 140px;'>
+          <p style='color: #ccc; margin: 0;'>Rewards</p>
+          <h3 style='color: #e6a845; margin: 0;'>3</h3>
         </div>
-      `;
-      document.getElementById('app-content').style.display = 'block';
-      document.getElementById('bottom-navigation').style.display = 'flex';
+      </div>
+      <div style='margin-top: 2rem;'>
+        <button onclick='logout()' style='background: none; color: #e6a845; border: 1px solid #e6a845; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;'>Log out</button>
+      </div>
+    </div>
+    <div style='display: flex; flex-wrap: wrap; justify-content: space-around; padding: 1rem;'>
+      <button onclick='showDirectory()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Directory</button>
+      <button onclick='showMap()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Map</button>
+      <button onclick='showBrowse()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Browse</button>
+      <button onclick='showEditor()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Add Business</button>
+    </div>`;
+  document.getElementById('app-content').style.display = 'block';
+  document.getElementById('bottom-navigation').style.display = 'flex';
     }
   </script>
 </head>
