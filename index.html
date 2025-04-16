@@ -102,7 +102,7 @@ function showDirectory() {
     <div style="position: absolute; top: 1rem; left: 1rem; z-index: 2;">
       <button onclick="location.reload()" style="background: none; border: none; color: white; font-size: 1.25rem; padding: 0.5rem 0.75rem; cursor: pointer;">←</button>
     </div>
-    <div style="position: absolute; top: 33%; left: 0; right: 0; background: linear-gradient(to top, rgba(14,26,28,0.95), rgba(14,26,28,0)); padding: 2rem 1.5rem; z-index: 2;">
+    <div style="position: absolute; top: 33%; left: 0; right: 0; padding: 2rem 1.5rem; z-index: 2; background: linear-gradient(to bottom, rgba(14,26,28,0.95), rgba(14,26,28,0));">
       <h2 style="color: #fff; margin-bottom: 0.5rem;">Login</h2>
       <p style="color: #e6a845; font-size: 0.875rem; margin-bottom: 1.5rem;">Use your Pi Network credentials to log in</p>
       <div style="margin-bottom: 1rem; display: flex; align-items: center; border-bottom: 1px solid #e6a845; padding: 0.5rem 0;">
@@ -143,6 +143,18 @@ function showDirectory() {
 <script>
   function simulateLogin() {
   document.getElementById('login-section').style.display = 'none';
+  document.getElementById('app-content').innerHTML = `
+    <div style='text-align: center; padding: 2rem;'>
+      <h2 style='color: #fff;'>Welcome back to Coinnect!</h2>
+      <p style='color: #e6a845;'>Explore rewards, discover new businesses, and track your loyalty with Pi.</p>
+    </div>
+    <div style='display: flex; flex-wrap: wrap; justify-content: space-around; padding: 1rem;'>
+      <button onclick='showDirectory()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Directory</button>
+      <button onclick='showMap()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Map</button>
+      <button onclick='showBrowse()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Browse</button>
+      <button onclick='showEditor()' style='background: #112021; color: #fff; border: none; padding: 1rem; border-radius: 12px; width: 45%; margin: 0.5rem;'>Add Business</button>
+    </div>
+  `;
   document.getElementById('app-content').style.display = 'block';
   document.getElementById('bottom-navigation').style.display = 'flex';
 }
