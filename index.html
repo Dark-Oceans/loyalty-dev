@@ -90,20 +90,22 @@
     .input-field {
       position: relative;
       margin-bottom: 1.5rem;
+      padding: 0 1rem;
     }
     .input-field input {
       width: 100%;
       padding: 0.75rem 0.75rem 0.5rem 2.5rem;
       background: transparent;
       border: none;
-      border-bottom: 2px solid #ffb84d;
+      border-bottom: 1px solid #ffb84d;
+      border-radius: 0;
       color: #fff;
       font-size: 1rem;
     }
     .input-field svg {
       position: absolute;
       top: 50%;
-      left: 0.5rem;
+      left: 1.5rem;
       transform: translateY(-50%);
       width: 20px;
       height: 20px;
@@ -114,7 +116,8 @@
       background-color: #1a2d2f;
       border-radius: 16px;
       overflow: hidden;
-      margin-bottom: 1rem;
+      margin: 1rem;
+      padding: 0 1rem;
       cursor: pointer;
     }
     .directory-card img {
@@ -175,7 +178,7 @@
     }
     #profile-screen .profile-info {
       position: relative;
-      padding: 1.5rem;
+      padding: 1.5rem 1rem;
       z-index: 2;
     }
     #profile-screen .profile-title {
@@ -197,6 +200,9 @@
       margin-top: 1rem;
       cursor: pointer;
     }
+    #rewards-section {
+      padding: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -206,7 +212,7 @@
     <div class="hero-content">
       <h1>Welcome to Coinnect</h1>
       <p>Rewards powered by Pi</p>
-      <button onclick="goToLoginPage()">Continue</button>
+      <button id="continue-btn">Continue</button>
     </div>
   </div>
 
@@ -225,7 +231,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 17a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3a2 2 0 0 0 2 2zm6-9h-1V6a5 5 0 0 0-10 0v2H6c-1.1 0-2 .9-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10c0-1.1-.9-2-2-2zM8 6a4 4 0 0 1 8 0v2H8V6z"/></svg>
         <input type="password" id="password" placeholder="Password">
       </div>
-      <button style="width: fit-content; background:#ffb84d; color:#000; padding:0.5rem 1.25rem; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Login</button>
+      <button id="login-btn" style="width: fit-content; background:#ffb84d; color:#000; padding:0.5rem 1.25rem; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Login</button>
     </div>
   </div>
 
@@ -239,18 +245,19 @@
   </div>
 
 <script>
+document.getElementById("continue-btn").addEventListener("click", () => {
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'block';
+});
+
+document.getElementById("login-btn").addEventListener("click", () => {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('profile-screen').style.display = 'block';
+});
+
 function toggleFavorite(button) {
   button.classList.toggle('active');
   button.innerHTML = button.classList.contains('active') ? '❤️' : '🤍';
-}
-function goToLoginPage() {
-  document.getElementById('welcome-screen').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'block';
-}
-function goToDirectoryProfile(name) {
-  document.getElementById('welcome-screen').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('profile-screen').style.display = 'block';
 }
 </script>
 </body>
