@@ -79,6 +79,14 @@
       cursor: pointer;
       font-weight: 600;
     }
+    .hero-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      z-index: 3;
+    }
     .input-field {
       position: relative;
       margin-bottom: 1.5rem;
@@ -101,11 +109,100 @@
       height: 20px;
       fill: #ffb84d;
     }
+    .directory-card {
+      position: relative;
+      background-color: #1a2d2f;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+    .directory-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .directory-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0.75rem;
+    }
+    .directory-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fff;
+    }
+    .directory-rating {
+      background: #334b4e;
+      color: #ffb84d;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      display: inline-block;
+    }
+    .directory-favorite {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      fill: #ffb84d;
+      cursor: pointer;
+    }
+    #profile-screen {
+      display: none;
+      background-color: #0e1a1c;
+    }
+    #profile-screen .profile-header {
+      position: relative;
+      width: 100%;
+      height: 50vh;
+      background-size: cover;
+      background-position: center;
+    }
+    #profile-screen .profile-header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), #0e1a1c);
+    }
+    #profile-screen .profile-info {
+      position: relative;
+      padding: 1.5rem;
+      z-index: 2;
+    }
+    #profile-screen .profile-title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    #profile-screen .profile-description {
+      font-size: 1rem;
+      color: #ccc;
+      margin-top: 0.5rem;
+    }
+    #profile-screen .btn-primary {
+      background: #ffb84d;
+      color: #000;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div id="welcome-screen" class="hero-image">
     <div class="hero-overlay"></div>
+    <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
     <div class="hero-content">
       <h1>Welcome to Coinnect</h1>
       <p>Rewards powered by Pi</p>
@@ -113,108 +210,48 @@
     </div>
   </div>
 
-  <div id="login-screen" class="screen" style="display:none;">
-    <h2>Login</h2>
-    <div class="input-field">
-      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      <input type="text" id="username" placeholder="Username">
+  <div id="login-screen" style="display:none;">
+    <div style="position: relative; height: 33vh; background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center / cover no-repeat;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(14,26,28,0.1), #0e1a1c);"></div>
     </div>
-    <div class="input-field">
-      <svg viewBox="0 0 24 24"><path d="M12 17a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3a2 2 0 0 0 2 2zm6-9h-1V6a5 5 0 0 0-10 0v2H6c-1.1 0-2 .9-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10c0-1.1-.9-2-2-2zM8 6a4 4 0 0 1 8 0v2H8V6z"/></svg>
-      <input type="password" id="password" placeholder="Password">
+    <div class="screen">
+      <h2 style="color: #fff; margin-top: 2rem;">Login</h2>
+      <p style="color: #ffb84d; font-size: 0.9rem; margin-bottom: 1.5rem;">Use your Pi credentials to log in</p>
+      <div class="input-field">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <input type="text" id="username" placeholder="Username">
+      </div>
+      <div class="input-field">
+        <svg viewBox="0 0 24 24"><path d="M12 17a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3a2 2 0 0 0 2 2zm6-9h-1V6a5 5 0 0 0-10 0v2H6c-1.1 0-2 .9-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10c0-1.1-.9-2-2-2zM8 6a4 4 0 0 1 8 0v2H8V6z"/></svg>
+        <input type="password" id="password" placeholder="Password">
+      </div>
+      <button style="width: fit-content; background:#ffb84d; color:#000; padding:0.5rem 1.25rem; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Login</button>
     </div>
-    <button style="width: fit-content; background:#ffb84d; color:#000; padding:0.5rem 1.25rem; border:none; border-radius:8px; cursor:pointer; font-weight:bold;" onclick="simulateLogin()">Login</button>
   </div>
 
-  <div id="app-content" class="screen" style="display:none;"></div>
-
-  <div id="bottom-navigation" class="nav-bar" style="display:none;">
-    <button onclick="showRewards()">
-      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-    </button>
-    <button onclick="showDirectory()">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    </button>
-    <button onclick="alert('Map coming soon')">
-      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.73-2.67 6.67-5 9.88C9.67 15.67 7 11.73 7 9z"/></svg>
-    </button>
-    <button onclick="alert('Favorites coming soon')">
-      <svg viewBox="0 0 24 24"><path d="M19 21l-7-5.3L5 21V5c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2v16z"/></svg>
-    </button>
-    <button onclick="logout()">
-      <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59z"/></svg>
-    </button>
+  <div id="profile-screen">
+    <div class="profile-header" style="background-image: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=800&q=80');"></div>
+    <div class="profile-info">
+      <div class="profile-title">Stellar Styles Salon</div>
+      <div class="profile-description">Trendy salon offering loyalty rewards via Coinnect. Book now and earn Pi on every visit.</div>
+      <button class="btn-primary">Book Now</button>
+    </div>
   </div>
 
-  <script>
-    function goToLoginPage() {
-      document.getElementById('welcome-screen').style.display = 'none';
-      document.getElementById('login-screen').style.display = 'block';
-    }
-
-    function simulateLogin() {
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('app-content').style.display = 'block';
-      document.getElementById('bottom-navigation').style.display = 'flex';
-      showRewards();
-    }
-
-    function logout() {
-      document.getElementById('app-content').style.display = 'none';
-      document.getElementById('bottom-navigation').style.display = 'none';
-      document.getElementById('welcome-screen').style.display = 'block';
-    }
-
-    function showRewards() {
-      document.getElementById('app-content').innerHTML = `
-        <h2>Welcome, Test User 👋</h2>
-        <p>This is your dashboard. From here you can browse businesses, view the map, or redeem rewards.</p>
-        <h3>Your Rewards</h3>
-        <div style='margin-top: 1rem;'>
-          <div style='background: #1a2d2f; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;'>
-            <h3 style='color: #e6a845; margin: 0 0 0.5rem;'>Moon Brew Café</h3>
-            <p style='margin: 0;'>3 visits • Last visit: Apr 10</p>
-            <div style='margin-top: 0.5rem; background: #334b4e; border-radius: 8px; overflow: hidden; height: 10px;'>
-              <div style='width: 60%; background: #e6a845; height: 100%; transition: width 1s ease;'></div>
-            </div>
-            <p style='margin: 0.25rem 0; font-size: 0.8rem; color: #aaa;'>3 / 5 visits</p>
-          </div>
-          <div style='background: #1a2d2f; padding: 1rem; border-radius: 12px;'>
-            <h3 style='color: #e6a845; margin: 0 0 0.5rem;'>Gravity Gym</h3>
-            <p style='margin: 0;'>5 visits • Last visit: Apr 14</p>
-            <div style='margin-top: 0.5rem; background: #334b4e; border-radius: 8px; overflow: hidden; height: 10px;'>
-              <div style='width: 100%; background: #e6a845; height: 100%; transition: width 1s ease;'></div>
-            </div>
-            <p style='margin: 0.25rem 0; font-size: 0.8rem; color: #aaa;'>5 / 5 visits</p>
-          </div>
-        </div>`;
-    }
-
-    function showDirectory() {
-      const listings = [
-        { name: 'Moon Brew Café', desc: 'Crypto-friendly café with Pi payments', location: 'London, UK', image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=600&q=80', category: 'Cafe', rating: 4.8 },
-        { name: 'Gravity Gym', desc: 'Fitness center accepting Pi rewards', location: 'New York, USA', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?fit=crop&w=600&q=80', category: 'Fitness', rating: 4.6 },
-        { name: 'Stellar Styles Salon', desc: 'Loyalty-based rewards via Coinnect', location: 'Los Angeles, USA', image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=600&q=80', category: 'Salon', rating: 4.7 }
-      ];
-
-      const cards = listings.map(biz => `
-        <div style='background: #112021; border-radius: 16px; padding: 0; margin-bottom: 1rem; text-align: left; cursor: pointer; overflow: hidden; position: relative;'>
-          <img src='${biz.image}' alt='${biz.name}' style='width: 100%; height: 180px; object-fit: cover; filter: brightness(0.6);'>
-          <div style='position: absolute; bottom: 1rem; left: 1rem; right: 1rem; color: #fff;'>
-            <h3 style='margin: 0; font-size: 1.25rem;'>${biz.name}</h3>
-            <p style='margin: 0.25rem 0; font-size: 0.9rem;'>${biz.desc}</p>
-            <p style='margin: 0; font-size: 0.8rem;'>📍 ${biz.location}</p>
-            <p style='margin: 0.25rem 0; font-size: 0.8rem;'>⭐ ${biz.rating} — ${biz.category}</p>
-          </div>
-        </div>
-      `).join('');
-
-      document.getElementById('app-content').innerHTML = `
-        <div style='text-align: center; padding: 2rem;'>
-          <h2 style='color: #fff;'>Business Directory</h2>
-          <div id='directory-list' style='padding: 1rem;'>${cards}</div>
-        </div>`;
-    }
-  </script>
+<script>
+function toggleFavorite(button) {
+  button.classList.toggle('active');
+  button.innerHTML = button.classList.contains('active') ? '❤️' : '🤍';
+}
+function goToLoginPage() {
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'block';
+}
+function goToDirectoryProfile(name) {
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('profile-screen').style.display = 'block';
+}
+</script>
 </body>
 </html>
