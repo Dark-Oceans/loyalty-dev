@@ -347,12 +347,21 @@ function showBrowse() {
   container.innerHTML = Object.keys(listings).length === 0 ? '<p>No listings found.</p>' : '';
   for (const [name, info] of Object.entries(listings)) {
     container.innerHTML += `
-      <div class='business-card clickable' onclick='showProfile("${name}")'>
-        <strong>${name}</strong><br>
-        ⭐ ${info.rating}<br>
-        ${info.image ? `<img src='${info.image}' style='width:100%; margin-top:0.5rem; border-radius:8px;'>` : ''}
-        <p style='margin-top:0.5rem;'>${info.description}</p>
-      </div>
+      <div class='business-card clickable' onclick='showProfile("${name}")' style='padding:0; overflow:hidden; position:relative;'>
+  ${info.image ? `<div style='position:relative; height:200px; background-image:url(${info.image}); background-size:cover; background-position:center;'>
+    <div style='position:absolute; top:0; left:0; right:0; bottom:0; background: linear-gradient(to top, rgba(14,26,28,0.9), rgba(14,26,28,0.1));'></div>
+    <div style='position:absolute; top:0.5rem; right:0.5rem; z-index:3;'>
+      <span onclick='toggleFavorite(event, "${name}")' style='font-size: 1.5rem; cursor: pointer;'>
+        <span id="fav-${name}">🔖</span>
+      </span>
+    </div>
+    <div style='position:absolute; bottom:1rem; left:1rem; right:1rem; color:#fff;'>
+      <h3 style='margin:0 0 0.25rem;'>${name}</h3>
+      <p style='margin:0; font-size:0.9rem;'>⭐ ${info.rating}</p>
+      <p style='margin:0.25rem 0 0; font-size:0.8rem; color:#ccc;'>${info.description}</p>
+    </div>
+  </div>` : ''}
+</div>
     `;
   }
   document.getElementById('browse-section').style.display = 'block';
@@ -504,6 +513,28 @@ function loadMap() {
   });
   map.addLayer(markerGroup);
 }
+
+function toggleFavorite(event, name) {
+  event.stopPropagation();
+  const favs = JSON.parse(localStorage.getItem('favoriteListings') || '{}');
+  const el = document.getElementById(`fav-${name}`);
+  if (favs[name]) {
+    delete favs[name];
+    el.textContent = '🔖';
+  } else {
+    favs[name] = true;
+    el.textContent = '📌';
+  }
+  localStorage.setItem('favoriteListings', JSON.stringify(favs));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const favs = JSON.parse(localStorage.getItem('favoriteListings') || '{}');
+  Object.keys(favs).forEach(name => {
+    const el = document.getElementById(`fav-${name}`);
+    if (el) el.textContent = '📌';
+  });
+});
 </script>
 </body>
 </html>
