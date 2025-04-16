@@ -92,25 +92,35 @@
     color: #ccc;
   }
   .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(17, 32, 33, 0.95);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: space-around;
-    padding: 0.75rem 0;
-    border-top: 1px solid #334b4e;
-    z-index: 9999;
-  }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(17, 32, 33, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  border-top: 1px solid #334b4e;
+  z-index: 9999;
+  height: 60px;
+}
   .bottom-nav button {
-    background: none;
-    border: none;
-    color: #ffb84d;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
+  background: none;
+  border: none;
+  color: #e6a845;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  transition: transform 0.2s ease;
+}
+.bottom-nav button:active {
+  transform: scale(0.95);
+}
 </style>
 </head>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
@@ -124,7 +134,7 @@
     <p>This app must be opened inside the Pi Browser to log in and use Pi features.</p>
   </div>
 
-  <div id="login-section" style="overflow-y: auto; height: 100vh; display: flex; flex-direction: column; justify-content: flex-start; margin: 0; padding: 0;">
+  <div id="login-section" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 0; margin: 0; overflow: hidden;">
   <div class="hero-image" style="height: 70vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem 1.5rem; background-position: center; background-size: cover;">
   <div class="hero-overlay"></div>
   <div class="hero-content" style="position: relative; z-index: 2; text-align: left;">
@@ -291,11 +301,11 @@ window.onload = function() {
 <footer style="text-align:center; color:#888; font-size:0.8rem; padding:2rem 1rem 1rem;">
   Build v0.1 Dev – Coinnect (Test Mode)
 </footer>
-<div class="bottom-nav">
-  <button onclick="showDirectory()">🏪</button>
-  <button onclick="showMap()">🗺</button>
-  <button onclick="showEditor()">➕</button>
-</div>
+<script>
+  if (document.getElementById('login-section').style.display === 'block') {
+    document.querySelector('.bottom-nav').style.display = 'none';
+  }
+</script>
 <script>
 function hideAllSections() {
   const sections = ['app-content','directory-section','rewards-section','map-section','editor-section','browse-section','profile-section'];
