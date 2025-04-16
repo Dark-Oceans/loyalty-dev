@@ -13,8 +13,21 @@
     document.getElementById('app-content').innerHTML = '<h2>Map</h2><p>Feature coming soon.</p>';
   }
   function showBrowse() {
-    document.getElementById('app-content').innerHTML = '<h2>Browse Listings</h2><p>Feature coming soon.</p>';
-  }
+  document.getElementById('app-content').innerHTML = `
+    <h2 style='text-align:center;'>Browse Listings</h2>
+    <div class="business-card" style="background: #112021; padding: 1rem; margin: 1rem auto; max-width: 500px; border-radius: 12px;">
+      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80" alt="Moon Brew Café" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;">
+      <h3 style="margin: 0; color: #fff;">Moon Brew Café</h3>
+      <p style="margin: 0.25rem 0; color: #ccc;">⭐ 4.8</p>
+      <p style="color: #aaa; font-size: 0.9rem;">Crypto-friendly café with Pi payment support.</p>
+    </div>
+    <div class="business-card" style="background: #112021; padding: 1rem; margin: 1rem auto; max-width: 500px; border-radius: 12px;">
+      <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=800&q=80" alt="Stellar Styles Salon" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;">
+      <h3 style="margin: 0; color: #fff;">Stellar Styles Salon</h3>
+      <p style="margin: 0.25rem 0; color: #ccc;">⭐ 4.6</p>
+      <p style="color: #aaa; font-size: 0.9rem;">Trendy salon offering loyalty rewards via Coinnect.</p>
+    </div>`;
+}
   function showEditor() {
     document.getElementById('app-content').innerHTML = '<h2>Add a Business</h2><p>Feature coming soon.</p>';
   }
