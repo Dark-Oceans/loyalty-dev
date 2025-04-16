@@ -5,236 +5,177 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-<script>
-function showDirectory() {
-  const listings = [
-    { name: 'Moon Brew Café', desc: 'Crypto-friendly café with Pi payments', location: 'London, UK', image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=600&q=80', category: 'Cafe', rating: 4.8, reviews: ['Best coffee and accepts Pi!', 'Great atmosphere.'] },
-    { name: 'Gravity Gym', desc: 'Fitness center accepting Pi rewards', location: 'New York, USA', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?fit=crop&w=600&q=80', category: 'Fitness', rating: 4.6, reviews: ['Very clean and professional.', 'Love redeeming Pi rewards here.'] },
-    { name: 'Stellar Styles Salon', desc: 'Loyalty-based rewards via Coinnect', location: 'Los Angeles, USA', image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=600&q=80', category: 'Salon', rating: 4.7, reviews: ['Excellent service and value.', 'Stylists are Pi-friendly!'] }
-  ];
-  const cards = listings.map(biz => `
-    <div onclick='showBusinessProfile("${biz.name}", "${biz.desc}", "${biz.location}", "${biz.image}", "${biz.category}", "${biz.rating}", ${JSON.stringify(biz.reviews)})' style='background: #112021; border-radius: 12px; padding: 0; margin-bottom: 1rem; text-align: left; cursor: pointer; overflow: hidden;'>
-      <img src='${biz.image}' alt='${biz.name}' style='width: 100%; height: 150px; object-fit: cover;'>
-      <div style='padding: 1rem;'>
-        <h3 style='margin: 0; color: #e6a845;'>${biz.name}</h3>
-        <p style='margin: 0.25rem 0; color: #ccc;'>${biz.desc}</p>
-        <p style='margin: 0; color: #aaa;'>📍 ${biz.location}</p>
-        <p style='margin: 0.25rem 0; color: #888;'>⭐ ${biz.rating} — ${biz.category}</p>
-      </div>
-    </div>
-  `).join('');
-
-  document.getElementById('app-content').innerHTML = `
-    <div style='text-align: center; padding: 2rem;'>
-      <h2 style='color: #fff;'>Business Directory</h2>
-      <input id='directory-search' placeholder='Search businesses...' oninput='filterDirectory(this.value)' style='margin: 1rem auto; padding: 0.5rem; width: 80%; border-radius: 8px; border: 1px solid #334b4e; background: #1a2d2f; color: #fff;'>
-      <select id='directory-category' onchange='filterDirectory(document.getElementById("directory-search").value)' style='margin-bottom: 1rem; padding: 0.5rem; background: #1a2d2f; color: #fff; border: 1px solid #334b4e; border-radius: 8px;'>
-        <option value=''>All Categories</option>
-        <option value='Cafe'>Cafe</option>
-        <option value='Fitness'>Fitness</option>
-        <option value='Salon'>Salon</option>
-      </select>
-      <div id='directory-list' style='padding: 1rem;'>${cards}</div>
-    </div>
-  `;
-  document.getElementById('bottom-navigation').style.display = 'flex';
-}
-
-  function goToLoginPage() {
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('login-page').style.display = 'block';
-  }
-
-  function showWelcome() {
-    document.getElementById('login-section').style.display = 'block';
-    document.getElementById('login-page').style.display = 'none';
-    document.getElementById('app-content').style.display = 'none';
-    document.getElementById('bottom-navigation').style.display = 'none';
-  }
-
-  function simulateLogin() {
-    document.getElementById('login-page').style.display = 'none';
-    document.getElementById('app-content').style.display = 'block';
-    document.getElementById('bottom-navigation').style.display = 'flex';
-    document.getElementById('app-content').innerHTML = `
-      <div style='padding: 2rem; color: #fff;'>
-        <h2>Welcome, Test User 👋</h2>
-        <p>This is your dashboard. From here you can browse businesses, view the map, or redeem rewards.</p>
-      </div>
-    `;
-  }
-
-  function showRewards() {
-  document.getElementById('app-content').innerHTML = `
-    <div style='padding: 2rem; color: #fff;'>
-      <h2>Welcome, Test User 👋</h2>
-      <p>This is your dashboard. From here you can browse businesses, view the map, or redeem rewards.</p>
-      <h2>Your Rewards</h2>
-      <p>You haven't redeemed any rewards yet. Start visiting businesses and earning now!</p>
-      <button onclick='logout()' style='margin-top: 1rem; background:#e6a845; color:#000; padding:0.5rem 1rem; border:none; border-radius:8px; cursor:pointer;'>Log out</button>
-    </div>
-  `;
-  document.getElementById('bottom-navigation').style.display = 'flex';
-}
-
-  function showMap() {
-    document.getElementById('app-content').innerHTML = `
-      <div style='text-align: center; padding: 1rem;'>
-        <h2 style='color: #fff;'>Business Map</h2>
-        <p style='color: #ccc;'>Explore businesses near you and see where Pi is accepted.</p>
-        <div id='map' style='height: 60vh; width: 100%; border-radius: 12px; margin-top: 1rem;'></div>
-      </div>
-    `;
-    document.getElementById('bottom-navigation').style.display = 'flex';
-    setTimeout(() => {
-      if (typeof initMap === 'function') initMap();
-    }, 300);
-  }
-
-  function showEditor() {
-    document.getElementById('app-content').innerHTML = `
-      <div style='padding: 2rem; color: #fff;'>
-        <h2>Add a Business</h2>
-        <p>This is where users can submit new business listings in the future.</p>
-      </div>
-    `;
-    document.getElementById('bottom-navigation').style.display = 'flex';
-  }
-
-  function showFavorites() {
-    document.getElementById('app-content').innerHTML = `
-      <div style='padding: 2rem; color: #fff;'>
-        <h2>Favorites</h2>
-        <p>Your saved businesses will appear here.</p>
-      </div>
-    `;
-    document.getElementById('bottom-navigation').style.display = 'flex';
-  }
-
-  function showBusinessProfile(name, desc, location, image, category, rating, reviews) {
-    document.getElementById('app-content').innerHTML = `
-      <div style='color: #fff;'>
-        <img src='${image}' alt='${name}' style='width: 100%; height: 200px; object-fit: cover;'>
-        <div style='padding: 1rem;'>
-          <h2>${name}</h2>
-          <p>${desc}</p>
-          <p><strong>📍 ${location}</strong></p>
-          <p>⭐ ${rating} — ${category}</p>
-          <h4 style='margin-top: 1rem;'>User Reviews</h4>
-          <ul style='padding-left: 1rem;'>${reviews.map(r => `<li>${r}</li>`).join('')}</ul>
-        </div>
-      </div>
-    `;
-    document.getElementById('bottom-navigation').style.display = 'flex';
-  }
-
-  function logout() {
-    document.getElementById('login-section').style.display = 'block';
-    document.getElementById('login-page').style.display = 'none';
-    document.getElementById('app-content').style.display = 'none';
-    document.getElementById('app-content').innerHTML = '';
-    document.getElementById('bottom-navigation').style.display = 'none';
-  }
-</script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0e1a1c;
+      color: #fff;
+    }
+    header, footer {
+      text-align: center;
+      padding: 1rem;
+    }
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #112021;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem 0;
+      border-top: 1px solid #334b4e;
+      z-index: 10;
+    }
+    .nav-bar button {
+      background: none;
+      border: none;
+      color: #ffb84d;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .screen {
+      padding: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .hero-image {
+      width: 100%;
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center / cover no-repeat;
+      position: relative;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to bottom, rgba(14,26,28,0.1), #0e1a1c);
+    }
+    .hero-content {
+      position: absolute;
+      bottom: 80px;
+      left: 20px;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: #fff;
+    }
+    .hero-content p {
+      color: #ffb84d;
+      font-size: 1rem;
+    }
+    .hero-content button {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #ffb84d;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  </style>
 </head>
-<body style="background: #0e1a1c;">
-  <div id="login-section">
-    <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: auto; z-index: 2; opacity: 0.95;" />
-    <div class="hero-image" style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80'); background-size: cover; background-position: center; height: 100vh; position: relative;">
-  <div class="hero-overlay"></div>
-  <div class="hero-content" style="position: absolute; bottom: 35%; left: 1.5rem; right: 1.5rem; z-index: 2;">
-    <h2 style="margin: 0; font-size: 2rem; color: #fff;">Welcome to Coinnect (Dev)</h2>
-    <p style="margin: 0.5rem 0 0; font-size: 1rem; color: #ccc;"><span style='color: #e6a845;'>Rewards powered by crypto, starting with Pi</span></p>
-  </div>
-  <div class="hero-button" style="position: absolute; bottom: 7rem; right: 1.5rem; z-index: 3;">
-    <button onclick="goToLoginPage()" style="background: #e6a845; color: #000; padding: 0.75rem 1.5rem; border: none; border-radius: 999px; font-size: 0.875rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">→</button>
-  </div>
-</div>
-</div>
-  </div>
-
-  <div id="login-page" style="display: none;">
-  <div style="position: relative; height: 100vh; background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-    <button onclick="showWelcome()" style="position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: #fff; font-size: 1.5rem; z-index: 2;">←</button>
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; padding: 2rem 1.5rem; background: linear-gradient(to bottom, rgba(14,26,28,0.95) 33%, rgba(14,26,28,0) 100%); display: flex; flex-direction: column; justify-content: flex-end;">
-      <h2 style="color: #fff; margin-bottom: 0.5rem;">Login</h2>
-      <p style="color: #e6a845; font-size: 0.875rem; margin-bottom: 1.5rem;">Use your Pi Network credentials to log in</p>
-      <div style="margin-bottom: 1rem; display: flex; align-items: center; border-bottom: 1px solid #e6a845; padding: 0.5rem 0;">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style="margin-right: 0.5rem; color: #e6a845;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a.75.75 0 00.82 0L21 8m0 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 8m18 0v8.25a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 16.25V8" /></svg>
-        <input type="text" placeholder="Username or Email" style="flex: 1; background: transparent; border: none; color: #fff; outline: none;" />
-      </div>
-      <div style="margin-bottom: 1rem; display: flex; align-items: center; border-bottom: 1px solid #e6a845; padding: 0.5rem 0;">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" style="margin-right: 0.5rem; color: #e6a845;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15.75a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM5.25 9.75v9a.75.75 0 00.75.75h12a.75.75 0 00.75-.75v-9M8.25 9.75V7.5a3.75 3.75 0 117.5 0v2.25" /></svg>
-        <input type="password" placeholder="Password" style="flex: 1; background: transparent; border: none; color: #fff; outline: none;" />
-      </div>
-      <button onclick="simulateLogin()" style="background: #e6a845; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: bold; cursor: pointer; width: 50%; color: #0e1a1c;">Login</button>
+<body>
+  <div id="welcome-screen" class="hero-image">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Welcome to Coinnect</h1>
+      <p>Rewards powered by Pi</p>
+      <button onclick="goToLoginPage()">Continue</button>
     </div>
   </div>
-</div>
-<div id="app-content" style="display:none;"></div>
-  <div id="bottom-navigation" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(17, 32, 33, 0.95); backdrop-filter: blur(10px); justify-content: space-around; padding: 0.5rem 0; border-top: 1px solid #334b4e; z-index: 9999; height: 60px;">
-  <button onclick="showRewards()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
-    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
-      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' />
-    </svg>
-  </button>
-  <button onclick="showDirectory()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
-    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
-      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 7h18M3 12h18M3 17h18' />
-    </svg>
-  </button>
-  <button onclick="showMap()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
-    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
-      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM12 11a2 2 0 100-4 2 2 0 000 4z' />
-    </svg>
-  </button>
-  <button onclick="showEditor()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
-    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
-      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 4v16m8-8H4' />
-    </svg>
-  </button>
-  <button onclick="showFavorites()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
-    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
-      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 15l7-7 7 7' />
-    </svg>
-  </button>
-</div>
-<script>
-  function initMap() {
-    const center = { lat: 51.5074, lng: -0.1278 };
-    const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 2,
-      center,
-      styles: [
-        { elementType: 'geometry', stylers: [{ color: '#1a2d2f' }] },
-        { elementType: 'labels.text.stroke', stylers: [{ color: '#1a2d2f' }] },
-        { elementType: 'labels.text.fill', stylers: [{ color: '#f0f0f0' }] },
-        { featureType: 'administrative', elementType: 'geometry', stylers: [{ visibility: 'off' }] },
-        { featureType: 'poi', elementType: 'geometry', stylers: [{ visibility: 'off' }] },
-        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#334b4e' }] },
-        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0e1a1c' }] }
-      ]
-    });
-    const listings = [
-      { name: 'Moon Brew Café', lat: 51.5074, lng: -0.1278 },
-      { name: 'Gravity Gym', lat: 40.7128, lng: -74.0060 },
-      { name: 'Stellar Styles Salon', lat: 34.0522, lng: -118.2437 }
-    ];
-    const markers = listings.map(biz => new google.maps.Marker({
-      position: { lat: biz.lat, lng: biz.lng },
-      title: biz.name,
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 8,
-        fillColor: '#e6a845',
-        fillOpacity: 1,
-        strokeWeight: 0
-      }
-    }));
-    new markerClusterer.MarkerClusterer({ map, markers });
-  }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_REAL_API_KEY&callback=initMap" async></script>
-<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js" async></script>
+
+  <div id="login-screen" class="screen" style="display:none;">
+    <h2>Login</h2>
+    <input type="text" placeholder="Username" style="width:100%; padding:0.5rem; margin-bottom:1rem;">
+    <input type="password" placeholder="Password" style="width:100%; padding:0.5rem; margin-bottom:1rem;">
+    <button style="width:100%; padding:0.75rem; background:#ffb84d; color:#000; font-weight:bold; border:none; border-radius:8px;" onclick="simulateLogin()">Login</button>
+  </div>
+
+  <div id="app-content" class="screen" style="display:none;"></div>
+
+  <div id="bottom-navigation" class="nav-bar" style="display:none;">
+    <button onclick="showRewards()">✅</button>
+    <button onclick="showDirectory()">🏠</button>
+    <button onclick="alert('Map coming soon')">📍</button>
+    <button onclick="alert('Favorites coming soon')">🔖</button>
+  </div>
+
+  <script>
+    function goToLoginPage() {
+      document.getElementById('welcome-screen').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'block';
+    }
+
+    function simulateLogin() {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app-content').style.display = 'block';
+      document.getElementById('bottom-navigation').style.display = 'flex';
+      showRewards();
+    }
+
+    function showRewards() {
+      document.getElementById('app-content').innerHTML = `
+        <div style='padding: 2rem; color: #fff;'>
+          <h2>Welcome, Test User 👋</h2>
+          <p>This is your dashboard. From here you can browse businesses, view the map, or redeem rewards.</p>
+          <h2>Your Rewards</h2>
+          <div style='margin-top: 1rem;'>
+            <div style='background: #1a2d2f; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;'>
+              <h3 style='color: #e6a845; margin: 0 0 0.5rem;'>Moon Brew Café</h3>
+              <p style='margin: 0;'>3 visits • Last visit: Apr 10</p>
+              <div style='margin-top: 0.5rem; background: #334b4e; border-radius: 8px; overflow: hidden; height: 10px;'>
+                <div style='width: 60%; background: #e6a845; height: 100%; transition: width 1s ease;'></div>
+              </div>
+              <p style='margin: 0.25rem 0; font-size: 0.8rem; color: #aaa;'>3 / 5 visits</p>
+            </div>
+            <div style='background: #1a2d2f; padding: 1rem; border-radius: 12px;'>
+              <h3 style='color: #e6a845; margin: 0 0 0.5rem;'>Gravity Gym</h3>
+              <p style='margin: 0;'>5 visits • Last visit: Apr 14</p>
+              <div style='margin-top: 0.5rem; background: #334b4e; border-radius: 8px; overflow: hidden; height: 10px;'>
+                <div style='width: 100%; background: #e6a845; height: 100%; transition: width 1s ease;'></div>
+              </div>
+              <p style='margin: 0.25rem 0; font-size: 0.8rem; color: #aaa;'>5 / 5 visits</p>
+            </div>
+          </div>
+          <button onclick='logout()' style='margin-top: 2rem; background:#e6a845; color:#000; padding:0.5rem 1rem; border:none; border-radius:8px; cursor:pointer;'>Log out</button>
+        </div>`;
+    }
+
+    function logout() {
+      document.getElementById('app-content').style.display = 'none';
+      document.getElementById('bottom-navigation').style.display = 'none';
+      document.getElementById('welcome-screen').style.display = 'block';
+    }
+
+    function showDirectory() {
+      const listings = [
+        { name: 'Moon Brew Café', desc: 'Crypto-friendly café with Pi payments', location: 'London, UK', image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=600&q=80', category: 'Cafe', rating: 4.8 },
+        { name: 'Gravity Gym', desc: 'Fitness center accepting Pi rewards', location: 'New York, USA', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?fit=crop&w=600&q=80', category: 'Fitness', rating: 4.6 },
+        { name: 'Stellar Styles Salon', desc: 'Loyalty-based rewards via Coinnect', location: 'Los Angeles, USA', image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=600&q=80', category: 'Salon', rating: 4.7 }
+      ];
+
+      const cards = listings.map(biz => `
+        <div style='background: #112021; border-radius: 16px; padding: 0; margin-bottom: 1rem; text-align: left; cursor: pointer; overflow: hidden; position: relative;'>
+          <img src='${biz.image}' alt='${biz.name}' style='width: 100%; height: 180px; object-fit: cover; filter: brightness(0.6);'>
+          <div style='position: absolute; bottom: 1rem; left: 1rem; right: 1rem; color: #fff;'>
+            <h3 style='margin: 0; font-size: 1.25rem;'>${biz.name}</h3>
+            <p style='margin: 0.25rem 0; font-size: 0.9rem;'>${biz.desc}</p>
+            <p style='margin: 0; font-size: 0.8rem;'>📍 ${biz.location}</p>
+            <p style='margin: 0.25rem 0; font-size: 0.8rem;'>⭐ ${biz.rating} — ${biz.category}</p>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('app-content').innerHTML = `
+        <div style='text-align: center; padding: 2rem;'>
+          <h2 style='color: #fff;'>Business Directory</h2>
+          <div id='directory-list' style='padding: 1rem;'>${cards}</div>
+        </div>`;
+    }
+  </script>
 </body>
 </html>
