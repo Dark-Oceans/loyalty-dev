@@ -4,43 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js">function showRewards() {
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+<script>
+function showRewards() {
   document.getElementById('app-content').innerHTML = `
     <div style='text-align: center; padding: 2rem;'>
       <h2 style='color: #fff;'>My Rewards</h2>
       <p style='color: #e6a845;'>Track your reward progress with each business you visit.</p>
     </div>
     <div style='padding: 1rem;'>
-      $1
-        <button style='margin-top: 0.5rem; background: #e6a845; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;'>Redeem Now</button>
+      <div style='background: #112021; border-radius: 12px; padding: 1rem; margin-bottom: 1rem;'>
+        <h3 style='color: #fff;'>Moon Brew Café</h3>
+        <p style='color: #ccc;'>Stamps: ⭐⭐⭐⭐☆</p>
         <p style='color: #aaa; font-size: 0.9rem;'>1 more visit to earn a free drink.</p>
-      </div>
-      $1
         <button style='margin-top: 0.5rem; background: #e6a845; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;'>Redeem Now</button>
+      </div>
+      <div style='background: #112021; border-radius: 12px; padding: 1rem;'>
+        <h3 style='color: #fff;'>Gravity Gym</h3>
+        <p style='color: #ccc;'>Stamps: ⭐⭐⭐☆☆</p>
         <p style='color: #aaa; font-size: 0.9rem;'>2 more visits to unlock your reward.</p>
+        <button style='margin-top: 0.5rem; background: #e6a845; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;'>Redeem Now</button>
       </div>
     </div>
   `;
 }
-<script>
-function goToLoginPage() {
-  document.getElementById('login-section').style.display = 'none';
-  document.getElementById('app-content').style.display = 'block';
-  document.getElementById('bottom-navigation').style.display = 'none';
-}
-
-function showDirectory() {
-    document.getElementById('app-content').innerHTML = '<h2>Directory</h2><p>Feature coming soon.</p>';
-  }
-  function showMap() {
-    document.getElementById('app-content').innerHTML = '<h2>Map</h2><p>Feature coming soon.</p>';
-  }
-  function showBrowse() {
-  showDirectory();
-}
-  function showEditor() {
-    document.getElementById('app-content').innerHTML = '<h2>Add a Business</h2><p>Feature coming soon.</p>';
-  }
 </script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
