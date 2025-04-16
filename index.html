@@ -162,12 +162,12 @@
 </div>
 </div>
 </div>
-<div id="map-section" style="display:none; width: 100vw; height: 100vh; max-height: 100dvh; overflow: hidden; position: relative; background: #0e1a1c;">
-  <div id="map-container" style="width: 100%; height: 60vh; border-radius: 0;"></div>
-  <div id="map-carousel" style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; display: flex; gap: 1rem; overflow-x: auto; background: rgba(14,26,28,0.95); backdrop-filter: blur(6px);">
+<div id="map-section" style="display:none; width: 100vw; height: 100vh; overflow: hidden; position: relative; background: #0e1a1c;">
+  <div id="map-container" style="width: 100%; height: 100%; border-radius: 0; position: absolute; top: 0; left: 0; z-index: 1;"></div>
+  <div id="map-carousel" style="position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 1rem; display: flex; gap: 1rem; overflow-x: auto; background: rgba(14,26,28,0.95); backdrop-filter: blur(6px);">
     <!-- Carousel items will populate here -->
   </div>
-  <button onclick="goBack()" style="position: absolute; top: 1rem; left: 1rem; background: #ffb84d; color: #000; padding: 0.5rem 1rem; border-radius: 8px; border: none;">Back</button>
+  <button onclick="goBack()" style="position: absolute; top: 1rem; left: 1rem; z-index: 3; background: #ffb84d; color: #000; padding: 0.5rem 1rem; border-radius: 8px; border: none;">Back</button>
 </div>
 </div>
 <div id="editor-section" class="card" style="display:none;">
@@ -190,7 +190,7 @@
   <div id="biz-listings"></div>
   <button onclick="goBack()" style="background:none; color:#ffb84d; margin-top:1rem;">Back</button>
 </div>
-$1
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
