@@ -299,6 +299,9 @@ function showRewards() {
 
 function showMap() {
   hideAllSections();
+  document.getElementById('map-section').style.display = 'block';
+  setTimeout(() => { if (window._leafletMap) window._leafletMap.invalidateSize(); }, 200);
+  hideAllSections();
   loadMap();
   document.getElementById('map-section').style.display = 'block';
   populateMapCarousel();
@@ -434,7 +437,13 @@ function loadMap() {
   const mapDiv = document.getElementById("map-container");
   console.log("🗺️ mapDiv:", mapDiv);
   mapDiv.innerHTML = "";
-  const map = L.map(mapDiv).setView([20, 0], 2);
+
+  if (window._leafletMap) {
+    window._leafletMap.remove();
+    window._leafletMap = null;
+  }
+
+  const map = window._leafletMap = L.map(mapDiv).setView([20, 0], 2);
   getTileLayer(mapTheme).addTo(map);
 
   if (navigator.geolocation) {
