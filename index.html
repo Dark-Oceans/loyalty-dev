@@ -126,7 +126,7 @@ function logout() {
     { name: 'Stellar Styles Salon', desc: 'Loyalty-based rewards via Coinnect', location: 'Los Angeles, USA', image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=600&q=80', category: 'Salon', rating: 4.7, reviews: ['Excellent service and value.', 'Stylists are Pi-friendly!'] }
 ];
   const cards = listings.map(biz => `
-    <div onclick='showBusinessProfile($1, biz.reviews)' style='background: #112021; border-radius: 12px; padding: 0; margin-bottom: 1rem; text-align: left; cursor: pointer; overflow: hidden;'>
+    <div onclick='showBusinessProfile("${biz.name}", "${biz.desc}", "${biz.location}", "${biz.image}", "${biz.category}", "${biz.rating}", ${JSON.stringify(biz.reviews)})' style='background: #112021; border-radius: 12px; padding: 0; margin-bottom: 1rem; text-align: left; cursor: pointer; overflow: hidden;'>
       <img src='${biz.image}' alt='${biz.name}' style='width: 100%; height: 150px; object-fit: cover;'>
       <div style='padding: 1rem;'>
         <h3 style='margin: 0; color: #e6a845;'>${biz.name}</h3>
@@ -164,23 +164,41 @@ function showMap() {
         const center = { lat: 51.5074, lng: -0.1278 };
         const map = new google.maps.Map(document.getElementById('map'), {
           zoom: 2,
-          center
+          center,
+          styles: [
+            { elementType: 'geometry', stylers: [{ color: '#1a2d2f' }] },
+            { elementType: 'labels.text.stroke', stylers: [{ color: '#1a2d2f' }] },
+            { elementType: 'labels.text.fill', stylers: [{ color: '#f0f0f0' }] },
+            { featureType: 'administrative', elementType: 'geometry', stylers: [{ visibility: 'off' }] },
+            { featureType: 'poi', elementType: 'geometry', stylers: [{ visibility: 'off' }] },
+            { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#334b4e' }] },
+            { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0e1a1c' }] }
+          ]
         });
         const listings = [
           { name: 'Moon Brew Café', lat: 51.5074, lng: -0.1278 },
           { name: 'Gravity Gym', lat: 40.7128, lng: -74.0060 },
           { name: 'Stellar Styles Salon', lat: 34.0522, lng: -118.2437 }
         ];
-        listings.forEach(biz => {
-          new google.maps.Marker({
-            position: { lat: biz.lat, lng: biz.lng },
-            map,
-            title: biz.name
-          });
-        });
+        const markers = listings.map(biz => new google.maps.Marker({
+          position: { lat: biz.lat, lng: biz.lng },
+          title: biz.name,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            fillColor: '#e6a845',
+            fillOpacity: 1,
+            strokeWeight: 0
+          }
+        }));
+        new markerClusterer.MarkerClusterer({ map, markers });
       }
       const script = document.createElement('script');
       script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap';
+      const clusterScript = document.createElement('script');
+      clusterScript.src = 'https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js';
+      clusterScript.async = true;
+      document.head.appendChild(clusterScript);
       script.async = true;
       document.head.appendChild(script);
     <\/script>
