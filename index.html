@@ -46,7 +46,7 @@ function showEditor() {
     }
     .hero-content {
       position: absolute;
-      bottom: 25%;
+      bottom: 35%;
       left: 1rem;
       right: 1rem;
       z-index: 2;
@@ -112,10 +112,26 @@ function showEditor() {
 
   <div id="app-content" style="display:none;"></div>
   <div id="bottom-navigation" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(17, 32, 33, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 0.5rem 0; border-top: 1px solid #334b4e; z-index: 9999; height: 60px;">
-  <button onclick="showRewards()" style="background: none; border: none; color: #e6a845; font-size: 1.5rem; cursor: pointer;">🏠</button>
-  <button onclick="showDirectory()" style="background: none; border: none; color: #e6a845; font-size: 1.5rem; cursor: pointer;">📒</button>
-  <button onclick="showMap()" style="background: none; border: none; color: #e6a845; font-size: 1.5rem; cursor: pointer;">🗺️</button>
-  <button onclick="showEditor()" style="background: none; border: none; color: #e6a845; font-size: 1.5rem; cursor: pointer;">➕</button>
+  <button onclick="showRewards()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
+    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
+      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' />
+    </svg>
+  </button>
+  <button onclick="showDirectory()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
+    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
+      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 7h18M3 12h18M3 17h18' />
+    </svg>
+  </button>
+  <button onclick="showMap()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
+    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
+      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 20l-5.447-2.724A2 2 0 013 15.382V5.618a2 2 0 011.553-1.894L9 1m0 0l6 3m0 0l5.447 2.724A2 2 0 0121 8.618v9.764a2 2 0 01-1.553 1.894L15 23m0 0l-6-3' />
+    </svg>
+  </button>
+  <button onclick="showEditor()" style="background: none; border: none; color: #e6a845; cursor: pointer;">
+    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' width='24' height='24'>
+      <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 4v16m8-8H4' />
+    </svg>
+  </button>
 </div>
 </body>
 </html>
