@@ -73,5 +73,21 @@
       </svg>
     </button>
   </div>
+<script>
+  // Ensure nav visibility only when app content is shown
+  function updateBottomNavVisibility() {
+    const nav = document.querySelector('.bottom-nav');
+    const activeSection = document.querySelector('#app-content');
+    if (nav && activeSection && activeSection.style.display === 'block') {
+      nav.style.display = 'flex';
+    } else {
+      nav.style.display = 'none';
+    }
+  }
+
+  const sectionObserver = new MutationObserver(updateBottomNavVisibility);
+  sectionObserver.observe(document.body, { childList: true, subtree: true, attributes: true });
+  document.addEventListener('DOMContentLoaded', updateBottomNavVisibility);
+</script>
 </body>
 </html>
