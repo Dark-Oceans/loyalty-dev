@@ -78,7 +78,7 @@
 </head>
 <body>
   <div id="login-section" style="display: block; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 0; margin: 0; overflow: hidden;">
-  <img src="/mnt/data/2bddb8f8-432f-4eb7-8ee6-56609dad1d27.png" alt="Coinnect Logo" style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: auto; z-index: 2; opacity: 0.95;" />
+  <img src="/mnt/data/859fb099-03c9-4b00-a28a-8046c6137d99.png" alt="Coinnect Logo" style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: auto; z-index: 2; opacity: 0.95;" />
     <div class="hero-image" style="position: relative; height: 70vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem 1.5rem; background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
   <!-- Removed duplicate logo -->
   <div class="hero-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: linear-gradient(to top, rgba(14,26,28,0.85), rgba(14,26,28,0)); z-index: 1;"></div>
@@ -94,7 +94,7 @@
 </div>
 <div id="app-content" class="card" style="display:block; background-color: #0e1a1c; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"></div>
 
-  <div class="bottom-nav" style="display: none;">
+  <div class="bottom-nav" style="display: none;" id="bottom-navigation">
     <button onclick="showDirectory()">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z" />
@@ -120,10 +120,8 @@
   function simulateLogin() {
     document.getElementById('login-section').style.display = 'none';
     document.getElementById('app-content').style.display = 'block';
-    document.getElementById('username').innerText = 'TestUser';
-    document.getElementById('uid').innerText = '123456789';
-    updateBottomNavVisibility();
-  }
+    document.getElementById('bottom-navigation').style.display = 'flex';
+}
 
   // Ensure nav visibility only when app content is shown
   function updateBottomNavVisibility() {
