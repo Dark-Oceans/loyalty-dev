@@ -112,13 +112,12 @@ function submitReview(name) {
   }
 }
 function logout() {
-  document.getElementById('app-content').innerHTML = '';
-  document.getElementById('app-content').style.display = 'none';
   document.getElementById('login-section').style.display = 'block';
   document.getElementById('login-page').style.display = 'none';
+  document.getElementById('app-content').style.display = 'none';
+  document.getElementById('app-content').innerHTML = '';
   document.getElementById('bottom-navigation').style.display = 'none';
   localStorage.clear();
-  showWelcome();
 }
 </script>
 <script>function showDirectory() {
@@ -374,5 +373,42 @@ function simulateLogin() {
     </svg>
   </button>
 </div>
+<script>
+  function initMap() {
+    const center = { lat: 51.5074, lng: -0.1278 };
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 2,
+      center,
+      styles: [
+        { elementType: 'geometry', stylers: [{ color: '#1a2d2f' }] },
+        { elementType: 'labels.text.stroke', stylers: [{ color: '#1a2d2f' }] },
+        { elementType: 'labels.text.fill', stylers: [{ color: '#f0f0f0' }] },
+        { featureType: 'administrative', elementType: 'geometry', stylers: [{ visibility: 'off' }] },
+        { featureType: 'poi', elementType: 'geometry', stylers: [{ visibility: 'off' }] },
+        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#334b4e' }] },
+        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0e1a1c' }] }
+      ]
+    });
+    const listings = [
+      { name: 'Moon Brew Café', lat: 51.5074, lng: -0.1278 },
+      { name: 'Gravity Gym', lat: 40.7128, lng: -74.0060 },
+      { name: 'Stellar Styles Salon', lat: 34.0522, lng: -118.2437 }
+    ];
+    const markers = listings.map(biz => new google.maps.Marker({
+      position: { lat: biz.lat, lng: biz.lng },
+      title: biz.name,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 8,
+        fillColor: '#e6a845',
+        fillOpacity: 1,
+        strokeWeight: 0
+      }
+    }));
+    new markerClusterer.MarkerClusterer({ map, markers });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_REAL_API_KEY&callback=initMap" async></script>
+<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js" async></script>
 </body>
 </html>
