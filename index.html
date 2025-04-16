@@ -117,6 +117,8 @@ function logout() {
   document.getElementById('login-section').style.display = 'block';
   document.getElementById('login-page').style.display = 'none';
   document.getElementById('bottom-navigation').style.display = 'none';
+  localStorage.clear();
+  showWelcome();
 }
 </script>
 <script>function showDirectory() {
@@ -194,7 +196,7 @@ function showMap() {
         new markerClusterer.MarkerClusterer({ map, markers });
       }
       const script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap';
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_REAL_API_KEY&callback=initMap';
       const clusterScript = document.createElement('script');
       clusterScript.src = 'https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js';
       clusterScript.async = true;
