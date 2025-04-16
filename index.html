@@ -201,7 +201,12 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-oX4tRIpyL+0Y7czdKWD9y/lGS9jGEG7gXvS6RZbfqD3LxC8NW5N0AQt33E3zQj4c" crossorigin=""></script>
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 <script>
-function simulateLogin() {$1}
+function simulateLogin() {
+  document.getElementById('login-section').style.display = 'none';
+  document.getElementById('app-content').style.display = 'block';
+  document.getElementById('username').innerText = 'TestUser';
+  document.getElementById('uid').innerText = '123456789';
+}
 
 const scopes = ['username', 'payments'];
 const testMode = true;
