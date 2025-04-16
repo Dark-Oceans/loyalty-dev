@@ -4,18 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coinnect Dev</title>
-  <script src="https://sdk.minepi.com/pi-sdk.js">function showDirectory() {
-  alert('Directory view coming soon.');
-}
-function showMap() {
-  alert('Map view coming soon.');
-}
-function showBrowse() {
-  alert('Browse view coming soon.');
-}
-function showEditor() {
-  alert('Editor view coming soon.');
-}
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+<script>
+  function showDirectory() {
+    document.getElementById('app-content').innerHTML = '<h2>Directory</h2><p>Feature coming soon.</p>';
+  }
+  function showMap() {
+    document.getElementById('app-content').innerHTML = '<h2>Map</h2><p>Feature coming soon.</p>';
+  }
+  function showBrowse() {
+    document.getElementById('app-content').innerHTML = '<h2>Browse Listings</h2><p>Feature coming soon.</p>';
+  }
+  function showEditor() {
+    document.getElementById('app-content').innerHTML = '<h2>Add a Business</h2><p>Feature coming soon.</p>';
+  }
 </script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
@@ -63,7 +65,7 @@ function showEditor() {
 </head>
 <body>
   <div id="login-section" style="display: block; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 0; margin: 0; overflow: hidden;">
-  <img src="/mnt/data/7ff06efa-5884-4cb2-96a3-15f4eff02760.png" alt="Coinnect Logo" style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: auto; z-index: 2; opacity: 0.95;" />
+  <img src="https://cdn-icons-png.flaticon.com/512/763/763812.png" alt="Coinnect Logo" style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: auto; z-index: 2; opacity: 0.95;" />
     <div class="hero-image" style="position: relative; height: 70vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem 1.5rem; background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
   <img src="/mnt/data/7ff06efa-5884-4cb2-96a3-15f4eff02760.png" alt="Coinnect Logo" style="position: absolute; top: 1rem; right: 1rem; width: 60px; height: auto; z-index: 2; opacity: 0.95;" />
   <div class="hero-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: linear-gradient(to top, rgba(14,26,28,0.85), rgba(14,26,28,0)); z-index: 1;"></div>
@@ -78,9 +80,9 @@ function showEditor() {
   </div>
 </div>
 <div id="app-content" class="card" style="display:none; padding: 2rem; text-align: center; background-color: #0e1a1c;">
-  <img src="/mnt/data/7ff06efa-5884-4cb2-96a3-15f4eff02760.png" alt="Coinnect Logo" style="width: 60px; margin-bottom: 1rem;">
-  <h1 style="font-size: 2rem; color: #f0f0f0; margin-bottom: 0.25rem;">Stonecup Café</h1>
-  <p style="font-size: 1rem; color: #ccc; margin: 0.25rem 0;">Café</p>
+  <img src="https://cdn-icons-png.flaticon.com/512/763/763812.png" alt="Coinnect Logo" style="width: 60px; margin-bottom: 1rem;">
+  $1
+  <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80" alt="Business Image" style="width: 100%; max-width: 600px; margin: 1rem auto; border-radius: 12px; display: block;">
   <p style="background: #334b4e; display: inline-block; padding: 0.25rem 0.75rem; border-radius: 12px; margin-top: 1rem; color: #f0f0f0;">
     ⭐ 4.6
   </p>
