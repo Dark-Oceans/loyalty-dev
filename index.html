@@ -298,21 +298,6 @@
   }
 </style>
 
- <div class="nav-bar">
-   <button onclick="showScreen('dashboard-screen')">
-     <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/home.svg" alt="Home" style="width: 24px; height: 24px;">
-   </button>
-   <button onclick="showScreen('directory-screen')">
-     <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/folder-open.svg" alt="Directory" style="width: 24px; height: 24px;">
-   </button>
-   <button onclick="showScreen('map-screen')">
-     <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/map-pin.svg" alt="Map" style="width: 24px; height: 24px;">
-   </button>
-   <button onclick="showScreen('dashboard-screen')">
-     <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/award.svg" alt="Rewards" style="width: 24px; height: 24px;">
-   </button>
- </div>
-
  
    <!-- Register Screen -->
    <div id="register-screen" class="screen">
@@ -342,20 +327,6 @@
    </div>
  </div>
  
-  <div class="nav-bar">
-   <button onclick="showScreen('dashboard-screen')">
-     <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/home.svg" alt="Home" style="width: 24px; height: 24px;">
-   </button>
-   <button onclick="showScreen('directory-screen')">
-     <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/folder-open.svg" alt="Directory" style="width: 24px; height: 24px;">
-   </button>
-   <button onclick="showScreen('map-screen')">
-     <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/map-pin.svg" alt="Map" style="width: 24px; height: 24px;">
-   </button>
-   <button onclick="showScreen('dashboard-screen')">
-     <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/award.svg" alt="Rewards" style="width: 24px; height: 24px;">
-   </button>
- </div>
    
   <!-- Directory Screen -->
    <div id="directory-screen" class="screen" style="padding: 1rem; max-width: 600px; margin: 0 auto;">
@@ -539,6 +510,43 @@
      <button style="margin-top:0.75rem; background:#ffb84d; color:#000; border:none; padding:0.5rem 1rem; border-radius:8px; font-weight:bold; cursor:pointer;">Redeem</button>
    </div>
  </div>
- 
+
+<!-- Your screens go here -->
+
+  <div class="nav-bar">
+    <button onclick="showScreen('dashboard-screen')">
+      <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/home.svg" alt="Home" style="width: 24px; height: 24px;">
+    </button>
+    <button onclick="showScreen('directory-screen')">
+      <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/folder-open.svg" alt="Directory" style="width: 24px; height: 24px;">
+    </button>
+    <button onclick="showScreen('map-screen')">
+      <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/map-pin.svg" alt="Map" style="width: 24px; height: 24px;">
+    </button>
+    <button onclick="showScreen('dashboard-screen')">
+      <img src="https://cdn.jsdelivr.net/npm/lucide@latest/icons/award.svg" alt="Rewards" style="width: 24px; height: 24px;">
+    </button>
+  </div>
+
+  <script>
+    function showScreen(id) {
+      const screens = ['welcome-screen', 'login-screen', 'dashboard-screen', 'directory-screen', 'map-screen', 'profile-screen'];
+      screens.forEach(screenId => {
+        const el = document.getElementById(screenId);
+        if (el) el.style.display = 'none';
+      });
+
+      const target = document.getElementById(id);
+      if (target) target.style.display = 'block';
+
+      const nav = document.querySelector('.nav-bar');
+      if (id === 'welcome-screen' || id === 'login-screen') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+      }
+    }
+  </script>
+
  </body>
  </html>
