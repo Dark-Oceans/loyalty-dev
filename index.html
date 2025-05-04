@@ -254,32 +254,50 @@
    <!-- Dashboard Screen -->
 <div id="dashboard-screen" class="screen" style="padding: 1.5rem; max-width: 600px; margin: 0 auto;">
   <div style="display: flex; align-items: center; margin-bottom: 2rem;">
-    <img src="https://via.placeholder.com/60" alt="User Photo" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-right: 1rem;">
+    <img src="assets/images/profile.pic.jpg" alt="User Photo" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-right: 1rem;">
     <div>
       <h2 style="margin: 0; font-size: 1.2rem;">TestUser</h2>
-      <p style="margin: 0; color: #ccc; font-size: 0.85rem;">London, United Kingdom</p>
+      <p style="margin: 0; color: #ccc; font-size: 0.85rem;">Jakarta, Indonesia</p>
     </div>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-    <button style="display: flex; justify-content: space-between; align-items: center; background: #1a2d2f; padding: 1rem; border: none; border-radius: 12px; color: #fff; font-size: 1rem;">
+    <button style="display: flex; justify-content: space-between; align-items: center; background: #1a2d2f; padding: 1rem; border: none; border-radius: 12px; color: #fff; font-size: 1rem; transition: background 0.3s;" 
+      onmouseover="this.style.background='#26393c'" 
+      onmouseout="this.style.background='#1a2d2f'">
       Your Profile <span style="font-size: 1.2rem;">›</span>
     </button>
 
-    <div style="border-top: 1px solid #334b4e; padding: 1rem 0 0.5rem 0; display: flex; justify-content: space-between; align-items: center;">
-      <span>Rewards</span><span style="font-size: 1.2rem;">›</span>
-    </div>
-    <div style="border-top: 1px solid #334b4e; padding: 1rem 0 0.5rem 0; display: flex; justify-content: space-between; align-items: center;">
-      <span>Favourites</span><span style="font-size: 1.2rem;">›</span>
-    </div>
-    <div style="border-top: 1px solid #334b4e; padding: 1rem 0 0.5rem 0; display: flex; justify-content: space-between; align-items: center;">
-      <span>Spare</span><span style="font-size: 1.2rem;">›</span>
-    </div>
-    <div style="border-top: 1px solid #334b4e; border-bottom: 1px solid #334b4e; padding: 1rem 0 0.5rem 0; display: flex; justify-content: space-between; align-items: center;">
-      <span>Log out</span><span style="font-size: 1.2rem;">›</span>
-    </div>
+    <div class="menu-item">Rewards</div>
+    <div class="menu-item">Favourites</div>
+    <div class="menu-item">Spare</div>
+    <div class="menu-item">Spare</div>
+    <div class="menu-item">Logout</div>
   </div>
 </div>
+
+<style>
+  .menu-item {
+    border-top: 1px solid #334b4e;
+    padding: 1rem 0 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .menu-item:last-child {
+    border-bottom: 1px solid #334b4e;
+  }
+
+  .menu-item:hover {
+    background: #1f3335;
+    padding-left: 0.5rem;
+  }
+</style>
+
 
 
  
