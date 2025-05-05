@@ -498,12 +498,17 @@
       <h1>Nearby Retailers</h1>
       <p>Explore what's around you</p>
     </div>
-    <button class="map-search-icon" onclick="toggleSearchBox()">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </button>
-    <div class="map-search-box" id="map-search-box">
-      <input type="text" placeholder="Search places...">
-    </div>
+   <button class="map-search-icon" onclick="toggleSearchBox()">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8" stroke="#ffb84d" stroke-width="2" fill="none" />
+    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#ffb84d" stroke-width="2" />
+  </svg>
+</button>
+
+   <div class="map-search-box" id="map-search-box" style="display: none;">
+  <input type="text" placeholder="Search places...">
+</div>
+
     <button class="map-locate-btn" onclick="centerMap()">From your location</button>
     <div id="map"></div>
   </div>
@@ -525,6 +530,12 @@
 
   <script>
     let map;
+
+   function toggleSearchBox() {
+  const box = document.getElementById('map-search-box');
+  box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+
     function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: -6.2, lng: 106.8167 },
