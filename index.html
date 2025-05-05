@@ -89,7 +89,7 @@
       font-size: 0.875rem;
       margin: 0.25rem 0 0 0;
     }
-  .map-search-icon {
+ .map-search-icon {
   position: absolute;
   top: 1.25rem;
   right: 1rem;
@@ -98,7 +98,11 @@
   z-index: 11;
   cursor: pointer;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
     .map-search-icon svg {
       width: 24px;
       height: 24px;
@@ -501,7 +505,7 @@
  <!-- Map Screen -->
   <div id="map-screen" class="screen">
     <div class="map-header">
-      <h1>Nearby Retailers</h1>
+     <h1>Nearby<br>Destination</h1>
      
     </div>
    <button class="map-search-icon" onclick="toggleSearchBox()">
