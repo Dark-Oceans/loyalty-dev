@@ -7,15 +7,20 @@
    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
    <style>
-     body {
+     html, body {
        margin: 0;
        font-family: 'Inter', sans-serif;
        background-color: #0e1a1c;
        color: #fff;
       overflow-x: hidden; 
      }
+    *{
+     box-sizing: border-box;
+    }
      .screen {
        display: none;
+      max-width: 100vw;
+      overflow-x: hidden;
      }
      .nav-bar {
       display: none;
@@ -46,19 +51,12 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    #map-screen {
+    #map-screen #map {
       height: 100vh;
       width: 100vw;
+     max-width: 100vw;
+     overflow-x: hidden;
       position: relative;
-    }
-    #map {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
       filter: grayscale(1) brightness(0.6);
     }
     .map-header {
@@ -84,11 +82,12 @@
       font-size: 1.5rem;
       color: #fff;
       margin: 0;
+     line-height: 1.2;
     }
     .map-header p {
       color: #aaa;
       font-size: 0.875rem;
-      margin: 0.25rem 0 0 0;
+      margin: 0.25rem 0 0;
     }
  .map-search-icon {
   position: absolute;
