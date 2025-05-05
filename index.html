@@ -14,6 +14,7 @@
        color: #fff;
       overflow-x: hidden; 
      }
+    
     *{
      box-sizing: border-box;
     }
@@ -77,7 +78,6 @@
   rgba(14,26,28,1) 40%,
   rgba(14,26,28,0) 100%
 );
-
   z-index: 10;
   display: flex;
   justify-content: space-between;
@@ -89,8 +89,8 @@
       color: #fff;
       margin: 1.0rem;
      line-height: 1.2;
-   
     }
+
     .map-header p {
       color: #aaa;
       font-size: 0.875rem;
@@ -272,7 +272,8 @@
        fill: #ffb84d;
        cursor: pointer;
      }
-     #profile-screen {
+    
+ #profile-screen {
   display: none;
   background-color: #0e1a1c;
   color: #fff;
@@ -344,11 +345,13 @@
   font-size: 1rem;
 }
 
-     #rewards-section {
-       padding: 1rem;
-     }
+#rewards-section {
+  padding: 1rem;
+}
+    
    </style>
  </head>
+  
  <body>
    <div id="welcome-screen" class="hero-image">
      <div class="hero-overlay"></div>
@@ -480,11 +483,11 @@
      </div>
      <input id="directory-search" type="text" placeholder="Search by name..." style="width: 100%; padding: 0.5rem; border-radius: 8px; border: none; margin-bottom: 1rem;">
 
-   <div class="directory-listing" data-category="cafe" onclick="openBusinessProfile({
-  title: 'Moon Brew Café',
-  location: 'Downtown, Pi City',
-  rating: '4.6',
-  description: 'Moon Brew Café is a cozy spot that accepts Pi and serves up artisan coffee.',
+   <div class="directory-listing" onclick="loadProfileData({
+  name: 'Moon Brew Café',
+  location: '123 Lunar Ave, Crypto City',
+  rating: '4.8',
+  description: 'A cozy café that accepts Pi and rewards regulars with free drinks.',
   image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80'
 })" style="background:#1a2d2f; border-radius:12px; padding:1rem; cursor:pointer; display: flex; align-items: center; gap: 1rem;">
   <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=200&q=80" alt="Moon Brew Café" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;">
@@ -493,6 +496,7 @@
     <p style="color:#aaa; font-size: 0.85rem;">Crypto-friendly café accepting Pi</p>
   </div>
 </div>
+
 
     
     <div class="directory-listing" data-category="mechanics" onclick="openBusinessProfile({
@@ -510,19 +514,17 @@
 </div>
 
 
-    <script>
-  function openBusinessProfile(data) {
-    // Fill in content dynamically
-    document.querySelector('#profile-screen h2').textContent = data.title;
-    document.querySelector('#profile-screen p').textContent = data.location;
-    document.querySelector('#profile-screen .rating-badge').textContent = `★ ${data.rating}`;
-    document.querySelector('#profile-description').innerHTML = `<p>${data.description}</p>`;
-    document.querySelector('#profile-header-image').style.backgroundImage = `url('${data.image}')`;
-
-    // Show profile screen
-    showScreen('profile-screen');
-  }
+  <script>
+function loadProfileData({ name, location, rating, description, image }) {
+  document.getElementById("profile-title").innerText = name;
+  document.getElementById("profile-location").innerText = location;
+  document.getElementById("profile-rating").innerText = `★ ${rating}`;
+  document.getElementById("profile-description").innerHTML = `<p>${description}</p>`;
+  document.getElementById("profile-header").style.backgroundImage = `url('${image}')`;
+  showScreen("profile-screen");
+}
 </script>
+
 
 
          <h3 style="margin: 0; color: #ffb84d;">Stellar Styles</h3>
@@ -685,9 +687,9 @@
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
  
-  <!-- Business Profile Screen -->
+ <!-- Business Profile Screen -->
 <div id="profile-screen" class="screen" style="display:none; background-color: #0e1a1c; color: #fff; font-family: 'Inter', sans-serif;">
-  <div style="position: relative; height: 50vh; background: url('https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?fit=crop&w=800&q=80') center center / cover no-repeat;">
+  <div id="profile-header" style="position: relative; height: 50vh; background-size: cover; background-position: center;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), #0e1a1c);"></div>
     <button onclick="showScreen('directory-screen')" style="position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: #fff; font-size: 1.5rem; z-index: 2;">←</button>
     <button class="bookmark-icon" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; z-index: 2;">
@@ -698,10 +700,10 @@
   </div>
   <div style="padding: 1.5rem; max-width: 600px; margin: 0 auto;">
     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-      <span style="background: #334b4e; color: #ffb84d; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.9rem;">★ 4.8</span>
+      <span id="profile-rating" style="background: #334b4e; color: #ffb84d; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.9rem;">★ 4.8</span>
     </div>
-    <h2 style="margin: 0; font-size: 2rem;">Machu Picchu</h2>
-    <p style="color: #ccc; font-size: 0.9rem; margin-top: 0.25rem;">Cusco Region, Peru</p>
+    <h2 id="profile-title" style="margin: 0; font-size: 2rem;">Machu Picchu</h2>
+    <p id="profile-location" style="color: #ccc; font-size: 0.9rem; margin-top: 0.25rem;">Cusco Region, Peru</p>
 
     <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
       <button onclick="switchProfileTab('description')" style="background: none; border: none; color: #ffb84d; font-weight: bold; font-size: 1rem; cursor: pointer;">Description</button>
@@ -720,6 +722,18 @@
 </div>
 
 <script>
+  function switchProfileTab(tab) {
+    const desc = document.getElementById("profile-description");
+    if (tab === 'description') {
+      desc.innerHTML = `<p>Machu Picchu is a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru on a mountain ridge. It is located in the Machupicchu District within Urubamba Province above the Sacred Valley.</p>`;
+    } else if (tab === 'reviews') {
+      desc.innerHTML = `<p>No reviews yet. Be the first to leave one!</p>`;
+    } else if (tab === 'photos') {
+      desc.innerHTML = `<p>Photo gallery coming soon.</p>`;
+    }
+  }
+</script>
+
   function switchProfileTab(tab) {
     // For future expansion, you can dynamically change content based on selected tab.
     const desc = document.getElementById("profile-description");
