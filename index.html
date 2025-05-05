@@ -273,46 +273,77 @@
        cursor: pointer;
      }
      #profile-screen {
-       display: none;
-       background-color: #0e1a1c;
-     }
-     #profile-screen .profile-header {
-       position: relative;
-       width: 100%;
-       height: 50vh;
-       background-size: cover;
-       background-position: center;
-     }
-     #profile-screen .profile-header::after {
-       content: '';
-       position: absolute;
-       top: 0; left: 0; right: 0; bottom: 0;
-       background: linear-gradient(to bottom, rgba(0,0,0,0.2), #0e1a1c);
-     }
-     #profile-screen .profile-info {
-       position: relative;
-       padding: 1.5rem 1rem;
-       z-index: 2;
-     }
-     #profile-screen .profile-title {
-       font-size: 2rem;
-       font-weight: bold;
-     }
-     #profile-screen .profile-description {
-       font-size: 1rem;
-       color: #ccc;
-       margin-top: 0.5rem;
-     }
-     #profile-screen .btn-primary {
-       background: #ffb84d;
-       color: #000;
-       border: none;
-       padding: 0.75rem 1.5rem;
-       border-radius: 8px;
-       font-weight: bold;
-       margin-top: 1rem;
-       cursor: pointer;
-     }
+  display: none;
+  background-color: #0e1a1c;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+#profile-screen .profile-header {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  background-size: cover;
+  background-position: center;
+}
+
+#profile-screen .profile-header::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), #0e1a1c);
+}
+
+#profile-screen .profile-info {
+  position: relative;
+  padding: 1.5rem 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+#profile-screen .profile-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+#profile-screen .profile-location {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+#profile-screen .rating-badge {
+  background: #334b4e;
+  color: #ffb84d;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+#profile-screen .profile-description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ccc;
+  margin-top: 1rem;
+}
+
+#profile-screen .btn-primary {
+  background: #ffb84d;
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: bold;
+  margin-top: 2rem;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+}
+
      #rewards-section {
        padding: 1rem;
      }
@@ -448,16 +479,52 @@
        <button onclick="filterCategory('salon')" style="flex: 1; background: #334b4e; color: #fff; border: none; padding: 0.5rem; border-radius: 8px; cursor: pointer;">Salons</button>
      </div>
      <input id="directory-search" type="text" placeholder="Search by name..." style="width: 100%; padding: 0.5rem; border-radius: 8px; border: none; margin-bottom: 1rem;">
-     <div class="directory-listing" data-category="cafe" onclick="showScreen('profile-screen')" style="background:#1a2d2f; border-radius:12px; padding:1rem; cursor:pointer; display: flex; align-items: center; gap: 1rem;">
-       <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=200&q=80" alt="Moon Brew Café" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;">
-       <div>
-         <h3 style="margin: 0; color: #ffb84d;">Moon Brew Café</h3>
-         <p style="color:#aaa; font-size: 0.85rem;">Crypto-friendly café accepting Pi</p>
-       </div>
-     </div>
-     <div class="directory-listing" data-category="salon" onclick="showScreen('profile-screen')" style="background:#1a2d2f; border-radius:12px; padding:1rem; cursor:pointer; display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
-       <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?fit=crop&w=200&q=80" alt="Stellar Styles" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;">
-       <div>
+
+   <div class="directory-listing" data-category="cafe" onclick="openBusinessProfile({
+  title: 'Moon Brew Café',
+  location: 'Downtown, Pi City',
+  rating: '4.6',
+  description: 'Moon Brew Café is a cozy spot that accepts Pi and serves up artisan coffee.',
+  image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80'
+})" style="background:#1a2d2f; border-radius:12px; padding:1rem; cursor:pointer; display: flex; align-items: center; gap: 1rem;">
+  <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=200&q=80" alt="Moon Brew Café" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;">
+  <div>
+    <h3 style="margin: 0; color: #ffb84d;">Moon Brew Café</h3>
+    <p style="color:#aaa; font-size: 0.85rem;">Crypto-friendly café accepting Pi</p>
+  </div>
+</div>
+
+    
+    <div class="directory-listing" data-category="mechanics" onclick="openBusinessProfile({
+  title: 'London Car Mechanics',
+  location: 'Mayfair, London W1',
+  rating: '4.9',
+  description: 'Fast turnaround time for your vehicle at affordable prices.',
+  image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80'
+})" style="background:#1a2d2f; border-radius:12px; padding:1rem; cursor:pointer; display: flex; align-items: center; gap: 1rem;">
+  <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=200&q=80" alt="London Car Mechanics" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;">
+  <div>
+    <h3 style="margin: 0; color: #ffb84d;">London Car Mechanics</h3>
+    <p style="color:#aaa; font-size: 0.85rem;">London Mechanics accepting Pi</p>
+  </div>
+</div>
+
+
+    <script>
+  function openBusinessProfile(data) {
+    // Fill in content dynamically
+    document.querySelector('#profile-screen h2').textContent = data.title;
+    document.querySelector('#profile-screen p').textContent = data.location;
+    document.querySelector('#profile-screen .rating-badge').textContent = `★ ${data.rating}`;
+    document.querySelector('#profile-description').innerHTML = `<p>${data.description}</p>`;
+    document.querySelector('#profile-header-image').style.backgroundImage = `url('${data.image}')`;
+
+    // Show profile screen
+    showScreen('profile-screen');
+  }
+</script>
+
+
          <h3 style="margin: 0; color: #ffb84d;">Stellar Styles</h3>
          <p style="color:#aaa; font-size: 0.85rem;">Salon offering Pi-based loyalty perks</p>
        </div>
@@ -665,7 +732,19 @@
     }
   }
 </script>
- 
+
+<script>
+  function openBusinessProfile(data) {
+    document.querySelector('#profile-screen h2').textContent = data.title;
+    document.querySelector('#profile-screen p').textContent = data.location;
+    document.querySelector('#profile-screen .rating-badge').textContent = `★ ${data.rating}`;
+    document.querySelector('#profile-description').innerHTML = `<p>${data.description}</p>`;
+    document.querySelector('#profile-header-image').style.backgroundImage = `url('${data.image}')`;
+    showScreen('profile-screen');
+  }
+</script>
+
+  
  <div id="login-screen" style="display:none;">
    <div style="position: relative; height: 33vh; background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center / cover no-repeat;">
      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(14,26,28,0.1), #0e1a1c);"></div>
