@@ -721,19 +721,7 @@ function loadProfileData({ name, location, rating, description, image }) {
   </div>
 </div>
 
-<script>
-  function switchProfileTab(tab) {
-    const desc = document.getElementById("profile-description");
-    if (tab === 'description') {
-      desc.innerHTML = `<p>Machu Picchu is a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru on a mountain ridge. It is located in the Machupicchu District within Urubamba Province above the Sacred Valley.</p>`;
-    } else if (tab === 'reviews') {
-      desc.innerHTML = `<p>No reviews yet. Be the first to leave one!</p>`;
-    } else if (tab === 'photos') {
-      desc.innerHTML = `<p>Photo gallery coming soon.</p>`;
-    }
-  }
-</script>
-
+  <script>
   function switchProfileTab(tab) {
     // For future expansion, you can dynamically change content based on selected tab.
     const desc = document.getElementById("profile-description");
