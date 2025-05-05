@@ -832,6 +832,18 @@ function loadProfileData({ name, location, rating, description, image }) {
       }
     }
   </script>
+  
+<script>
+  document.getElementById("continue-btn")?.addEventListener("click", () => {
+    showScreen('login-screen'); // Or whichever screen you want to show next
+  });
+
+  function showScreen(id) {
+    const screens = document.querySelectorAll(".screen, .hero-image");
+    screens.forEach(screen => screen.style.display = "none");
+    document.getElementById(id).style.display = "block";
+  }
+</script>
 
  </body>
  </html>
