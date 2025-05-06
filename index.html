@@ -666,23 +666,7 @@ function loadProfileData({ name, location, rating, description, image }) {
       }
     }
 
-    function showScreen(id) {
-      const screens = ['welcome-screen', 'login-screen', 'dashboard-screen', 'directory-screen', 'map-screen', 'profile-screen'];
-      screens.forEach(screenId => {
-        const el = document.getElementById(screenId);
-        if (el) el.style.display = 'none';
-      });
-
-      const target = document.getElementById(id);
-      if (target) target.style.display = 'block';
-
-      const nav = document.querySelector('.nav-bar');
-      if (id === 'welcome-screen' || id === 'login-screen') {
-        nav.style.display = 'none';
-      } else {
-        nav.style.display = 'flex';
-      }
-    }
+   
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
  
