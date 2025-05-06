@@ -744,6 +744,7 @@ function loadProfileData({ name, location, rating, description, image }) {
     </div>
 
  <script>
+  const showNavOn = ['dashboard-screen', 'directory-screen', 'map-screen', 'profile-screen'];
   function showScreen(id) {
     const screens = document.querySelectorAll(".screen, .hero-image");
     screens.forEach(screen => screen.style.display = "none");
