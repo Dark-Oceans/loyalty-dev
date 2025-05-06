@@ -728,8 +728,9 @@ function loadProfileData({ name, location, rating, description, image }) {
   </div>
     </div>
 
- <script>
+<script>
   const showNavOn = ['dashboard-screen', 'directory-screen', 'map-screen', 'profile-screen'];
+
   function showScreen(id) {
     const screens = document.querySelectorAll(".screen, .hero-image");
     screens.forEach(screen => screen.style.display = "none");
@@ -738,17 +739,14 @@ function loadProfileData({ name, location, rating, description, image }) {
     if (target) target.style.display = "block";
 
     const nav = document.querySelector(".nav-bar");
-    if (id === "welcome-screen" || id === "login-screen" || id === "register-screen") {
-      nav.style.display = "none";
-    } else {
-      nav.style.display = "flex";
-    }
+    nav.style.display = showNavOn.includes(id) ? "flex" : "none";
   }
 
   document.getElementById("continue-btn")?.addEventListener("click", () => {
     showScreen('login-screen');
   });
 </script>
+
 
 
  </body>
