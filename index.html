@@ -484,9 +484,9 @@
 
    <div class="directory-listing" onclick="loadProfileData({
   name: 'Moon Brew Café',
-  location: '123 Lunar Ave, Crypto City',
+  location: '23 Regents Street, London W1',
   rating: '4.8',
-  description: 'A cozy café that accepts Pi and rewards regulars with free drinks.',
+  description: 'Tucked away in the heart of London, this cozy coffee shop is a hidden gem for both caffeine lovers and Pi cryptocurrency enthusiasts.',
   image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80'
 })" style="background:#1a2d2f; border-radius:12px; padding:1rem; cursor:pointer; display: flex; align-items: center; gap: 1rem;">
   <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=200&q=80" alt="Moon Brew Café" style="width: 60px; height: 60px; border-radius: 8px; object-fit: cover;">
@@ -498,9 +498,9 @@
 
 
     
-    <div class="directory-listing" data-category="mechanics" onclick="openBusinessProfile({
+    <div class="directory-listing" data-category="mechanics" onclick="loadProfileData({
   title: 'London Car Mechanics',
-  location: 'Mayfair, London W1',
+  location: '1 Curzon Street, London W1',
   rating: '4.9',
   description: 'Fast turnaround time for your vehicle at affordable prices.',
   image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80'
@@ -523,14 +523,6 @@ function loadProfileData({ name, location, rating, description, image }) {
   showScreen("profile-screen");
 }
 </script>
-
-
-
-         <h3 style="margin: 0; color: #ffb84d;">Stellar Styles</h3>
-         <p style="color:#aaa; font-size: 0.85rem;">Salon offering Pi-based loyalty perks</p>
-       </div>
-     </div>
-   </div>
  
   <script>
      function filterCategory(category) {
@@ -696,7 +688,9 @@ function loadProfileData({ name, location, rating, description, image }) {
 
     <div id="profile-description" style="font-size: 0.95rem; line-height: 1.5;">
       <p>
-        Machu Picchu is a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru on a mountain ridge. It is located in the Machupicchu District within Urubamba Province above the Sacred Valley.
+        Tucked away in the heart of London, this cozy coffee shop is a hidden gem for both caffeine lovers and Pi cryptocurrency enthusiasts. Not only do they serve up some of the best espresso in the city, 
+       but they also accept Pi Coin as a form of payment—making it a modern and convenient spot for the tech-savvy crowd. The warm ambiance, friendly staff, and quality brews make it a place you’ll want to return to again and again. 
+       Plus, their loyalty program rewards you with a free drink after every ten purchases, adding even more value to your daily coffee fix.
       </p>
     </div>
 
@@ -709,7 +703,9 @@ function loadProfileData({ name, location, rating, description, image }) {
     // For future expansion, you can dynamically change content based on selected tab.
     const desc = document.getElementById("profile-description");
     if (tab === 'description') {
-      desc.innerHTML = `<p>Machu Picchu is a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru on a mountain ridge. It is located in the Machupicchu District within Urubamba Province above the Sacred Valley.</p>`;
+      desc.innerHTML = `<p>Tucked away in the heart of London, this cozy coffee shop is a hidden gem for both caffeine lovers and Pi cryptocurrency enthusiasts. Not only do they serve up some of the best espresso in the city, 
+      but they also accept Pi Coin as a form of payment—making it a modern and convenient spot for the tech-savvy crowd. The warm ambiance, friendly staff, and quality brews make it a place you’ll want to return to again and again. 
+      Plus, their loyalty program rewards you with a free drink after every ten purchases, adding even more value to your daily coffee fix.y.</p>`;
     } else if (tab === 'reviews') {
       desc.innerHTML = `<p>No reviews yet. Be the first to leave one!</p>`;
     } else if (tab === 'photos') {
