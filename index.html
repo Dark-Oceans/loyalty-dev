@@ -25,7 +25,6 @@
      }
      .nav-bar {
       display: flex !important;
-       border: 2px solid red;
       display: none;
       justify-content: space-around;
       align-items: center;
@@ -744,13 +743,6 @@ function loadProfileData({ name, location, rating, description, image }) {
 
   document.getElementById("continue-btn")?.addEventListener("click", () => {
     showScreen('login-screen');
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    showScreen("dashboard-screen");
-    document.querySelector('.nav-bar').style.display = 'flex';
   });
 </script>
 
