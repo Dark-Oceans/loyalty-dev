@@ -350,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 7</h1>
+       <h1>Welcome to Coinnect.- DEV 8</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -467,42 +467,60 @@
  
    
 <!-- Directory Screen -->
-<div id="directory-screen" class="screen" style="padding: 1.25rem; max-width: 600px; margin: 0 auto;">
-  <h2 style="color: #fff; font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Found <span id="listing-count">2</span> Listings</h2>
+<div id="directory-screen" class="screen" style="padding: 1rem; max-width: 600px; margin: 0 auto;">
+  <h2 style="color: #fff; font-size: 1.75rem; margin-bottom: 1rem;">Retailer Directory</h2>
 
-  <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.25rem;">
-    <div style="flex: 1; position: relative;">
-      <input id="directory-search" type="text" placeholder="Search listings..." style="width: 100%; padding: 0.75rem 1rem; border-radius: 12px; border: none; font-size: 1rem;">
-      <button onclick="handleSearch()" style="position: absolute; right: 6px; top: 6px; bottom: 6px; background: #ffb84d; border: none; border-radius: 10px; width: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-        🔍
-      </button>
-    </div>
-    <button onclick="toggleFilters()" style="background: #334b4e; border: none; border-radius: 10px; padding: 0.65rem; cursor: pointer;">
-      ⚙️
+  <!-- Search Bar -->
+  <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+    <input id="directory-search" oninput="handleSearch()" type="text" placeholder="Search retailers..." 
+           style="flex: 1; padding: 0.65rem 1rem; border-radius: 10px; border: none; background-color: #1a2d2f; color: #fff; font-size: 1rem;">
+    <button onclick="handleSearch()" style="background: none; border: none; padding: 0.5rem; cursor: pointer;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#ffb84d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
     </button>
   </div>
 
-  <div id="listing-wrapper" style="display: flex; flex-direction: column; gap: 1.25rem;">
+  <!-- Subheading for count -->
+  <p style="color: #aaa; font-size: 0.875rem; margin: 0 0 1rem;">Found <span id="listing-count">2</span> listings</p>
 
-    <!-- Listing Card Example -->
-    <div class="listing-card" onclick="loadProfileData({
-      name: 'Moon Brew Café',
-      location: '23 Regents Street, London W1',
-      rating: '4.8',
-      description: 'Tucked away in the heart of London...',
-      image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80'
-    })" style="position: relative; border-radius: 16px; overflow: hidden; cursor: pointer;">
-      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80" alt="Cafe" style="width: 100%; height: 180px; object-fit: cover;">
-      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,26,28,0.85), rgba(14,26,28,0.1)); padding: 1rem; display: flex; flex-direction: column; justify-content: flex-end;">
-        <div style="color: #fff; font-size: 1.25rem; font-weight: 600;">Moon Brew Café</div>
-        <div style="color: #aaa; font-size: 0.875rem; margin-top: 0.25rem;">London, UK</div>
-        <div style="margin-top: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
-          <span style="background: #334b4e; color: #ffb84d; padding: 0.25rem 0.5rem; border-radius: 10px; font-size: 0.85rem;">★ 4.8</span>
-          <button style="background: rgba(0,0,0,0.4); border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #fff;">→</button>
-        </div>
-        <button style="position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 1.25rem; color: #ffb84d;">★</button>
+  <!-- Filter Button -->
+  <div style="text-align: right; margin-bottom: 1.5rem;">
+    <button onclick="toggleFilters()" style="background: #334b4e; border: none; padding: 0.5rem 1rem; border-radius: 8px; color: #ffb84d; font-weight: 600;">
+      Filters
+    </button>
+  </div>
+
+  <!-- Listings -->
+  <div class="listing-card" style="position: relative; margin-bottom: 1.5rem; border-radius: 16px; overflow: hidden; background-color: #1a2d2f; cursor: pointer;">
+    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80" alt="Moon Brew Café" style="width: 100%; height: 180px; object-fit: cover;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.85)); padding: 1rem; display: flex; flex-direction: column; justify-content: flex-end;">
+      <div>
+        <h3 style="margin: 0; color: #fff; font-size: 1.2rem;">Moon Brew Café</h3>
+        <p style="color: #aaa; font-size: 0.85rem; margin: 0.2rem 0;">23 Regents Street, London</p>
+        <span style="background: #334b4e; color: #ffb84d; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">★ 4.8</span>
       </div>
+      <div style="position: absolute; top: 1rem; right: 1rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#ffb84d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <button onclick="loadProfileData({
+        name: 'Moon Brew Café',
+        location: '23 Regents Street, London W1',
+        rating: '4.8',
+        description: 'Tucked away in the heart of London, this cozy coffee shop is a hidden gem for both caffeine lovers and Pi cryptocurrency enthusiasts.',
+        image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=800&q=80'
+      })" style="margin-top: 0.75rem; align-self: flex-end; background: rgba(255, 184, 77, 0.15); color: #ffb84d; border: none; padding: 0.4rem 0.6rem; border-radius: 10px; font-size: 0.9rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="#ffb84d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
     </div>
+  </div>
+</div>
+
 
     <!-- More listings go here -->
 
@@ -829,19 +847,20 @@
     let visibleCount = 0;
 
     cards.forEach(card => {
-      const title = card.innerText.toLowerCase();
-      const match = title.includes(term);
-      card.style.display = match ? "block" : "none";
-      if (match) visibleCount++;
+      const text = card.innerText.toLowerCase();
+      const isVisible = text.includes(term);
+      card.style.display = isVisible ? "block" : "none";
+      if (isVisible) visibleCount++;
     });
 
     document.getElementById("listing-count").innerText = visibleCount;
   }
 
   function toggleFilters() {
-    alert("Filter functionality coming soon!");
+    alert("Filter feature coming soon!");
   }
 </script>
+
 
 
   
