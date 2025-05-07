@@ -721,6 +721,13 @@ function loadProfileData({ name, location, rating, description, image }) {
   document.querySelector(".nav-bar").style.display = "flex";
 </script>
 
+    <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    showScreen('dashboard-screen'); // or your preferred default screen
+  });
+</script>
+
+
  <!-- Nav Bar -->    
 <div class="nav-bar">
     <button onclick="showScreen('dashboard-screen')">
