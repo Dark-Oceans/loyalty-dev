@@ -699,55 +699,40 @@ function loadProfileData({ name, location, rating, description, image }) {
   }
 </script>
   
-<script>
-  const showNavOn = ['dashboard-screen', 'directory-screen', 'map-screen', 'profile-screen'];
+ <div class="nav-bar">
+    <button onclick="showScreen('dashboard-screen')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </button>
+    <button onclick="showScreen('directory-screen')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 4a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    </button>
+    <button onclick="showScreen('map-screen')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </button>
+    <button onclick="showScreen('dashboard-screen')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><path d="M8.21 13.89a3 3 0 0 0 7.58 0"/><path d="M7 21h10"/></svg>
+    </button>
+  </div>
 
-  function showScreen(id) {
-    const screens = document.querySelectorAll(".screen, .hero-image");
-    screens.forEach(screen => screen.style.display = "none");
+  <script>
+    function showScreen(id) {
+      const screens = ['welcome-screen', 'login-screen', 'dashboard-screen', 'directory-screen', 'map-screen', 'profile-screen'];
+      screens.forEach(screenId => {
+        const el = document.getElementById(screenId);
+        if (el) el.style.display = 'none';
+      });
 
-    const target = document.getElementById(id);
-    if (target) target.style.display = "block";
+      const target = document.getElementById(id);
+      if (target) target.style.display = 'block';
 
-    const nav = document.querySelector(".nav-bar");
-    nav.style.display = showNavOn.includes(id) ? "flex" : "none";
-  }
-
-  document.getElementById("continue-btn")?.addEventListener("click", () => {
-    showScreen('login-screen');
-  });
-</script>
-
-
-
- <!-- Nav Bar -->    
-<div class="nav-bar">
-  <button onclick="showScreen('dashboard-screen')">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-      <polyline points="9 22 9 12 15 12 15 22"/>
-    </svg>
-  </button>
-  <button onclick="showScreen('directory-screen')">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M3 4a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-    </svg>
-  </button>
-  <button onclick="showScreen('map-screen')">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/>
-      <circle cx="12" cy="10" r="3"/>
-    </svg>
-  </button>
-  <button onclick="showScreen('profile-screen')">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <circle cx="12" cy="8" r="7"/>
-      <path d="M8.21 13.89a3 3 0 0 0 7.58 0"/>
-      <path d="M7 21h10"/>
-    </svg>
-  </button>
-</div>
-
+      const nav = document.querySelector('.nav-bar');
+      if (id === 'welcome-screen' || id === 'login-screen') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+      }
+    }
+  </script>
     
  </body>
  </html>
