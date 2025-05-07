@@ -27,30 +27,32 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: red; /* TEMP: make visible */
-  border-top: 4px solid yellow; /* TEMP: make visible */
+  background: #112021;
+  padding-bottom: 1.5rem;
   height: 80px;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 10000;
+  z-index: 1000;
 }
-    .nav-bar button {
-      background: none;
-      border: none;
-      color: #ffb84d;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-    .nav-bar svg {
-      width: 24px;
-      height: 24px;
-      stroke: #ffb84d;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+.nav-bar button {
+  background: none;
+  border: none;
+  color: #ffb84d;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.nav-bar svg {
+  width: 24px;
+  height: 24px;
+  stroke: #ffb84d;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
     }
     #map-screen #map {
       height: 100%;
@@ -730,19 +732,32 @@ function loadProfileData({ name, location, rating, description, image }) {
 
  <!-- Nav Bar -->    
 <div class="nav-bar">
-    <button onclick="showScreen('dashboard-screen')">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    </button>
-    <button onclick="showScreen('directory-screen')">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 4a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-    </button>
-    <button onclick="showScreen('map-screen')">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-    </button>
-    <button onclick="showScreen('dashboard-screen')">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><path d="M8.21 13.89a3 3 0 0 0 7.58 0"/><path d="M7 21h10"/></svg>
-    </button>
-  </div>    
+  <button onclick="showScreen('dashboard-screen')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+  </button>
+  <button onclick="showScreen('directory-screen')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M3 4a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+    </svg>
+  </button>
+  <button onclick="showScreen('map-screen')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+  </button>
+  <button onclick="showScreen('profile-screen')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="7"/>
+      <path d="M8.21 13.89a3 3 0 0 0 7.58 0"/>
+      <path d="M7 21h10"/>
+    </svg>
+  </button>
+</div>
+
     
  </body>
  </html>
