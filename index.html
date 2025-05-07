@@ -329,6 +329,20 @@
 #rewards-section {
   padding: 1rem;
 }   
+.profile-tab {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.profile-tab.active-tab {
+  color: #ffb84d;
+}
+
    </style>
  </head>
  <body>
@@ -336,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 6</h1>
+       <h1>Welcome to Coinnect.- DEV 7</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -542,9 +556,11 @@
     <p id="profile-location" style="color: #ccc; font-size: 0.9rem; margin-top: 0.25rem;">Mayfair, London</p>
 
     <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
-      <button onclick="switchProfileTab('description')" style="background: none; border: none; color: #ffb84d; font-weight: bold; font-size: 1rem; cursor: pointer;">Description</button>
-      <button onclick="switchProfileTab('reviews')" style="background: none; border: none; color: #aaa; font-weight: bold; font-size: 1rem; cursor: pointer;">Reviews</button>
-      <button onclick="switchProfileTab('photos')" style="background: none; border: none; color: #aaa; font-weight: bold; font-size: 1rem; cursor: pointer;">Photos</button>
+    <button class="profile-tab active-tab" data-tab="description" onclick="switchProfileTab('description')">Description</button>
+    <button class="profile-tab" data-tab="reviews" onclick="switchProfileTab('reviews')">Reviews</button>
+    <button class="profile-tab" data-tab="photos" onclick="switchProfileTab('photos')">Photos</button>
+
+
     </div>
 
     <div id="profile-description" style="font-size: 0.95rem; line-height: 1.5;">
@@ -559,21 +575,34 @@
   </div>
 </div>
 
-  <script>
+ <script>
   function switchProfileTab(tab) {
-    // For future expansion, you can dynamically change content based on selected tab.
     const desc = document.getElementById("profile-description");
+
+    // Clear all active tab styles
+    document.querySelectorAll('.profile-tab').forEach(btn => {
+      btn.classList.remove('active-tab');
+    });
+
+    // Highlight the clicked tab
+    const activeButton = document.querySelector(`.profile-tab[data-tab="${tab}"]`);
+    if (activeButton) {
+      activeButton.classList.add('active-tab');
+    }
+
+    // Update content
     if (tab === 'description') {
       desc.innerHTML = `<p>Tucked away in the heart of London, this cozy coffee shop is a hidden gem for both caffeine lovers and Pi cryptocurrency enthusiasts. Not only do they serve up some of the best espresso in the city, 
       but they also accept Pi Coin as a form of payment—making it a modern and convenient spot for the tech-savvy crowd. The warm ambiance, friendly staff, and quality brews make it a place you’ll want to return to again and again. 
-      Plus, their loyalty program rewards you with a free drink after every ten purchases, adding even more value to your daily coffee fix.y.</p>`;
+      Plus, their loyalty program rewards you with a free drink after every ten purchases, adding even more value to your daily coffee fix.</p>`;
     } else if (tab === 'reviews') {
       desc.innerHTML = `<p>No reviews yet. Be the first to leave one!</p>`;
     } else if (tab === 'photos') {
-      desc.innerHTML = `<p>Photo gallery coming soon.</p>`;
+      desc.innerHTML = `<p>No photos yet. Be the first and take some!</p>`;
     }
   }
 </script>
+
 
 <script>
   function openBusinessProfile(data) {
