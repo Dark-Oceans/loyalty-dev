@@ -932,31 +932,75 @@
 </div>
 
 <!-- Redeem Section -->
-<div id="redeem-section" style="display:none; padding: 20px; color: white; background-color: #0e1a1c; font-family: sans-serif; text-align: center;">
-  <!-- Back button -->
-  <button onclick="goBackToRewards()" style="color: white; font-size: 24px; border: none; background: none; display: block; text-align: left; margin-bottom: 1rem;">
-    ←
-  </button>
-
-  <!-- Heading -->
-  <h1 style="font-size: 1.75rem; font-weight: 800; margin: 0 0 0.5rem;">Your Rewards</h1>
-
-  <!-- Subheading -->
-  <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 2rem;">
-    This is your rewards QR code. Show it to the retailer to scan and redeem your rewards.
-  </p>
-
-  <!-- QR code box -->
-  <div style="width: 256px; height: 256px; background: white; color: black; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.5rem; border-radius: 12px; margin: 0 auto;">
+<div id="redeem-section" style="display:none; padding: 20px; color: white; background-color: #0e1a1c; font-family: sans-serif;">
+  <button onclick="goBackToRewards()" style="color:#ffb84d; font-size: 24px; border:none; background:none;">←</button>
+  <h1 style="color: #ffb84d;">Redeem Reward</h1>
+  <div style="width: 256px; height: 256px; background: white; color: black; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.5rem; border-radius: 12px; margin-top: 20px;">
     QR CODE
   </div>
-
-  <!-- Instruction below QR -->
-  <p style="color: #aaa; font-size: 0.85rem; margin-top: 1rem; max-width: 320px; margin-left: auto; margin-right: auto;">
-    Show this QR code to the retailer to scan and redeem your rewards. Doesn’t that feel good? Start collecting for your next reward!
-  </p>
 </div>
 
+<script>
+  const rewardsData = [
+    { name: "Glow Tanning Studio", progress: 3 },
+    { name: "Fresh Coffee", progress: 7 },
+    { name: "Apex Gym", progress: 1 },
+    { name: "Bella Boutique", progress: 10 },
+  ];
+
+  function goToDashboard() {
+    document.getElementById("dashboard-screen").style.display = "block";
+    document.getElementById("rewards-section").style.display = "none";
+    document.getElementById("redeem-section").style.display = "none";
+  }
+
+  function showRewards() {
+    document.getElementById("dashboard-screen").style.display = "none";
+    document.getElementById("rewards-section").style.display = "block";
+    document.getElementById("redeem-section").style.display = "none";
+  }
+
+  function showRedeemPage() {
+    document.getElementById("rewards-section").style.display = "none";
+    document.getElementById("redeem-section").style.display = "block";
+  }
+
+  function goBackToRewards() {
+    document.getElementById("rewards-section").style.display = "block";
+    document.getElementById("redeem-section").style.display = "none";
+  }
+
+  const container = document.getElementById("rewards-container");
+
+  rewardsData.forEach((reward) => {
+    const percent = (reward.progress / 10) * 100;
+    const card = document.createElement("div");
+    card.style.marginBottom = "2rem";
+
+    card.innerHTML = `
+      <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem;">${reward.name}</h2>
+      <div style="position: relative; height: 1px; background: rgba(255,184,77,0.2); border-radius: 9999px; margin-top: 8px;">
+        <div style="height: 1px; background: #ffb84d; width: ${percent}%; border-radius: 9999px;"></div>
+        <div style="position: absolute; top: -4px; left: calc(${percent}% - 4px); width: 8px; height: 8px; background: #ffb84d; border-radius: 50%;"></div>
+        <div style="position: absolute; top: 10px; left: calc(${percent}% - 24px); margin-top: 6px; padding: 2px 8px; font-size: 0.75rem; background-color: rgba(255, 184, 77, 0.15); color: #ffb84d; border-radius: 9999px; text-align: center;">
+  ${reward.progress}
+</div>
+
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #aaa;"><span>0</span><span>10</span></div>
+    `;
+
+    if (reward.progress >= 10) {
+      const redeemBtn = document.createElement("button");
+      redeemBtn.innerText = "Redeem";
+      redeemBtn.style = "margin-top: 0.5rem; background: #ffb84d; color: black; padding: 6px 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;";
+      redeemBtn.onclick = showRedeemPage;
+      card.appendChild(redeemBtn);
+    }
+
+    container.appendChild(card);
+  });
+</script>
 
 
   <div class="nav-bar">
