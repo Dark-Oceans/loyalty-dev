@@ -350,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.28</h1>
+       <h1>Welcome to Coinnect.- DEV 1.29</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -436,7 +436,94 @@
   }
 </style>
 
- 
+   <!-- Rewards Screen -->
+  import React from "react";
+
+const rewardsData = [
+  { name: "Glow Tanning Studio", progress: 3 },
+  { name: "Fresh Coffee", progress: 7 },
+  { name: "Apex Gym", progress: 1 },
+  { name: "Bella Boutique", progress: 10 },
+];
+
+const MAX_REWARDS = 10;
+
+const RewardsPage = () => {
+  return (
+    <div className="min-h-screen bg-gray-900 text-white p-4 space-y-6">
+      {/* Back arrow */}
+      <button className="text-[#ffb84d] text-2xl mb-2">←</button>
+      <h1 className="text-2xl font-bold text-[#ffb84d]">REWARDS</h1>
+
+      {rewardsData.map((reward, index) => {
+        const percentage = (reward.progress / MAX_REWARDS) * 100;
+        const isComplete = reward.progress >= MAX_REWARDS;
+
+        return (
+          <div key={index} className="space-y-2">
+            <h2 className="text-lg font-semibold">{reward.name}</h2>
+            <div className="relative h-2 bg-[#ffb84d33] rounded-full">
+              <div
+                className="absolute h-2 bg-[#ffb84d] rounded-full"
+                style={{ width: `${percentage}%` }}
+              ></div>
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#ffb84d] text-sm flex items-center justify-center text-black font-bold shadow-md"
+                style={{ left: `calc(${percentage}% - 12px)` }}
+              >
+                {reward.progress}
+              </div>
+            </div>
+            <div className="flex justify-between text-sm text-gray-400">
+              <span>0</span>
+              <span>{MAX_REWARDS}</span>
+            </div>
+            {isComplete && (
+              <button
+                className="mt-2 bg-[#ffb84d] text-black font-bold py-1 px-4 rounded"
+                onClick={() => window.location.href = '/redeem'}
+              >
+                Redeem
+              </button>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default RewardsPage;
+
+     <!-- redeem QR Screen -->
+import React from "react";
+
+const RedeemPage = () => {
+  return (
+    <div className="min-h-screen bg-gray-900 text-white p-4 flex flex-col items-center">
+      {/* Back arrow */}
+      <div className="w-full">
+        <button
+          className="text-[#ffb84d] text-2xl mb-4"
+          onClick={() => window.history.back()}
+        >
+          ←
+        </button>
+      </div>
+
+      <h1 className="text-2xl font-bold text-[#ffb84d] mb-6">Redeem Reward</h1>
+
+      {/* Mock QR Code */}
+      <div className="w-64 h-64 bg-white flex items-center justify-center text-black font-bold text-lg rounded-md shadow-lg">
+        QR CODE
+      </div>
+    </div>
+  );
+};
+
+export default RedeemPage;
+
+  
    <!-- Register Screen -->
    <div id="register-screen" class="screen">
    <div style="position: relative; height: 33vh; background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center / cover no-repeat;">
