@@ -350,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.32</h1>
+       <h1>Welcome to Coinnect.- DEV 1.33</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -925,7 +925,7 @@
 
     <!-- Rewards Screen -->
  <div id="rewards-section" style="padding: 20px; color: white; background-color: #0e1a1c; font-family: sans-serif;">
-  <button onclick="goBack()" style="color:#ffb84d; font-size: 24px; border:none; background:none;">←</button>
+  <button onclick="goToDashboard()" style="color:#ffb84d; font-size: 24px; border:none; background:none;">←</button>
   <h1 style="color: #ffb84d;">REWARDS</h1>
 
   <div id="rewards-container"></div>
@@ -971,10 +971,11 @@
 
     card.innerHTML = `
       <h2 style="font-size: 1.1rem;">${reward.name}</h2>
-      <div style="position: relative; height: 8px; background: rgba(255,184,77,0.2); border-radius: 9999px;">
-        <div style="height: 8px; background: #ffb84d; border-radius: 9999px; width: ${percent}%"></div>
-        <div style="width: 24px; height: 24px; background: #ffb84d; color: black; font-weight: bold; border-radius: 50%; position: absolute; top: -8px; left: calc(${percent}% - 12px); display: flex; align-items: center; justify-content: center;">${reward.progress}</div>
-      </div>
+     <div style="position: relative; height: 1px; background: rgba(255,184,77,0.2); border-radius: 9999px;">
+  <div style="height: 1px; background: #ffb84d; border-radius: 9999px; width: ${percent}%"></div>
+  <div style="width: 24px; height: 24px; background: #ffb84d; color: black; font-weight: bold; border-radius: 50%; position: absolute; top: -12px; left: calc(${percent}% - 12px); display: flex; align-items: center; justify-content: center;">${reward.progress}</div>
+</div>
+
       <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #aaa;"><span>0</span><span>10</span></div>
     `;
 
