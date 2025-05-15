@@ -350,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.30</h1>
+       <h1>Welcome to Coinnect.- DEV 1.31</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -437,94 +437,72 @@
 </style>
 
    <!-- Rewards Screen -->
- <button onClick={() => window.history.back()} className="text-[#ffb84d] text-2xl mb-4">
-  ←
-</button>
-<h1 className="text-2xl font-bold text-[#ffb84d]">REWARDS</h1>
+ <div id="rewards-section" style="padding: 20px; color: white; background-color: #111827; font-family: sans-serif;">
+  <button onclick="goBack()" style="color:#ffb84d; font-size: 24px; border:none; background:none;">←</button>
+  <h1 style="color: #ffb84d;">REWARDS</h1>
 
-{rewardsData.map((reward, index) => {
-  const percentage = (reward.progress / MAX_REWARDS) * 100;
-  const isComplete = reward.progress >= MAX_REWARDS;
+  <div id="rewards-container"></div>
+</div>
 
-  return (
-    <div key={index} className="space-y-2 mt-6">
-      <h2 className="text-lg font-semibold">{reward.name}</h2>
-      <div className="relative h-2 bg-[#ffb84d33] rounded-full">
-        <div
-          className="absolute h-2 bg-[#ffb84d] rounded-full"
-          style={{ width: `${percentage}%` }}
-        ></div>
-        <div
-          className="absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#ffb84d] text-sm flex items-center justify-center text-black font-bold shadow-md"
-          style={{ left: `calc(${percentage}% - 12px)` }}
-        >
-          {reward.progress}
-        </div>
-      </div>
-      <div className="flex justify-between text-sm text-gray-400">
-        <span>0</span>
-        <span>{MAX_REWARDS}</span>
-      </div>
-      {isComplete && (
-        <button
-          onClick={() => window.location.href = '/redeem'}
-          className="mt-2 bg-[#ffb84d] text-black font-bold py-1 px-4 rounded"
-        >
-          Redeem
-        </button>
-      )}
-    </div>
-  );
-})}
-
-
-     <!-- Redeem QR Screen -->
-<div className="min-h-screen bg-gray-900 text-white p-4 flex flex-col items-center">
-  <div className="w-full">
-    <button
-      onClick={() => window.history.back()}
-      className="text-[#ffb84d] text-2xl mb-4"
-    >
-      ←
-    </button>
-  </div>
-
-  <h1 className="text-2xl font-bold text-[#ffb84d] mb-6">Redeem Reward</h1>
-
-  <div className="w-64 h-64 bg-white flex items-center justify-center text-black font-bold text-lg rounded-md shadow-lg">
+<div id="redeem-section" style="display:none; padding: 20px; color: white; background-color: #111827; font-family: sans-serif;">
+  <button onclick="goBackToRewards()" style="color:#ffb84d; font-size: 24px; border:none; background:none;">←</button>
+  <h1 style="color: #ffb84d;">Redeem Reward</h1>
+  <div style="width: 256px; height: 256px; background: white; color: black; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.5rem; border-radius: 12px; margin-top: 20px;">
     QR CODE
   </div>
 </div>
 
-  
-   <!-- Register Screen -->
-   <div id="register-screen" class="screen">
-   <div style="position: relative; height: 33vh; background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center / cover no-repeat;">
-     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(14,26,28,0.3), #0e1a1c);"></div>
-     <button onclick="showScreen('login-screen')" style="position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: #fff; font-size: 1.5rem; z-index: 2;">←</button>
-   </div>
- 
-   <div style="padding: 1rem; max-width: 600px; margin: 0 auto;">
-     <h2 style="color: #fff; margin-top: 2rem;">Create Account</h2>
-     <div style="margin-top: 1.5rem;">
-       <div style="position: relative; margin-bottom: 1.5rem;">
-         <input type="text" placeholder="Name" style="width: 100%; padding: 0.75rem 0.75rem 0.5rem 1rem; background: transparent; border: none; border-bottom: 1px solid #ffb84d; color: #fff; font-size: 1rem;">
-       </div>
-       <div style="position: relative; margin-bottom: 1.5rem;">
-         <input type="email" placeholder="Email" style="width: 100%; padding: 0.75rem 0.75rem 0.5rem 1rem; background: transparent; border: none; border-bottom: 1px solid #ffb84d; color: #fff; font-size: 1rem;">
-       </div>
-       <div style="position: relative; margin-bottom: 1.5rem;">
-         <input type="password" placeholder="Password" style="width: 100%; padding: 0.75rem 0.75rem 0.5rem 1rem; background: transparent; border: none; border-bottom: 1px solid #ffb84d; color: #fff; font-size: 1rem;">
-       </div>
-       <button onclick="showScreen('dashboard-screen')" style="width: 100%; background:#ffb84d; color:#000; padding:0.75rem; border:none; border-radius:12px; font-weight:bold;">Register</button>
-     </div>
- 
-     <p style="text-align: center; color: #888; font-size: 0.85rem; margin-top: 2rem;">Already have an account? 
-       <a href="#" onclick="showScreen('login-screen')" style="color: #ffb84d; text-decoration: none;">Login here</a>
-     </p>
-   </div>
-  </div>
- </div>
+<script>
+  const rewardsData = [
+    { name: "Glow Tanning Studio", progress: 3 },
+    { name: "Fresh Coffee", progress: 7 },
+    { name: "Apex Gym", progress: 1 },
+    { name: "Bella Boutique", progress: 10 },
+  ];
+
+  function goBack() {
+    history.back();
+  }
+
+  function goBackToRewards() {
+    document.getElementById("redeem-section").style.display = "none";
+    document.getElementById("rewards-section").style.display = "block";
+  }
+
+  function showRedeemPage() {
+    document.getElementById("rewards-section").style.display = "none";
+    document.getElementById("redeem-section").style.display = "block";
+  }
+
+  const container = document.getElementById("rewards-container");
+
+  rewardsData.forEach((reward) => {
+    const percent = (reward.progress / 10) * 100;
+
+    const card = document.createElement("div");
+    card.style.marginBottom = "2rem";
+
+    card.innerHTML = `
+      <h2 style="font-size: 1.1rem;">${reward.name}</h2>
+      <div style="position: relative; height: 8px; background: rgba(255,184,77,0.2); border-radius: 9999px;">
+        <div style="height: 8px; background: #ffb84d; border-radius: 9999px; width: ${percent}%"></div>
+        <div style="width: 24px; height: 24px; background: #ffb84d; color: black; font-weight: bold; border-radius: 50%; position: absolute; top: -8px; left: calc(${percent}% - 12px); display: flex; align-items: center; justify-content: center;">${reward.progress}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #aaa;"><span>0</span><span>10</span></div>
+    `;
+
+    if (reward.progress >= 10) {
+      const redeemBtn = document.createElement("button");
+      redeemBtn.innerText = "Redeem";
+      redeemBtn.style = "margin-top: 0.5rem; background: #ffb84d; color: black; padding: 6px 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;";
+      redeemBtn.onclick = showRedeemPage;
+      card.appendChild(redeemBtn);
+    }
+
+    container.appendChild(card);
+  });
+</script>
+
    
 <!-- Directory Screen -->
 <div id="directory-screen" class="screen" style="padding: 1rem; max-width: 600px; margin: 0 auto;">
