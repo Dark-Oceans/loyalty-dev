@@ -350,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.31</h1>
+       <h1>Welcome to Coinnect.- DEV 1.32</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -406,7 +406,7 @@
       Your Profile <span style="font-size: 1.2rem;">›</span>
     </button>
 
-    <div class="menu-item">Rewards</div>
+    <div class="menu-item" onclick="showRewards()">Rewards</div>
     <div class="menu-item">Favourites</div>
     <div class="menu-item">Your Reviews</div>
     <div class="menu-item">Settings</div>
@@ -1039,6 +1039,14 @@
 
   function toggleFilters() {
     alert("Filter feature coming soon!");
+  }
+</script>
+
+  <script>
+  function showRewards() {
+    document.getElementById("dashboard-screen").style.display = "none";
+    document.getElementById("rewards-section").style.display = "block";
+    document.getElementById("redeem-section").style.display = "none";
   }
 </script>
 
