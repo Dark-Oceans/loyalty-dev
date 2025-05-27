@@ -350,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.37</h1>
+       <h1>Welcome to Coinnect.- DEV 1.38</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -1007,38 +1007,92 @@
 </script>
 
 
-  <div class="nav-bar">
-  <!-- Directory -->
-  <button onclick="showScreen('directory-screen')">
+  <style>
+  .nav-bar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #1a2d2f;
+    padding: 0.75rem 0;
+    border-top: 1px solid #334b4e;
+  }
+
+  .nav-bar button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    opacity: 0.6;
+  }
+
+  .nav-bar button:active {
+    transform: scale(0.9);
+  }
+
+  .nav-bar button.active {
+    opacity: 1;
+  }
+
+  .nav-bar svg {
+    width: 24px;
+    height: 24px;
+    fill: #ffb84d;
+  }
+</style>
+
+<div class="nav-bar">
+  <button onclick="setActiveScreen(this, 'directory-screen')" id="nav-directory">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M3 4a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
     </svg>
   </button>
 
-  <!-- Map -->
-  <button onclick="showScreen('map-screen')">
+  <button onclick="setActiveScreen(this, 'map-screen')" id="nav-map">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/>
       <circle cx="12" cy="10" r="3"/>
     </svg>
   </button>
 
-  <!-- Offers (price tag icon) -->
-  <button onclick="showScreen('offers-screen')">
+  <button onclick="setActiveScreen(this, 'offers-screen')" id="nav-offers">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M20.59 13.41l-8-8A2 2 0 0 0 11.17 5H5a2 2 0 0 0-2 2v6.17a2 2 0 0 0 .59 1.42l8 8a2 2 0 0 0 2.83 0l6.17-6.17a2 2 0 0 0 0-2.83z"/>
       <circle cx="7.5" cy="7.5" r="1.5"/>
     </svg>
   </button>
 
-  <!-- Dashboard (user icon) -->
-  <button onclick="showScreen('dashboard-screen')">
+  <button onclick="setActiveScreen(this, 'dashboard-screen')" id="nav-dashboard">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <circle cx="12" cy="8" r="4"/>
       <path d="M6 20v-2a6 6 0 0 1 12 0v2"/>
     </svg>
   </button>
 </div>
+
+<script>
+  function setActiveScreen(button, screenId) {
+    // Hide all screens
+    document.querySelectorAll('.screen').forEach(screen => {
+      screen.style.display = 'none';
+    });
+
+    // Show selected screen
+    document.getElementById(screenId).style.display = 'block';
+
+    // Remove 'active' from all buttons
+    document.querySelectorAll('.nav-bar button').forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+    // Add 'active' to clicked button
+    button.classList.add('active');
+  }
+
+  // Set initial active state (optional)
+  window.onload = () => {
+    document.getElementById('nav-directory').classList.add('active');
+  };
+</script>
 
 
 
