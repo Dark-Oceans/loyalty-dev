@@ -350,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.39</h1>
+       <h1>Welcome to Coinnect.- DEV 1.40</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -922,6 +922,101 @@
  </div>
 
 <!-- Your screens go here -->
+
+  <!-- Offers Screen -->
+<div id="offers-screen" class="screen" style="display: none; font-family: sans-serif; color: white; background-color: #0e1a1c; position: relative; min-height: 100vh; overflow-y: auto;">
+
+  <!-- Background fade image -->
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 200px; background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') center/cover no-repeat; z-index: 0;"></div>
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 200px; background: linear-gradient(to bottom, rgba(14,26,28,0) 0%, #0e1a1c 100%); z-index: 1;"></div>
+
+  <!-- Content -->
+  <div style="position: relative; z-index: 2; padding: 1.5rem; padding-top: 4rem;">
+
+    <h1 style="font-size: 1.75rem; font-weight: bold; margin-bottom: 1rem;">Latest Offers</h1>
+
+    <!-- Sort options -->
+    <div style="display: flex; gap: 1.5rem; font-size: 0.9rem; margin-bottom: 1.5rem;">
+      <span onclick="sortOffers('distance')" style="color: #ffb84d; cursor: pointer;">Distance</span>
+      <span onclick="sortOffers('value')" style="cursor: pointer;">Value</span>
+      <span onclick="sortOffers('date')" style="cursor: pointer;">Date</span>
+    </div>
+
+    <!-- Offers list -->
+    <div id="offers-list" style="display: flex; flex-direction: column; gap: 1.25rem;">
+      <!-- Offers will be injected here -->
+    </div>
+  </div>
+</div>
+
+<script>
+  const offers = [
+    {
+      business: "Moon Brew Coffee",
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?fit=crop&w=80&q=80",
+      daysAgo: 2,
+      description: "Get 20% off your first drink.",
+    },
+    {
+      business: "Moon Brew Coffee",
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?fit=crop&w=80&q=80",
+      daysAgo: 4,
+      description: "Buy one get one free all week!",
+    },
+    {
+      business: "Moon Brew Coffee",
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?fit=crop&w=80&q=80",
+      daysAgo: 6,
+      description: "Free upgrade to large with any purchase.",
+    },
+  ];
+
+  function renderOffers() {
+    const container = document.getElementById("offers-list");
+    container.innerHTML = "";
+
+    offers.forEach(offer => {
+      const offerCard = document.createElement("div");
+      offerCard.style.display = "flex";
+      offerCard.style.alignItems = "center";
+      offerCard.style.justifyContent = "space-between";
+      offerCard.style.background = "#1a2d2f";
+      offerCard.style.padding = "1rem";
+      offerCard.style.borderRadius = "12px";
+
+      offerCard.innerHTML = `
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <img src="${offer.image}" alt="${offer.business}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+          <div>
+            <div style="font-weight: bold;">${offer.business}</div>
+            <div style="font-size: 0.8rem; color: #aaa;">${offer.daysAgo} days ago</div>
+            <div style="font-size: 0.85rem; color: #ccc;">${offer.description}</div>
+          </div>
+        </div>
+        <button onclick="viewBusinessProfile()" style="background: #ffb84d; color: black; font-weight: bold; border: none; border-radius: 9999px; padding: 0.4rem 1rem; cursor: pointer;">REDEEM</button>
+      `;
+
+      container.appendChild(offerCard);
+    });
+  }
+
+  function viewBusinessProfile() {
+    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+    document.getElementById('profile-screen').style.display = 'block';
+    document.getElementById('nav-container').style.display = 'flex';
+  }
+
+  function sortOffers(type) {
+    if (type === 'date') {
+      offers.sort((a, b) => a.daysAgo - b.daysAgo); // recent first
+    }
+    // Add future sorting logic here for distance/value if needed
+    renderOffers();
+  }
+
+  renderOffers();
+</script>
+
 
    <!-- Rewards Section -->
 <div id="rewards-section" style="display:none; padding: 20px; color: white; background-color: #0e1a1c; font-family: sans-serif;">
