@@ -350,7 +350,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.43</h1>
+       <h1>Welcome to Coinnect.- DEV 1.44</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -471,7 +471,7 @@
     </div>
 
     <!-- Retailer list -->
-    <div id="retailer-list" style="display: flex; flex-direction: column; gap: 1.25rem; padding: 0 0rem;"></div>
+    <div id="retailer-list" style="display: flex; flex-direction: column; gap: 1.25rem;"></div>
   </div>
 </div>
 
@@ -487,11 +487,11 @@
 
 <script>
   const retailers = [
-    { name: "Moon Brew Café", city: "London W1", rating: 4.8, image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?fit=crop&w=800&q=80", lat: 51.509865, lng: -0.118092 },
-    { name: "DeFi Deli", city: "Bristol", rating: 4.6, image: "https://images.unsplash.com/photo-1613145999285-d3d8b9d6ecf0?fit=crop&w=800&q=80", lat: 51.454514, lng: -2.587910 },
-    { name: "Blockchain Bakery", city: "Manchester", rating: 4.9, image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?fit=crop&w=800&q=80", lat: 53.480759, lng: -2.242631 },
-    { name: "Smart Sips", city: "Liverpool", rating: 4.7, image: "https://images.unsplash.com/photo-1527515637462-d928a96a4a15?fit=crop&w=800&q=80", lat: 53.408371, lng: -2.991573 },
-    { name: "Cripto Crumbs", city: "Leeds", rating: 4.5, image: "https://images.unsplash.com/photo-1565895405227-4f91f73ed51b?fit=crop&w=800&q=80", lat: 53.800755, lng: -1.549077 }
+    { name: "Moon Brew Café", city: "London W1", rating: 4.8, image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80", lat: 51.509865, lng: -0.118092 },
+    { name: "DeFi Deli", city: "Bristol", rating: 4.6, image: "https://images.unsplash.com/photo-1613145999285-d3d8b9d6ecf0?auto=format&fit=crop&w=800&q=80", lat: 51.454514, lng: -2.587910 },
+    { name: "Blockchain Bakery", city: "Manchester", rating: 4.9, image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80", lat: 53.480759, lng: -2.242631 },
+    { name: "Smart Sips", city: "Liverpool", rating: 4.7, image: "https://images.unsplash.com/photo-1527515637462-d928a96a4a15?auto=format&fit=crop&w=800&q=80", lat: 53.408371, lng: -2.991573 },
+    { name: "Cripto Crumbs", city: "Leeds", rating: 4.5, image: "https://images.unsplash.com/photo-1565895405227-4f91f73ed51b?auto=format&fit=crop&w=800&q=80", lat: 53.800755, lng: -1.549077 }
   ];
 
   let userCoords = null;
@@ -529,19 +529,28 @@
 
       const card = document.createElement("div");
       card.style = `
+        background-color: transparent;
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
         background-image: url('${retailer.image}');
         background-size: cover;
         background-position: center;
-        border-radius: 20px;
-        overflow: hidden;
-        padding: 1.25rem;
         position: relative;
       `;
 
       card.innerHTML = `
-        <div style="background: rgba(0, 0, 0, 0.5); padding: 0.25rem; border-radius: 12px;">
-          <h2 onclick="viewBusinessProfile()" style="font-size: 1.2rem; font-weight: bold; margin: 0; cursor: pointer; text-decoration: underline;">${retailer.name}</h2>
-          <p style="margin: 0.2rem 0; color: #ccc;">${retailer.city}</p>
+        <div style="background: rgba(0, 0, 0, 0.6); padding: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 onclick="viewBusinessProfile()" style="font-size: 1rem; font-weight: bold; margin: 0; cursor: pointer;">${retailer.name}</h2>
+            <button onclick="toggleBookmark('${retailer.name}')" style="background: none; border: none; cursor: pointer;">
+              <svg fill="#ffb84d" width="24" height="24" viewBox="0 0 24 24">
+                <path d="${isBookmarked ? 'M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z' : 'M5 3h14a2 2 0 0 1 2 2v16l-7-5-7 5V5a2 2 0 0 1 2-2z'}"/>
+              </svg>
+            </button>
+          </div>
+          <p style="margin: 0.2rem 0; color: #ccc; font-size: 0.85rem;">${retailer.city}</p>
           <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
             <span style="color: #ffb84d;">★</span>
             <span style="color: #ffb84d; font-size: 0.95rem;">${retailer.rating}</span>
@@ -551,11 +560,6 @@
             </button>
           </div>
         </div>
-        <button onclick="toggleBookmark('${retailer.name}')" style="position: absolute; top: 1rem; right: 3rem; background: none; border: none; cursor: pointer;">
-          <svg fill="#ffb84d" width="24" height="24" viewBox="0 0 24 24">
-            <path d="${bookmarks.includes(retailer.name) ? 'M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z' : 'M5 3h14a2 2 0 0 1 2 2v16l-7-5-7 5V5a2 2 0 0 1 2-2z'}"/>
-          </svg>
-        </button>
       `;
 
       container.appendChild(card);
@@ -599,6 +603,7 @@
     renderRetailers();
   }
 </script>
+
 
 
  
