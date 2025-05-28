@@ -342,7 +342,74 @@
    </div>
  </div>
  
-   <!-- Dashboard Screen -->
+ <style>
+  .sort-btn {
+    cursor: pointer;
+    color: white;
+  }
+  .sort-btn.active {
+    color: #ffb84d;
+  }
+
+  .nav-bar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #1a2d2f;
+    padding: 0.5rem 0;
+    border-top: 1px solid #334b4e;
+    height: 48px;
+  }
+
+  .nav-bar button {
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-bar button:active {
+    transform: scale(0.9);
+  }
+
+  .nav-bar button.active {
+    opacity: 1;
+  }
+
+  .nav-bar svg {
+    width: 22px;
+    height: 22px;
+    fill: #ffb84d;
+  }
+
+  .dashboard-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .dashboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    background: #1a2d2f;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .dashboard-item:hover {
+    background: #26393c;
+  }
+</style>
+
+<!-- Dashboard Screen -->
 <div id="dashboard-screen" class="screen" style="padding: 1.5rem; max-width: 600px; margin: 0 auto;">
   <div style="display: flex; align-items: center; margin-bottom: 2rem;">
     <img src="assets/images/profile-pic.jpg" alt="User Photo" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-right: 1rem;">
@@ -352,42 +419,48 @@
     </div>
   </div>
 
-  <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-    <button style="display: flex; justify-content: space-between; align-items: center; background: #1a2d2f; padding: 1rem; border: none; border-radius: 12px; color: #fff; font-size: 1rem; transition: background 0.3s;" 
-      onmouseover="this.style.background='#26393c'" 
-      onmouseout="this.style.background='#1a2d2f'">
+  <div class="dashboard-menu">
+    <div class="dashboard-item">
       Your Profile <span style="font-size: 1.2rem;">›</span>
-    </button>
-
-    <div class="menu-item" onclick="showRewards()">Rewards</div>
-    <div class="menu-item">Favourites</div>
-    <div class="menu-item">Your Reviews</div>
-    <div class="menu-item">Settings</div>
-    <div class="menu-item">Logout</div>
+    </div>
+    <div class="dashboard-item" onclick="showRewards()">
+      Rewards <span style="font-size: 1.2rem;">›</span>
+    </div>
+    <div class="dashboard-item" onclick="showFavourites()">
+      Favourites <span style="font-size: 1.2rem;">›</span>
+    </div>
+    <div class="dashboard-item">
+      Your Reviews <span style="font-size: 1.2rem;">›</span>
+    </div>
+    <div class="dashboard-item">
+      Settings <span style="font-size: 1.2rem;">›</span>
+    </div>
+    <div class="dashboard-item" onclick="logout()">
+      Logout <span style="font-size: 1.2rem;">›</span>
+    </div>
   </div>
 </div>
 
-<style>
-  .menu-item {
-    border-top: 1px solid #334b4e;
-    padding: 1rem 0 0.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #fff;
-    cursor: pointer;
-    transition: background 0.3s;
+<script>
+  function logout() {
+    document.getElementById('dashboard-screen').style.display = 'none';
+    document.getElementById('welcome-screen').style.display = 'block';
+    document.getElementById('nav-container').style.display = 'none';
   }
 
-  .menu-item:last-child {
-    border-bottom: 1px solid #334b4e;
+  function showFavourites() {
+    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+    document.getElementById('favourites-screen').style.display = 'block';
+    document.getElementById('nav-container').style.display = 'flex';
   }
+</script>
 
-  .menu-item:hover {
-    background: #1f3335;
-    padding-left: 0.5rem;
-  }
-</style>
+<!-- Favourites Screen -->
+<div id="favourites-screen" class="screen" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
+  <button onclick="document.getElementById('favourites-screen').style.display='none'; document.getElementById('dashboard-screen').style.display='block';" style="color:#ffb84d; font-size: 1.2rem; background:none; border:none; margin-bottom: 1rem;">← Back</button>
+  <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Your Favourites</h1>
+  <p style="color: #ccc;">Your bookmarked listings will appear here.</p>
+</div>
 
  
 
