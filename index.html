@@ -1072,22 +1072,34 @@
 </script>
 
 
-  <style>
+ <style>
+  .sort-btn {
+    cursor: pointer;
+    color: white;
+  }
+  .sort-btn.active {
+    color: #ffb84d;
+  }
+
   .nav-bar {
     display: flex;
     justify-content: space-around;
     background-color: #1a2d2f;
-    padding: 0.75rem 0;
+    padding: 0.5rem 0; /* reduced from 0.75rem */
     border-top: 1px solid #334b4e;
+    height: 48px; /* explicitly maintain smaller height */
   }
 
   .nav-bar button {
     background: none;
     border: none;
-    padding: 0.5rem;
+    padding: 0.25rem; /* reduced padding */
     cursor: pointer;
     transition: transform 0.1s ease, opacity 0.2s ease;
     opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-bar button:active {
@@ -1099,11 +1111,12 @@
   }
 
   .nav-bar svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     fill: #ffb84d;
   }
 </style>
+
 
   
 <div id="nav-container" class="nav-bar" style="display: none;">
