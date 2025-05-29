@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.45</h1>
+       <h1>Welcome to Coinnect.- DEV 1.46</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -341,7 +341,54 @@
  
    </div>
  </div>
- 
+
+<!-- Register Screen -->
+<div id="register-screen" class="screen" style="margin: 0; padding: 0; display: none;">
+  <div style="position: relative; height: 33vh; width: 100%; background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center / cover no-repeat;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(14,26,28,0.3), #0e1a1c);"></div>
+    <button onclick="showScreen('welcome-screen')" style="position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: #fff; font-size: 1.5rem; z-index: 2;">←</button>
+  </div>
+  <div style="padding: 1rem; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #fff; margin-top: 2rem;">Register</h2>
+    <p style="color: #ccc; margin: 1rem 0 2rem; font-size: 0.95rem;">Thanks for logging in with your Pi credentials! Complete your profile to personalise your Coinnect experience.</p>
+
+    <div style="margin-bottom: 1.5rem;">
+      <input type="text" placeholder="Full Name" style="width: 100%; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <input type="date" placeholder="Birthday" style="width: 100%; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <select style="width: 100%; padding: 0.75rem 1rem; background: #1a2d2f; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+        <option value="" disabled selected>Gender</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+        <option value="nonbinary">Non-binary</option>
+        <option value="prefer-not">Prefer not to say</option>
+      </select>
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <input type="text" placeholder="City / Location" style="width: 100%; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+    </div>
+
+    <button onclick="showScreen('dashboard-screen')" style="width: 100%; background:#ffb84d; color:#000; padding:0.75rem; border:none; border-radius:12px; font-weight:bold;">Complete Profile</button>
+  </div>
+</div>
+
+<!-- Profile Screen (for existing users) -->
+<div id="profile-screen" class="screen screen-bg" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
+  <button onclick="document.getElementById('profile-screen').style.display='none'; document.getElementById('dashboard-screen').style.display='block';" style="color:#ffb84d; font-size: 1.2rem; background:none; border:none; margin-bottom: 1rem;">← Back</button>
+  <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Your Profile</h1>
+  <ul style="list-style: none; padding: 0; color: #ccc;">
+    <li style="margin-bottom: 1rem;"><strong style="color: #fff;">Username:</strong> @pi_user</li>
+    <li style="margin-bottom: 1rem;"><strong style="color: #fff;">Full Name:</strong> Jane Doe</li>
+    <li style="margin-bottom: 1rem;"><strong style="color: #fff;">Birthday:</strong> 1990-01-01</li>
+    <li style="margin-bottom: 1rem;"><strong style="color: #fff;">Gender:</strong> Female</li>
+    <li style="margin-bottom: 1rem;"><strong style="color: #fff;">Location:</strong> London, UK</li>
+  </ul>
+</div>
+
+  
  <style>
   .sort-btn {
     cursor: pointer;
