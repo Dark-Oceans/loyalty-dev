@@ -833,32 +833,30 @@
     document.getElementById('nav-container').style.display = 'flex';
   }
 
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      userCoords = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      activateSortOnLoad('distance');
-    },
-    () => {
-      // If user denies location, still load unsorted list
-      activateSortOnLoad('rating'); // fallback sort
-    }
-  );
-} else {
-  activateSortOnLoad('rating'); // fallback for unsupported browsers
-}
+function initDirectoryScreen() {
+  // Ensure one sort button is active
+  document.querySelectorAll(".sort-btn").forEach(btn => btn.classList.remove("active"));
+  const distanceBtn = document.querySelector(".sort-btn[data-sort='distance']");
+  if (distanceBtn) distanceBtn.classList.add("active");
 
-function activateSortOnLoad(type) {
-  const targetBtn = document.querySelector(`.sort-btn[data-sort='${type}']`);
-  if (targetBtn) {
-    setActiveSort(targetBtn, type);
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        userCoords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        sortListings('distance');
+      },
+      () => {
+        sortListings('rating'); // fallback sort
+      }
+    );
   } else {
-    renderRetailers(); // fallback
+    sortListings('rating'); // fallback sort
   }
 }
+
 
 
 
@@ -1487,16 +1485,15 @@ setActiveScreen(null, 'welcome-screen');
 
 <script>
   function showDirectoryFromLogin() {
-    // Hide all screens
-    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
-    // Show directory screen
-    document.getElementById('directory-screen').style.display = 'block';
-    // Show nav bar
-    document.getElementById('nav-container').style.display = 'flex';
-    // Reset all nav button active states
-    document.querySelectorAll('.nav-bar button').forEach(btn => btn.classList.remove('active'));
-    // Highlight the directory button
-    document.getElementById('nav-directory').classList.add('active');
+  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+  document.getElementById('directory-screen').style.display = 'block';
+  document.getElementById('nav-container').style.display = 'flex';
+  document.querySelectorAll('.nav-bar button').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('nav-directory').classList.add('active');
+
+  initDirectoryScreen(); // ← ADD THIS
+}
+
   }
 </script>
 
