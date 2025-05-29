@@ -695,8 +695,9 @@
     <!-- Sort options -->
     <div id="sort-buttons" style="display: flex; gap: 1.5rem; font-size: 0.9rem; margin-bottom: 1rem;">
   <span onclick="setActiveSort(this, 'distance')" class="sort-btn" data-sort="distance">Distance</span>
-  <span onclick="setActiveSort(this, 'rating')" class="sort-btn" data-sort="rating">Rating</span>
-  <span onclick="setActiveSort(this, 'name')" class="sort-btn" data-sort="name">Name</span>
+<span onclick="setActiveSort(this, 'rating')" class="sort-btn" data-sort="rating">Rating</span>
+<span onclick="setActiveSort(this, 'name')" class="sort-btn" data-sort="name">Name</span>
+
 </div>
 
 
@@ -832,19 +833,31 @@
     document.getElementById('nav-container').style.display = 'flex';
   }
 
- if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(position => {
-    userCoords = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-    sortListings('distance'); // sort immediately after setting coords
-    document.querySelector(".sort-btn[data-sort='distance']").classList.add('active');
-  }, () => {
-    renderRetailers(); // fallback if user denies location
-  });
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      userCoords = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      activateSortOnLoad('distance');
+    },
+    () => {
+      // If user denies location, still load unsorted list
+      activateSortOnLoad('rating'); // fallback sort
+    }
+  );
 } else {
-  renderRetailers(); // fallback if geolocation is unsupported
+  activateSortOnLoad('rating'); // fallback for unsupported browsers
+}
+
+function activateSortOnLoad(type) {
+  const targetBtn = document.querySelector(`.sort-btn[data-sort='${type}']`);
+  if (targetBtn) {
+    setActiveSort(targetBtn, type);
+  } else {
+    renderRetailers(); // fallback
+  }
 }
 
 
