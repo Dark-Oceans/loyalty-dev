@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.49</h1>
+       <h1>Welcome to Coinnect.- DEV 1.50</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -344,12 +344,8 @@
 
 <!-- Register Screen -->
 <div id="register-screen" class="screen" style="margin: 0; padding: 0; display: none;">
-  <div style="position: relative; height: 33vh; width: 100%; background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center / cover no-repeat;">
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(14,26,28,0.3), #0e1a1c);"></div>
-    <button onclick="showScreen('welcome-screen')" style="position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: #fff; font-size: 1.5rem; z-index: 2;">←</button>
-  </div>
-  <div style="padding: 1rem; max-width: 600px; margin: -3rem auto 2rem auto; box-sizing: border-box;">
-    <h2 style="color: #fff; margin-top: 2rem;">Register</h2>
+  <div style="padding: 1rem; max-width: 600px; margin: 1rem auto 2rem auto; box-sizing: border-box;">
+    <h2 style="color: #fff; margin-top: 1rem;">Register</h2>
     <p style="color: #ccc; margin: 1rem 0 2rem; font-size: 0.95rem;">Thanks for logging in with your Pi credentials! Complete your profile to personalise your Coinnect experience.</p>
 
     <form id="register-form" onsubmit="return saveProfileData()">
@@ -437,9 +433,15 @@
       document.getElementById('reg-location').value = profile.location || '';
       document.getElementById('reg-categories').value = profile.categories || '';
       document.getElementById('reg-consent').checked = profile.consent || false;
+
+      const profileCard = document.querySelector('#dashboard-screen h2');
+      const profileLocation = document.querySelector('#dashboard-screen p');
+      if (profileCard && profile.name) profileCard.textContent = profile.name;
+      if (profileLocation && profile.location) profileLocation.textContent = profile.location;
     }
   });
 </script>
+
 
 
 <!-- Profile Screen (for existing users) -->
