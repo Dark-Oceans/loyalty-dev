@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.59</h1>
+       <h1>Welcome to Coinnect.- DEV 1.60</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -763,6 +763,9 @@
   }
 
   function renderRetailers() {
+   console.log("Rendering retailers...");
+console.log("Retailers count:", retailers.length);
+
     const container = document.getElementById("retailer-list");
     const searchValue = document.getElementById("searchInput").value.toLowerCase();
     container.innerHTML = "";
@@ -864,7 +867,7 @@ function initDirectoryScreen() {
 
 
 <!-- Business Profile Screen -->
-<div id="profile-screen" class="screen" style="display:none; background-color: #0e1a1c; color: #fff; font-family: 'Inter', sans-serif; padding: 0; margin: 0;">
+<div id="business-profile-screen" class="screen" style="display:none; background-color: #0e1a1c; color: #fff; font-family: 'Inter', sans-serif; padding: 0; margin: 0;">
   <div id="profile-header" style="position: relative; height: 50vh; background-size: cover; background-position: center; background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?fit=crop&w=1200&q=80');">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), #0e1a1c);"></div>
     <button onclick="showScreen('directory-screen')" style="position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: #fff; font-size: 1.5rem; z-index: 2;">←</button>
@@ -1051,6 +1054,9 @@ function initDirectoryScreen() {
         nav.style.display = 'flex';
       }
     }
+     // Always render the list regardless of geolocation success
+renderRetailers();
+
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
  
@@ -1232,10 +1238,11 @@ function initDirectoryScreen() {
   }
 
   function viewBusinessProfile() {
-    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
-    document.getElementById('profile-screen').style.display = 'block';
-    document.getElementById('nav-container').style.display = 'flex';
-  }
+  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+  document.getElementById('business-profile-screen').style.display = 'block';
+  document.getElementById('nav-container').style.display = 'flex';
+}
+
 
   function sortOffers(type) {
     if (type === 'date') {
