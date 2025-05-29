@@ -1470,6 +1470,20 @@ setActiveScreen(null, 'welcome-screen');
   }
 </script>
 
+<script>
+  function showDashboardFromLogin() {
+    // Hide all screens
+    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+    // Show dashboard
+    document.getElementById('dashboard-screen').style.display = 'block';
+    // Show nav
+    document.getElementById('nav-container').style.display = 'flex';
+    // Remove all nav active states
+    document.querySelectorAll('.nav-bar button').forEach(btn => btn.classList.remove('active'));
+    // Set dashboard as active
+    document.getElementById('nav-dashboard').classList.add('active');
+  }
+</script>
 
 
   
