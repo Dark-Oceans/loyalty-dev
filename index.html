@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.44</h1>
+       <h1>Welcome to Coinnect.- DEV 1.45</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -410,7 +410,7 @@
 </style>
 
 <!-- Dashboard Screen -->
-<div id="dashboard-screen" class="screen" style="padding: 1.5rem; max-width: 600px; margin: 0 auto;">
+<div id="dashboard-screen" class="screen screen-bg" style="padding: 1.5rem; max-width: 600px; margin: 0 auto;">
   <div style="display: flex; align-items: center; margin-bottom: 2rem;">
     <img src="assets/images/profile-pic.jpg" alt="User Photo" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-right: 1rem;">
     <div>
@@ -420,7 +420,7 @@
   </div>
 
   <div class="dashboard-menu">
-    <div class="dashboard-item">
+    <div class="dashboard-item" onclick="showProfile()">
       Your Profile <span style="font-size: 1.2rem;">›</span>
     </div>
     <div class="dashboard-item" onclick="showRewards()">
@@ -429,10 +429,10 @@
     <div class="dashboard-item" onclick="showFavourites()">
       Favourites <span style="font-size: 1.2rem;">›</span>
     </div>
-    <div class="dashboard-item">
+    <div class="dashboard-item" onclick="showReviews()">
       Your Reviews <span style="font-size: 1.2rem;">›</span>
     </div>
-    <div class="dashboard-item">
+    <div class="dashboard-item" onclick="showSettings()">
       Settings <span style="font-size: 1.2rem;">›</span>
     </div>
     <div class="dashboard-item" onclick="logout()">
@@ -443,8 +443,8 @@
 
 <script>
   function logout() {
-    document.getElementById('dashboard-screen').style.display = 'none';
-    document.getElementById('welcome-screen').style.display = 'block';
+    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+    document.getElementById('login-screen').style.display = 'block';
     document.getElementById('nav-container').style.display = 'none';
   }
 
@@ -453,14 +453,47 @@
     document.getElementById('favourites-screen').style.display = 'block';
     document.getElementById('nav-container').style.display = 'flex';
   }
+
+  function showSettings() {
+    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+    document.getElementById('settings-screen').style.display = 'block';
+    document.getElementById('nav-container').style.display = 'flex';
+  }
+
+  function showReviews() {
+    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+    document.getElementById('reviews-screen').style.display = 'block';
+    document.getElementById('nav-container').style.display = 'flex';
+  }
+
+  function showProfile() {
+    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+    document.getElementById('profile-screen').style.display = 'block';
+    document.getElementById('nav-container').style.display = 'flex';
+  }
 </script>
 
 <!-- Favourites Screen -->
-<div id="favourites-screen" class="screen" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
+<div id="favourites-screen" class="screen screen-bg" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
   <button onclick="document.getElementById('favourites-screen').style.display='none'; document.getElementById('dashboard-screen').style.display='block';" style="color:#ffb84d; font-size: 1.2rem; background:none; border:none; margin-bottom: 1rem;">← Back</button>
   <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Your Favourites</h1>
   <p style="color: #ccc;">Your bookmarked listings will appear here.</p>
 </div>
+
+<!-- Settings Screen -->
+<div id="settings-screen" class="screen screen-bg" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
+  <button onclick="document.getElementById('settings-screen').style.display='none'; document.getElementById('dashboard-screen').style.display='block';" style="color:#ffb84d; font-size: 1.2rem; background:none; border:none; margin-bottom: 1rem;">← Back</button>
+  <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Settings</h1>
+  <p style="color: #ccc;">Your settings and preferences will appear here.</p>
+</div>
+
+<!-- Reviews Screen -->
+<div id="reviews-screen" class="screen screen-bg" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
+  <button onclick="document.getElementById('reviews-screen').style.display='none'; document.getElementById('dashboard-screen').style.display='block';" style="color:#ffb84d; font-size: 1.2rem; background:none; border:none; margin-bottom: 1rem;">← Back</button>
+  <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Your Reviews</h1>
+  <p style="color: #ccc;">Your submitted reviews will be shown here.</p>
+</div>
+
 
  
 
