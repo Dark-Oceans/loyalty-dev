@@ -832,19 +832,18 @@
   }
 
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      userCoords = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      renderRetailers();
-    }, () => {
-      renderRetailers();
-    });
-  } else {
-    renderRetailers();
-  }
-</script>
+  navigator.geolocation.getCurrentPosition(position => {
+    userCoords = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    setTimeout(() => setActiveSort(document.querySelector(".sort-btn.active"), 'distance'), 0);
+  }, () => {
+    setTimeout(() => setActiveSort(document.querySelector(".sort-btn.active"), 'distance'), 0);
+  });
+} else {
+  setTimeout(() => setActiveSort(document.querySelector(".sort-btn.active"), 'distance'), 0);
+}
 
 
 
