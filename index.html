@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.48</h1>
+       <h1>Welcome to Coinnect.- DEV 1.49</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -352,41 +352,95 @@
     <h2 style="color: #fff; margin-top: 2rem;">Register</h2>
     <p style="color: #ccc; margin: 1rem 0 2rem; font-size: 0.95rem;">Thanks for logging in with your Pi credentials! Complete your profile to personalise your Coinnect experience.</p>
 
-    <div style="margin-bottom: 1.25rem;">
-      <label style="color: #ccc; font-size: 0.9rem;">Full Name</label>
-      <input type="text" placeholder="Full Name" style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
-    </div>
-    <div style="margin-bottom: 1.25rem;">
-      <label style="color: #ccc; font-size: 0.9rem;">Birthday</label>
-      <input type="date" placeholder="Birthday" style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
-    </div>
-    <div style="margin-bottom: 1.25rem;">
-      <label style="color: #ccc; font-size: 0.9rem;">Gender</label>
-      <select style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: #1a2d2f; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
-        <option value="" disabled selected>Gender</option>
-        <option value="female">Female</option>
-        <option value="male">Male</option>
-        <option value="nonbinary">Non-binary</option>
-        <option value="prefer-not">Prefer not to say</option>
-      </select>
-    </div>
-    <div style="margin-bottom: 1.25rem;">
-      <label style="color: #ccc; font-size: 0.9rem;">Location</label>
-      <input type="text" placeholder="City / Location" style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
-    </div>
-    <div style="margin-bottom: 1.25rem;">
-      <label style="color: #ccc; font-size: 0.9rem;">Favourite Categories</label>
-      <input type="text" placeholder="e.g. Coffee, Fitness, Wellness" style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
-    </div>
-    <div style="margin-bottom: 2rem;">
-      <label style="color: #ccc; font-size: 0.9rem;">
-        <input type="checkbox" style="margin-right: 0.5rem;"> I agree to receive offers and updates from Coinnect
-      </label>
-    </div>
+    <form id="register-form" onsubmit="return saveProfileData()">
+      <div style="margin-bottom: 1.25rem;">
+        <label style="color: #ccc; font-size: 0.9rem;">Full Name</label>
+        <input id="reg-name" type="text" placeholder="Full Name" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+      </div>
+      <div style="margin-bottom: 1.25rem;">
+        <label style="color: #ccc; font-size: 0.9rem;">Birthday</label>
+        <input id="reg-birthday" type="date" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+      </div>
+      <div style="margin-bottom: 1.25rem;">
+        <label style="color: #ccc; font-size: 0.9rem;">Gender</label>
+        <select id="reg-gender" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: #1a2d2f; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+          <option value="" disabled selected>Gender</option>
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="nonbinary">Non-binary</option>
+          <option value="prefer-not">Prefer not to say</option>
+        </select>
+      </div>
+      <div style="margin-bottom: 1.25rem;">
+        <label style="color: #ccc; font-size: 0.9rem;">Location</label>
+        <input id="reg-location" type="text" placeholder="City / Location" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+      </div>
+      <div style="margin-bottom: 1.25rem;">
+        <label style="color: #ccc; font-size: 0.9rem;">Favourite Categories</label>
+        <input id="reg-categories" type="text" placeholder="e.g. Coffee, Fitness, Wellness" required style="width: 100%; box-sizing: border-box; padding: 0.75rem 1rem; background: transparent; border: 1px solid #ffb84d; border-radius: 8px; color: #fff; font-size: 1rem;">
+      </div>
+      <div style="margin-bottom: 2rem;">
+        <label style="color: #ccc; font-size: 0.9rem;">
+          <input id="reg-consent" type="checkbox" style="margin-right: 0.5rem;"> I agree to receive offers and updates from Coinnect
+        </label>
+      </div>
 
-    <button onclick="showScreen('dashboard-screen')" style="width: 100%; background:#ffb84d; color:#000; padding:0.75rem; border:none; border-radius:12px; font-weight:bold;">Complete Profile</button>
+      <button type="submit" style="width: 100%; background:#ffb84d; color:#000; padding:0.75rem; border:none; border-radius:12px; font-weight:bold;">Complete Profile</button>
+    </form>
   </div>
 </div>
+
+<script>
+  function saveProfileData() {
+    const name = document.getElementById('reg-name');
+    const birthday = document.getElementById('reg-birthday');
+    const gender = document.getElementById('reg-gender');
+    const location = document.getElementById('reg-location');
+    const categories = document.getElementById('reg-categories');
+
+    const profile = {
+      name: name.value.trim(),
+      birthday: birthday.value,
+      gender: gender.value,
+      location: location.value.trim(),
+      categories: categories.value.trim(),
+      consent: document.getElementById('reg-consent').checked
+    };
+
+    let hasError = false;
+    [name, birthday, gender, location, categories].forEach(field => {
+      if (!field.value.trim()) {
+        field.style.borderColor = 'red';
+        hasError = true;
+      } else {
+        field.style.borderColor = '#ffb84d';
+      }
+    });
+
+    if (hasError) {
+      alert('Please complete all required fields.');
+      return false;
+    }
+
+    localStorage.setItem('coinnectProfile', JSON.stringify(profile));
+    showScreen('dashboard-screen');
+    return false;
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('coinnectProfile');
+    if (saved) {
+      const profile = JSON.parse(saved);
+      document.getElementById('reg-name').value = profile.name || '';
+      document.getElementById('reg-birthday').value = profile.birthday || '';
+      document.getElementById('reg-gender').value = profile.gender || '';
+      document.getElementById('reg-location').value = profile.location || '';
+      document.getElementById('reg-categories').value = profile.categories || '';
+      document.getElementById('reg-consent').checked = profile.consent || false;
+    }
+  });
+</script>
+
 
 <!-- Profile Screen (for existing users) -->
 <div id="profile-screen" class="screen screen-bg" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
