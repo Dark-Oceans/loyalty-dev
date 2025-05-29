@@ -839,7 +839,7 @@ function setActiveSort(element, type) {
 
   function viewBusinessProfile() {
     document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
-    document.getElementById('profile-screen').style.display = 'block';
+    document.getElementById('business-profile-screen').style.display = 'block';
     document.getElementById('nav-container').style.display = 'flex';
   }
 
@@ -943,7 +943,7 @@ function initDirectoryScreen() {
     document.getElementById("profile-header").style.backgroundImage = `url('${image}')`;
     
     // Show the profile screen!
-    showScreen("profile-screen");
+    showScreen("business-profile-screen");
   }
 </script>
 
