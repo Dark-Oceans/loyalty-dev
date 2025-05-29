@@ -1491,10 +1491,14 @@ setActiveScreen(null, 'welcome-screen');
   document.querySelectorAll('.nav-bar button').forEach(btn => btn.classList.remove('active'));
   document.getElementById('nav-directory').classList.add('active');
 
-  initDirectoryScreen(); // ← ADD THIS
+  // Initialize retailer list + sorting
+  if (typeof initDirectoryScreen === 'function') {
+    initDirectoryScreen();
+  } else {
+    console.error("initDirectoryScreen not found");
+  }
 }
 
-  }
 </script>
 
 
