@@ -693,12 +693,12 @@
     <h1 style="font-size: 1.75rem; font-weight: bold; margin-bottom: 1rem;">Retailer Directory</h1>
 
     <!-- Sort options -->
-    <div id="sort-buttons" style="display: flex; gap: 1.5rem; font-size: 0.9rem; margin-bottom: 1rem;">
-  <span onclick="setActiveSort(this, 'distance')" class="sort-btn" data-sort="distance">Distance</span>
-<span onclick="setActiveSort(this, 'rating')" class="sort-btn" data-sort="rating">Rating</span>
-<span onclick="setActiveSort(this, 'name')" class="sort-btn" data-sort="name">Name</span>
-
+   <div id="sort-buttons" style="display: flex; gap: 1.5rem; font-size: 0.9rem; margin-bottom: 1rem;">
+  <span class="sort-btn" data-sort="distance" onclick="setActiveSort(this, 'distance')">Distance</span>
+  <span class="sort-btn" data-sort="rating" onclick="setActiveSort(this, 'rating')">Rating</span>
+  <span class="sort-btn" data-sort="name" onclick="setActiveSort(this, 'name')">Name</span>
 </div>
+
 
 
     <!-- Search Bar -->
@@ -834,28 +834,16 @@
   }
 
 function initDirectoryScreen() {
-  // Ensure one sort button is active
-  document.querySelectorAll(".sort-btn").forEach(btn => btn.classList.remove("active"));
-  const distanceBtn = document.querySelector(".sort-btn[data-sort='distance']");
-  if (distanceBtn) distanceBtn.classList.add("active");
+  const defaultSort = userCoords ? 'distance' : 'rating';
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        userCoords = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        sortListings('distance');
-      },
-      () => {
-        sortListings('rating'); // fallback sort
-      }
-    );
-  } else {
-    sortListings('rating'); // fallback sort
-  }
+  document.querySelectorAll(".sort-btn").forEach(btn => {
+    btn.classList.remove("active");
+    if (btn.dataset.sort === defaultSort) btn.classList.add("active");
+  });
+
+  sortListings(defaultSort); // always run this
 }
+
 
 
 
@@ -1484,20 +1472,19 @@ setActiveScreen(null, 'welcome-screen');
 </script>
 
 <script>
-  function showDirectoryFromLogin() {
+ function showDirectoryFromLogin() {
   document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
   document.getElementById('directory-screen').style.display = 'block';
   document.getElementById('nav-container').style.display = 'flex';
+
   document.querySelectorAll('.nav-bar button').forEach(btn => btn.classList.remove('active'));
   document.getElementById('nav-directory').classList.add('active');
 
-  // Initialize retailer list + sorting
-  if (typeof initDirectoryScreen === 'function') {
-    initDirectoryScreen();
-  } else {
-    console.error("initDirectoryScreen not found");
-  }
+  initDirectoryScreen(); // ← this ensures everything is loaded and sorted
+  console.log("Initializing directory screen...");
+
 }
+
 
 </script>
 
