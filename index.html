@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.58</h1>
+       <h1>Welcome to Coinnect.- DEV 1.59</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -694,9 +694,10 @@
 
     <!-- Sort options -->
    <div id="sort-buttons" style="display: flex; gap: 1.5rem; font-size: 0.9rem; margin-bottom: 1rem;">
-  <span class="sort-btn" data-sort="distance" onclick="setActiveSort(this, 'distance')">Distance</span>
-  <span class="sort-btn" data-sort="rating" onclick="setActiveSort(this, 'rating')">Rating</span>
-  <span class="sort-btn" data-sort="name" onclick="setActiveSort(this, 'name')">Name</span>
+  <span class="sort-btn active" data-sort="distance" onclick="setActiveSort(this, 'distance')">Distance</span>
+<span class="sort-btn" data-sort="rating" onclick="setActiveSort(this, 'rating')">Rating</span>
+<span class="sort-btn" data-sort="name" onclick="setActiveSort(this, 'name')">Name</span>
+
 </div>
 
 
@@ -811,16 +812,17 @@
     });
   }
 
-  function sortListings(type) {
-    if (type === 'rating') {
-      retailers.sort((a, b) => b.rating - a.rating);
-    } else if (type === 'name') {
-      retailers.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (type === 'distance' && userCoords) {
-      retailers.sort((a, b) => getDistance(userCoords.lat, userCoords.lng, a.lat, a.lng) - getDistance(userCoords.lat, userCoords.lng, b.lat, b.lng));
-    }
-    renderRetailers();
+ function sortListings(type) {
+  if (type === 'rating') {
+    retailers.sort((a, b) => b.rating - a.rating);
+  } else if (type === 'name') {
+    retailers.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (type === 'distance' && userCoords) {
+    retailers.sort((a, b) => getDistance(userCoords.lat, userCoords.lng, a.lat, a.lng) - getDistance(userCoords.lat, userCoords.lng, b.lat, b.lng));
   }
+  renderRetailers();
+}
+
 
  let currentSort = 'distance';
 
@@ -1026,6 +1028,9 @@ function initDirectoryScreen() {
   );
 } else {
   initDirectoryScreen(); // ← fallback without location
+
+       renderRetailers();
+
 }
 
 
