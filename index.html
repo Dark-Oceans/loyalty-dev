@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.60</h1>
+       <h1>Welcome to Coinnect.- DEV 1.61</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -837,11 +837,7 @@ function setActiveSort(element, type) {
 }
 
 
-  function viewBusinessProfile() {
-    document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
-    document.getElementById('business-profile-screen').style.display = 'block';
-    document.getElementById('nav-container').style.display = 'flex';
-  }
+
 
 function initDirectoryScreen() {
   // Fallback to rating if no location yet
@@ -1237,8 +1233,14 @@ renderRetailers();
     });
   }
 
-  function viewBusinessProfile() {
+ function viewBusinessProfile(retailer) {
   document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+
+  if (retailer) {
+    // If data is passed (e.g., from Directory or Offers)
+    loadProfileData(retailer);
+  }
+
   document.getElementById('business-profile-screen').style.display = 'block';
   document.getElementById('nav-container').style.display = 'flex';
 }
