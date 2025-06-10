@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.72</h1>
+       <h1>Welcome to Coinnect.- DEV 1.73</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -836,6 +836,17 @@ function showProfile() {
   document.getElementById('user-profile-screen').style.display = 'block';
   document.getElementById('nav-container').style.display = 'flex';
 }
+
+function syncDashboardProfile() {
+  const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+  if (profile.name) document.getElementById('dashboard-username').innerText = profile.name;
+  if (profile.location) document.getElementById('dashboard-location').innerText = profile.location;
+  if (profile.image) document.getElementById('dashboard-profile-img').src = profile.image;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  syncDashboardProfile();
+});
 </script>
 
  
