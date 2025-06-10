@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.73</h1>
+       <h1>Welcome to Coinnect.- DEV 1.74</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -773,11 +773,11 @@
   </div>
 
   <div class="dashboard-menu">
-    <div class="dashboard-item" onclick="showProfile()">Your Profile <span style="font-size: 1.2rem;">›</span></div>
-    <div class="dashboard-item" onclick="showRewards()">Rewards <span style="font-size: 1.2rem;">›</span></div>
-    <div class="dashboard-item" onclick="showFavourites()">Favourites <span style="font-size: 1.2rem;">›</span></div>
-    <div class="dashboard-item" onclick="showReviews()">Your Reviews <span style="font-size: 1.2rem;">›</span></div>
-    <div class="dashboard-item" onclick="showSettings()">Settings <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showScreen('user-profile-screen')">Your Profile <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showScreen('rewards-screen')">Rewards <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showScreen('favourites-screen')">Favourites <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showScreen('reviews-screen')">Your Reviews <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showScreen('settings-screen')">Settings <span style="font-size: 1.2rem;">›</span></div>
     <div class="dashboard-item" onclick="logout()">Logout <span style="font-size: 1.2rem;">›</span></div>
   </div>
 </div>
@@ -816,24 +816,10 @@ function logout() {
   document.getElementById('login-screen').style.display = 'block';
   document.getElementById('nav-container').style.display = 'none';
 }
-function showFavourites() {
+
+function showScreen(screenId) {
   document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
-  document.getElementById('favourites-screen').style.display = 'block';
-  document.getElementById('nav-container').style.display = 'flex';
-}
-function showSettings() {
-  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
-  document.getElementById('settings-screen').style.display = 'block';
-  document.getElementById('nav-container').style.display = 'flex';
-}
-function showReviews() {
-  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
-  document.getElementById('reviews-screen').style.display = 'block';
-  document.getElementById('nav-container').style.display = 'flex';
-}
-function showProfile() {
-  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
-  document.getElementById('user-profile-screen').style.display = 'block';
+  document.getElementById(screenId).style.display = 'block';
   document.getElementById('nav-container').style.display = 'flex';
 }
 
