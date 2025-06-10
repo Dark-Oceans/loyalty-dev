@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.75</h1>
+       <h1>Welcome to Coinnect.- DEV 1.74</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -446,11 +446,10 @@
 
 
 <!-- User Profile Screen (for existing users) -->
-<div id="user-profile-screen" class="screen screen-bg fade-screen" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
-  <button onclick="showScreen('dashboard-screen')" style="color:#ffb84d; font-size: 1.2rem; background:none; border:none; margin-bottom: 1rem;">← Back</button>
+<div id="user-profile-screen" class="screen screen-bg" style="display: none; padding: 1.5rem; max-width: 600px; margin: 0 auto; color: white; font-family: sans-serif;">
+  <button onclick="document.getElementById('user-profile-screen').style.display='none'; document.getElementById('dashboard-screen').style.display='block';" style="color:#ffb84d; font-size: 1.2rem; background:none; border:none; margin-bottom: 1rem;">← Back</button>
   <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Your Profile</h1>
-</div>
-  
+
   <div style="text-align: center; margin-bottom: 1.5rem;">
     <img id="profile-pic" src="assets/images/profile-pic.jpg" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ffb84d;">
     <div style="margin-top: 0.5rem;">
@@ -1074,31 +1073,52 @@ renderRetailers();
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
  
    <!-- Profile Screen -->
-<div id="profile-screen" class="screen fade-screen" style="padding: 1rem; max-width: 600px; margin: 0 auto; display: none;">
-  <h2 style="color: #fff;">Moon Brew Café</h2>
-  <p style="color: #ccc;">A cozy café that accepts Pi and rewards loyal customers with exclusive deals.</p>
-  <button onclick="showScreen('directory-screen')" style="margin-top: 1rem; background: none; border: none; color: #ffb84d; cursor: pointer;">← Back to Directory</button>
-</div>
+   <div id="profile-screen" class="screen" style="padding: 1rem; max-width: 600px; margin: 0 auto;">
+     <h2 style="color: #fff;">Moon Brew Café</h2>
+     <p style="color: #ccc;">A cozy café that accepts Pi and rewards loyal customers with exclusive deals.</p>
+     <button onclick="showScreen('directory-screen')" style="margin-top: 1rem; background: none; border: none; color: #ffb84d; cursor: pointer;">← Back to Directory</button>
+   </div>
+ 
+   <script>
+     function showScreen(id) {
+       const screens = ['welcome-screen', 'login-screen', 'dashboard-screen', 'directory-screen', 'map-screen', 'profile-screen'];
+       screens.forEach(screenId => {
+         const el = document.getElementById(screenId);
+         if (el) el.style.display = 'none';
+       });
+       const target = document.getElementById(id);
+       if (target) target.style.display = 'block';
+     }
+ 
+     document.getElementById("continue-btn")?.addEventListener("click", () => {
+       showScreen('login-screen');
+     });
+ 
+     document.getElementById("login-btn")?.addEventListener("click", () => {
+       showScreen('dashboard-screen');
+       document.querySelector('.nav-bar').style.display = 'flex';
+     });
+   </script>
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
 
-<script>
-function showScreen(screenId) {
-  document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
-  const target = document.getElementById(screenId);
-  if (target) target.classList.add('active');
-  document.getElementById('nav-container').style.display = 'flex';
-}
-
-document.getElementById("continue-btn")?.addEventListener("click", () => {
-  showScreen('login-screen');
-});
-
-document.getElementById("login-btn")?.addEventListener("click", () => {
-  showScreen('dashboard-screen');
-});
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
-
-  
+   
+ <script>
+ document.getElementById("continue-btn").addEventListener("click", () => {
+   document.getElementById('welcome-screen').style.display = 'none';
+   document.getElementById('login-screen').style.display = 'block';
+ });
+ 
+ document.getElementById("login-btn").addEventListener("click", () => {
+   document.getElementById('login-screen').style.display = 'none';
+   document.getElementById('dashboard-screen').style.display = 'block';
+   document.querySelector('.nav-bar').style.display = 'flex';
+ });
+ 
+ function toggleFavorite(button) {
+   button.classList.toggle('active');
+   button.innerHTML = button.classList.contains('active') ? '❤️' : '🤍';
+ }
+ </script>
  
  <div id="login-screen" style="display:none;">
    <div style="position: relative; height: 33vh; background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=800&q=80') center center / cover no-repeat;">
