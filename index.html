@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.71</h1>
+       <h1>Welcome to Coinnect.- DEV 1.72</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -762,6 +762,81 @@
 
 
 
+<!-- Dashboard Screen -->
+<div id="dashboard-screen" class="screen" style="display: none; font-family: sans-serif; color: white; background-color: #0e1a1c; min-height: 100vh; padding: 1.5rem; max-width: 600px; margin: 0 auto;">
+  <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+    <img id="dashboard-profile-img" src="assets/images/profile-pic.jpg" alt="User Photo" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-right: 1rem;">
+    <div>
+      <h2 id="dashboard-username" style="margin: 0; font-size: 1.2rem;">User Name</h2>
+      <p id="dashboard-location" style="margin: 0; color: #ccc; font-size: 0.85rem;">City, Country</p>
+    </div>
+  </div>
+
+  <div class="dashboard-menu">
+    <div class="dashboard-item" onclick="showProfile()">Your Profile <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showRewards()">Rewards <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showFavourites()">Favourites <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showReviews()">Your Reviews <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="showSettings()">Settings <span style="font-size: 1.2rem;">›</span></div>
+    <div class="dashboard-item" onclick="logout()">Logout <span style="font-size: 1.2rem;">›</span></div>
+  </div>
+</div>
+
+<style>
+  .sort-btn {
+    cursor: pointer;
+    color: white;
+  }
+  .sort-btn.active {
+    color: #ffb84d;
+  }
+  .dashboard-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .dashboard-item {
+    padding: 1rem;
+    background: #1a2d2f;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+  }
+  .dashboard-item:hover {
+    background: #223b3d;
+  }
+</style>
+
+<script>
+function logout() {
+  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+  document.getElementById('login-screen').style.display = 'block';
+  document.getElementById('nav-container').style.display = 'none';
+}
+function showFavourites() {
+  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+  document.getElementById('favourites-screen').style.display = 'block';
+  document.getElementById('nav-container').style.display = 'flex';
+}
+function showSettings() {
+  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+  document.getElementById('settings-screen').style.display = 'block';
+  document.getElementById('nav-container').style.display = 'flex';
+}
+function showReviews() {
+  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+  document.getElementById('reviews-screen').style.display = 'block';
+  document.getElementById('nav-container').style.display = 'flex';
+}
+function showProfile() {
+  document.querySelectorAll('.screen').forEach(screen => screen.style.display = 'none');
+  document.getElementById('user-profile-screen').style.display = 'block';
+  document.getElementById('nav-container').style.display = 'flex';
+}
+</script>
 
  
      
