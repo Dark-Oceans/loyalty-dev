@@ -303,7 +303,7 @@
      <div class="hero-overlay"></div>
      <img src="assets/images/coinnect-logo.png" alt="Coinnect Logo" class="hero-logo" />
      <div class="hero-content">
-       <h1>Welcome to Coinnect.- DEV 1.74</h1>
+       <h1>Welcome to Coinnect.- DEV 1.75</h1>
        <p>Rewards powered by Pi</p>
        <button id="continue-btn">Continue</button>
      </div>
@@ -1072,34 +1072,36 @@ renderRetailers();
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
  
-   <!-- Profile Screen -->
-   <div id="profile-screen" class="screen" style="padding: 1rem; max-width: 600px; margin: 0 auto;">
-     <h2 style="color: #fff;">Moon Brew Café</h2>
-     <p style="color: #ccc;">A cozy café that accepts Pi and rewards loyal customers with exclusive deals.</p>
-     <button onclick="showScreen('directory-screen')" style="margin-top: 1rem; background: none; border: none; color: #ffb84d; cursor: pointer;">← Back to Directory</button>
-   </div>
- 
-   <script>
-     function showScreen(id) {
-       const screens = ['welcome-screen', 'login-screen', 'dashboard-screen', 'directory-screen', 'map-screen', 'profile-screen'];
-       screens.forEach(screenId => {
-         const el = document.getElementById(screenId);
-         if (el) el.style.display = 'none';
-       });
-       const target = document.getElementById(id);
-       if (target) target.style.display = 'block';
-     }
- 
-     document.getElementById("continue-btn")?.addEventListener("click", () => {
-       showScreen('login-screen');
-     });
- 
-     document.getElementById("login-btn")?.addEventListener("click", () => {
-       showScreen('dashboard-screen');
-       document.querySelector('.nav-bar').style.display = 'flex';
-     });
-   </script>
-   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
+   <!-- Business Profile Screen -->
+<div id="profile-screen" class="screen fade-screen" style="padding: 1rem; max-width: 600px; margin: 0 auto; display: none;">
+  <h2 id="profile-title" style="color: #fff;">Business Name</h2>
+  <p id="profile-description" style="color: #ccc;">Business description goes here.</p>
+  <p id="profile-location" style="color: #aaa; font-size: 0.9rem;"></p>
+  <p id="profile-rating" style="color: #ffb84d; font-size: 1rem;"></p>
+  <button onclick="showScreen('directory-screen')" style="margin-top: 1rem; background: none; border: none; color: #ffb84d; cursor: pointer;">← Back to Directory</button>
+</div>
+
+<script>
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+  const target = document.getElementById(screenId);
+  if (target) target.classList.add('active');
+  if (screenId !== 'login-screen' && screenId !== 'welcome-screen') {
+    document.getElementById('nav-container').style.display = 'flex';
+  } else {
+    document.getElementById('nav-container').style.display = 'none';
+  }
+}
+
+document.getElementById("continue-btn")?.addEventListener("click", () => {
+  showScreen('login-screen');
+});
+
+document.getElementById("login-btn")?.addEventListener("click", () => {
+  showScreen('dashboard-screen');
+});
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJu-bZUtQgeL_rsNzvfbHvqxTcEM6Qyek&callback=initMap"></script>
 
    
  <script>
