@@ -18,34 +18,36 @@
 
   <!-- Screens -->
   <div id="login" class="screen active">
-    <h1>Login / Register</h1>
-    <p><span class="link" onclick="showScreen('dashboard')">Login → Dashboard</span></p>
+    <h1>Login</h1>
+    <p><span class="link" onclick="showScreen('directory')">Login → Directory</span></p>
+    <p><span class="link" onclick="showScreen('register')">Register</span></p>
   </div>
 
-  <div id="dashboard" class="screen">
-    <h1>Dashboard</h1>
-    <p><span class="link" onclick="showScreen('directory')">Go to Directory</span></p>
-    <p><span class="link" onclick="showScreen('map')">View Map</span></p>
+  <div id="register" class="screen">
+    <h1>Register</h1>
+    <p><span class="link" onclick="showScreen('directory')">Submit → Directory</span></p>
   </div>
 
   <div id="directory" class="screen">
     <h1>Business Directory</h1>
     <p><span class="link" onclick="showScreen('business-profile')">Open Business Profile</span></p>
+    <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
   </div>
 
   <div id="business-profile" class="screen">
     <h1>Business Profile</h1>
-    <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
+    <p><span class="link" onclick="showScreen('directory')">← Back to Directory</span></p>
   </div>
 
-  <div id="user-profile" class="screen">
-    <h1>User Profile</h1>
-    <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
+  <div id="dashboard" class="screen">
+    <h1>User Dashboard / Profile</h1>
+    <p><span class="link" onclick="showScreen('bookmarks')">View Rewards</span></p>
+    <p><span class="link" onclick="showScreen('login')">Logout</span></p>
   </div>
 
   <div id="map" class="screen">
     <h1>Map View</h1>
-    <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
+    <p><span class="link" onclick="showScreen('directory')">← Back to Directory</span></p>
   </div>
 
   <div id="bookmarks" class="screen">
@@ -60,11 +62,9 @@
 
   <!-- Bottom Navigation -->
   <nav>
-    <button onclick="showScreen('dashboard')">Home</button>
     <button onclick="showScreen('directory')">Directory</button>
     <button onclick="showScreen('map')">Map</button>
-    <button onclick="showScreen('bookmarks')">Rewards</button>
-    <button onclick="showScreen('user-profile')">Profile</button>
+    <button onclick="showScreen('dashboard')">Dashboard</button>
   </nav>
 
   <script>
@@ -76,4 +76,3 @@
 
 </body>
 </html>
-
