@@ -30,29 +30,66 @@
 
   <div id="directory" class="screen">
     <h1>Business Directory</h1>
+    <p>Filters: [✔ Accept Pi Payments] [Category ▼] [Location ▼]</p>
     <p><span class="link" onclick="showScreen('business-profile')">Open Business Profile</span></p>
     <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
   </div>
 
   <div id="business-profile" class="screen">
     <h1>Business Profile</h1>
+    <p>Gallery | Description | Hours | Rating | Services w/ Pi Prices | Rewards</p>
+    <p><span class="link" onclick="showScreen('payment-dialog')">Buy with Pi</span></p>
     <p><span class="link" onclick="showScreen('directory')">← Back to Directory</span></p>
   </div>
 
   <div id="dashboard" class="screen">
     <h1>User Dashboard / Profile</h1>
-    <p><span class="link" onclick="showScreen('bookmarks')">View Rewards</span></p>
-    <p><span class="link" onclick="showScreen('login')">Logout</span></p>
+    <ul>
+      <li><span class="link" onclick="showScreen('dashboard')">User Profile</span></li>
+      <li><span class="link" onclick="showScreen('bookmarks')">Rewards</span></li>
+      <li><span class="link">Favourites</span></li>
+      <li><span class="link">Your Reviews</span></li>
+      <li><span class="link">Order History</span></li>
+      <li><span class="link">Become a Retailer</span></li>
+      <li><span class="link">Settings</span></li>
+      <li><span class="link" onclick="showScreen('login')">Logout</span></li>
+    </ul>
   </div>
 
   <div id="map" class="screen">
     <h1>Map View</h1>
+    <p>Filters: [✔ Accept Pi Payments] [Category ▼] [Location ▼] [Distance ▼]</p>
     <p><span class="link" onclick="showScreen('directory')">← Back to Directory</span></p>
   </div>
 
   <div id="bookmarks" class="screen">
     <h1>Bookmarks / Rewards</h1>
     <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
+  </div>
+
+  <div id="payment-dialog" class="screen">
+    <h1>Pi Payment Dialog</h1>
+    <p>Prefilled Wallet: merchant_wallet_123<br>Amount: 5 Pi</p>
+    <p><span class="link" onclick="showScreen('payment-success')">Confirm with Pi</span></p>
+  </div>
+
+  <div id="payment-success" class="screen">
+    <h1>Payment Successful</h1>
+    <p>Transaction Hash: x123abc456</p>
+    <p><span class="link" onclick="showScreen('rate-business')">Continue to Rating</span></p>
+  </div>
+
+  <div id="rate-business" class="screen">
+    <h1>Rate Your Experience</h1>
+    <p>[★ ★ ★ ★ ★]</p>
+    <p><span class="link" onclick="showScreen('thank-you')">Submit Rating</span></p>
+  </div>
+
+  <div id="thank-you" class="screen">
+    <h1>Thank You</h1>
+    <p>You rated Blablabla with 5 stars.<br>
+    Blablabla has a special offer: 10% off your next purchase when paying with Pi.</p>
+    <p><span class="link">Dismiss</span> | <span class="link">Claim</span> | <span class="link">Share to earn 0.5 Pi</span></p>
   </div>
 
   <div id="retailer-dashboard" class="screen">
