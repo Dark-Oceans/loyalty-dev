@@ -20,77 +20,41 @@
 <body>
 
   <!-- Screens -->
-  <div id="login" class="screen active">
-    <h1>Login</h1>
-    <p><span class="link" onclick="showScreen('directory')">Login → Directory</span></p>
-    <p><span class="link" onclick="showScreen('register')">Register</span></p>
+  <!-- existing screens omitted for brevity -->
+
+  <div id="payment-dialog" class="screen">
+    <h1>Confirm Pi Payment</h1>
+    <p>Merchant Wallet: <strong>merchant_wallet_abc123</strong></p>
+    <p>Amount: <strong>2.5 Pi</strong></p>
+    <p><span class="link" onclick="showScreen('payment-success')">Confirm with Biometric</span></p>
+    <p><span class="link" onclick="showScreen('business-profile')">← Cancel</span></p>
   </div>
 
-  <div id="register" class="screen">
-    <h1>Register</h1>
-    <p><span class="link" onclick="showScreen('directory')">Submit → Directory</span></p>
+  <div id="payment-success" class="screen">
+    <h1>Payment Successful</h1>
+    <p>Transaction Hash: <code>0xabc123def456</code></p>
+    <p><span class="link" onclick="showScreen('rating')">→ Rate This Business</span></p>
   </div>
 
-  <div id="dashboard" class="screen">
-    <h1>User Dashboard / Profile</h1>
-    <ul>
-      <li><span class="link">User Profile</span></li>
-      <li><span class="link">Rewards</span></li>
-      <li><span class="link">Favourites</span></li>
-      <li><span class="link">Your Reviews</span></li>
-      <li><span class="link">Order History</span></li>
-      <li><span class="link">Become a Retailer</span></li>
-      <li><span class="link">Settings</span></li>
-      <li><span class="link" onclick="showScreen('login')">Logout</span></li>
-    </ul>
+  <div id="rating" class="screen">
+    <h1>Rate Your Experience</h1>
+    <p>[ ★ ★ ★ ★ ★ ]</p>
+    <p><span class="link" onclick="showScreen('thank-you')">Submit Rating</span></p>
   </div>
 
-  <div id="directory" class="screen">
-    <h1>Business Directory</h1>
-    <p>Filters: [✔ Accept Pi Payments] [Category ▼] [Location ▼]</p>
-
-    <div class="listing-card" onclick="loadBusiness('moonbrew')">
-      <h2>Moon Brew Café</h2>
-      <p>Rating: ★ 4.8</p>
-      <p>Open: 7am - 6pm</p>
-      <p>Services: Coffee, Pastries</p>
-      <p>Prices: Cappuccino - 0.5 Pi</p>
-      <p>Rewards: 1 free coffee after 10 visits</p>
-    </div>
-
-    <div class="listing-card" onclick="loadBusiness('galaxycuts')">
-      <h2>Galaxy Cuts Barbershop</h2>
-      <p>Rating: ★ 4.6</p>
-      <p>Open: 10am - 8pm</p>
-      <p>Services: Haircuts, Beard Trim</p>
-      <p>Prices: Haircut - 1 Pi</p>
-      <p>Rewards: 20% off after 5 visits</p>
-    </div>
-
-    <div class="listing-card" onclick="loadBusiness('zenwellness')">
-      <h2>Zen Wellness Spa</h2>
-      <p>Rating: ★ 5.0</p>
-      <p>Open: 9am - 9pm</p>
-      <p>Services: Massage, Sauna</p>
-      <p>Prices: Massage - 2.5 Pi</p>
-      <p>Rewards: Free massage after 6 sessions</p>
-    </div>
-
+  <div id="thank-you" class="screen">
+    <h1>Thank You</h1>
+    <p>You rated <strong>Zen Wellness Spa</strong> with 5 stars.</p>
+    <p><strong>Special Offer:</strong> 10% off your next visit when paying with Pi.</p>
+    <p>
+      <span class="link">Dismiss</span> |
+      <span class="link">Claim</span> |
+      <span class="link">Share to Earn 0.5 Pi</span>
+    </p>
     <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
   </div>
 
-  <div id="business-profile" class="screen">
-    <h1 id="biz-name">Business Profile</h1>
-    <p id="biz-desc"></p>
-    <p id="biz-hours"></p>
-    <p id="biz-services"></p>
-    <p id="biz-prices"></p>
-    <p id="biz-rewards"></p>
-    <p><span class="link" onclick="showScreen('payment-dialog')">Buy with Pi</span></p>
-    <p><span class="link" onclick="showScreen('directory')">← Back to Directory</span></p>
-  </div>
-
-  <!-- Bottom Navigation -->
+  <!-- Bottom Navigation and Script -->
   <nav>
     <button onclick="showScreen('directory')">Directory</button>
     <button onclick="showScreen('map')">Map</button>
