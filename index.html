@@ -49,42 +49,43 @@
     <h1>Business Directory</h1>
     <p>Filters: [✔ Accept Pi Payments] [Category ▼] [Location ▼]</p>
 
-    <div class="listing-card">
+    <div class="listing-card" onclick="loadBusiness('moonbrew')">
       <h2>Moon Brew Café</h2>
       <p>Rating: ★ 4.8</p>
       <p>Open: 7am - 6pm</p>
       <p>Services: Coffee, Pastries</p>
       <p>Prices: Cappuccino - 0.5 Pi</p>
       <p>Rewards: 1 free coffee after 10 visits</p>
-      <p><span class="link" onclick="showScreen('business-profile')">View Profile</span></p>
     </div>
 
-    <div class="listing-card">
+    <div class="listing-card" onclick="loadBusiness('galaxycuts')">
       <h2>Galaxy Cuts Barbershop</h2>
       <p>Rating: ★ 4.6</p>
       <p>Open: 10am - 8pm</p>
       <p>Services: Haircuts, Beard Trim</p>
       <p>Prices: Haircut - 1 Pi</p>
       <p>Rewards: 20% off after 5 visits</p>
-      <p><span class="link" onclick="showScreen('business-profile')">View Profile</span></p>
     </div>
 
-    <div class="listing-card">
+    <div class="listing-card" onclick="loadBusiness('zenwellness')">
       <h2>Zen Wellness Spa</h2>
       <p>Rating: ★ 5.0</p>
       <p>Open: 9am - 9pm</p>
       <p>Services: Massage, Sauna</p>
       <p>Prices: Massage - 2.5 Pi</p>
       <p>Rewards: Free massage after 6 sessions</p>
-      <p><span class="link" onclick="showScreen('business-profile')">View Profile</span></p>
     </div>
 
     <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
   </div>
 
   <div id="business-profile" class="screen">
-    <h1>Business Profile</h1>
-    <p>Gallery | Description | Hours | Rating | Services w/ Pi Prices | Rewards</p>
+    <h1 id="biz-name">Business Profile</h1>
+    <p id="biz-desc"></p>
+    <p id="biz-hours"></p>
+    <p id="biz-services"></p>
+    <p id="biz-prices"></p>
+    <p id="biz-rewards"></p>
     <p><span class="link" onclick="showScreen('payment-dialog')">Buy with Pi</span></p>
     <p><span class="link" onclick="showScreen('directory')">← Back to Directory</span></p>
   </div>
@@ -97,6 +98,44 @@
   </nav>
 
   <script>
+    const businesses = {
+      moonbrew: {
+        name: 'Moon Brew Café',
+        desc: 'A cozy, crypto-friendly café that accepts Pi Coin.',
+        hours: 'Open: 7am - 6pm',
+        services: 'Coffee, Pastries',
+        prices: 'Cappuccino - 0.5 Pi',
+        rewards: '1 free coffee after 10 visits'
+      },
+      galaxycuts: {
+        name: 'Galaxy Cuts Barbershop',
+        desc: 'Stylish grooming for modern Pi users.',
+        hours: 'Open: 10am - 8pm',
+        services: 'Haircuts, Beard Trim',
+        prices: 'Haircut - 1 Pi',
+        rewards: '20% off after 5 visits'
+      },
+      zenwellness: {
+        name: 'Zen Wellness Spa',
+        desc: 'Relax, recharge, and pay with Pi.',
+        hours: 'Open: 9am - 9pm',
+        services: 'Massage, Sauna',
+        prices: 'Massage - 2.5 Pi',
+        rewards: 'Free massage after 6 sessions'
+      }
+    };
+
+    function loadBusiness(id) {
+      const b = businesses[id];
+      document.getElementById('biz-name').textContent = b.name;
+      document.getElementById('biz-desc').textContent = b.desc;
+      document.getElementById('biz-hours').textContent = b.hours;
+      document.getElementById('biz-services').textContent = `Services: ${b.services}`;
+      document.getElementById('biz-prices').textContent = `Prices: ${b.prices}`;
+      document.getElementById('biz-rewards').textContent = `Rewards: ${b.rewards}`;
+      showScreen('business-profile');
+    }
+
     function showScreen(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
