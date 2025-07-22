@@ -6,9 +6,9 @@
   <title>Coinnect Wireframe</title>
   <style>
     body { margin: 0; font-family: sans-serif; background: #111; color: #fff; }
-    .screen { display: none; padding: 2rem; }
+    .screen { display: none; padding: 2rem; padding-bottom: 5rem; }
     .active { display: block; }
-    nav { position: fixed; bottom: 0; width: 100%; background: #222; display: flex; justify-content: space-around; padding: 1rem 0; }
+    nav { position: fixed; bottom: 0; width: 100%; background: #222; display: flex; justify-content: space-around; padding: 1rem 0; z-index: 1000; }
     nav button { background: none; border: none; color: #ffb84d; font-size: 1rem; cursor: pointer; }
     h1 { color: #ffb84d; }
     .link { color: #ffb84d; cursor: pointer; text-decoration: underline; }
@@ -68,8 +68,19 @@
     <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
   </div>
 
-  <!-- (Other screens remain unchanged) -->
-  <!-- Bottom Navigation and script unchanged -->
+  <div id="business-profile" class="screen">
+    <h1>Business Profile</h1>
+    <p>Gallery | Description | Hours | Rating | Services w/ Pi Prices | Rewards</p>
+    <p><span class="link" onclick="showScreen('payment-dialog')">Buy with Pi</span></p>
+    <p><span class="link" onclick="showScreen('directory')">← Back to Directory</span></p>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav>
+    <button onclick="showScreen('directory')">Directory</button>
+    <button onclick="showScreen('map')">Map</button>
+    <button onclick="showScreen('dashboard')">Dashboard</button>
+  </nav>
 
   <script>
     function showScreen(id) {
