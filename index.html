@@ -27,6 +27,41 @@
     <p><span class="link" onclick="showScreen('register')">Register</span></p>
   </div>
 
+  <!-- Directory Screen -->
+  <div id="directory" class="screen">
+    <h1>Business Directory</h1>
+    <p>Filters: [✔ Accept Pi Payments] [Category ▼] [Location ▼]</p>
+
+    <div class="listing-card" onclick="loadBusiness('moonbrew')">
+      <h2>Moon Brew Café</h2>
+      <p>Rating: ★ 4.8</p>
+      <p>Open: 7am - 6pm</p>
+      <p>Services: Coffee, Pastries</p>
+      <p>Prices: Cappuccino - 0.5 Pi</p>
+      <p>Rewards: 1 free coffee after 10 visits</p>
+    </div>
+
+    <div class="listing-card" onclick="loadBusiness('galaxycuts')">
+      <h2>Galaxy Cuts Barbershop</h2>
+      <p>Rating: ★ 4.6</p>
+      <p>Open: 10am - 8pm</p>
+      <p>Services: Haircuts, Beard Trim</p>
+      <p>Prices: Haircut - 1 Pi</p>
+      <p>Rewards: 20% off after 5 visits</p>
+    </div>
+
+    <div class="listing-card" onclick="loadBusiness('zenwellness')">
+      <h2>Zen Wellness Spa</h2>
+      <p>Rating: ★ 5.0</p>
+      <p>Open: 9am - 9pm</p>
+      <p>Services: Massage, Sauna</p>
+      <p>Prices: Massage - 2.5 Pi</p>
+      <p>Rewards: Free massage after 6 sessions</p>
+    </div>
+
+    <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
+  </div>
+
   <!-- Register Screen -->
   <div id="register" class="screen">
     <h1>Register</h1>
