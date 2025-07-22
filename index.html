@@ -68,6 +68,33 @@
     <p><span class="link" onclick="showScreen('directory')">Submit → Directory</span></p>
   </div>
 
+  <!-- Dashboard Screen -->
+  <div id="dashboard" class="screen">
+    <h1>User Dashboard / Profile</h1>
+    <ul>
+      <li><span class="link">User Profile</span></li>
+      <li><span class="link">Rewards</span></li>
+      <li><span class="link">Favourites</span></li>
+      <li><span class="link">Your Reviews</span></li>
+      <li><span class="link">Order History</span></li>
+      <li><span class="link">Become a Retailer</span></li>
+      <li><span class="link">Settings</span></li>
+      <li><span class="link" onclick="showScreen('login')">Logout</span></li>
+    </ul>
+  </div>
+
+  <!-- Business Profile Screen -->
+  <div id="business-profile" class="screen">
+    <h1 id="biz-name">Business Profile</h1>
+    <p id="biz-desc"></p>
+    <p id="biz-hours"></p>
+    <p id="biz-services"></p>
+    <p id="biz-prices"></p>
+    <p id="biz-rewards"></p>
+    <p><span class="link" onclick="showScreen('payment-dialog')">Buy with Pi</span></p>
+    <p><span class="link" onclick="showScreen('directory')">← Back to Directory</span></p>
+  </div>
+
   <!-- Existing content (dashboard, directory, business-profile, payment flow, etc.) -->
   <!-- Reinserted after login -->
 
