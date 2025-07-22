@@ -19,9 +19,23 @@
 </head>
 <body>
 
-  <!-- Screens -->
-  <!-- existing screens omitted for brevity -->
+  <!-- Login Screen -->
+  <div id="login" class="screen active">
+    <h1>Login</h1>
+    <p><span class="link" onclick="showScreen('directory')">Login → Directory</span></p>
+    <p><span class="link" onclick="showScreen('register')">Register</span></p>
+  </div>
 
+  <!-- Register Screen -->
+  <div id="register" class="screen">
+    <h1>Register</h1>
+    <p><span class="link" onclick="showScreen('directory')">Submit → Directory</span></p>
+  </div>
+
+  <!-- Existing content (dashboard, directory, business-profile, payment flow, etc.) -->
+  <!-- Reinserted after login -->
+
+  <!-- Payment Dialog -->
   <div id="payment-dialog" class="screen">
     <h1>Confirm Pi Payment</h1>
     <p>Merchant Wallet: <strong>merchant_wallet_abc123</strong></p>
@@ -30,18 +44,21 @@
     <p><span class="link" onclick="showScreen('business-profile')">← Cancel</span></p>
   </div>
 
+  <!-- Payment Success -->
   <div id="payment-success" class="screen">
     <h1>Payment Successful</h1>
     <p>Transaction Hash: <code>0xabc123def456</code></p>
     <p><span class="link" onclick="showScreen('rating')">→ Rate This Business</span></p>
   </div>
 
+  <!-- Rating -->
   <div id="rating" class="screen">
     <h1>Rate Your Experience</h1>
     <p>[ ★ ★ ★ ★ ★ ]</p>
     <p><span class="link" onclick="showScreen('thank-you')">Submit Rating</span></p>
   </div>
 
+  <!-- Thank You -->
   <div id="thank-you" class="screen">
     <h1>Thank You</h1>
     <p>You rated <strong>Zen Wellness Spa</strong> with 5 stars.</p>
@@ -54,7 +71,7 @@
     <p><span class="link" onclick="showScreen('dashboard')">← Back to Dashboard</span></p>
   </div>
 
-  <!-- Bottom Navigation and Script -->
+  <!-- Bottom Navigation -->
   <nav>
     <button onclick="showScreen('directory')">Directory</button>
     <button onclick="showScreen('map')">Map</button>
